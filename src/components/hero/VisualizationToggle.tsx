@@ -1,0 +1,86 @@
+'use client'
+
+import { motion } from 'framer-motion'
+import { cn } from '@/lib/utils'
+import type { VizType } from './HeroSection'
+
+interface VisualizationToggleProps {
+  active: VizType
+  onChange: (viz: VizType) => void
+}
+
+const vizOptions: { id: VizType; label: string; icon: React.ReactNode }[] = [
+  {
+    id: 'role',
+    label: 'Career Path',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+      </svg>
+    ),
+  },
+  {
+    id: 'skills',
+    label: 'Skills',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="3" width="7" height="7" />
+        <rect x="14" y="3" width="7" height="7" />
+        <rect x="3" y="14" width="7" height="7" />
+        <rect x="14" y="14" width="7" height="7" />
+      </svg>
+    ),
+  },
+  {
+    id: 'industry',
+    label: 'Industries',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10" />
+        <line x1="2" y1="12" x2="22" y2="12" />
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+      </svg>
+    ),
+  },
+  {
+    id: 'tech',
+    label: 'Tech Stack',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="16 18 22 12 16 6" />
+        <polyline points="8 6 2 12 8 18" />
+      </svg>
+    ),
+  },
+]
+
+export function VisualizationToggle({ active, onChange }: VisualizationToggleProps) {
+  return (
+    <div className="flex flex-wrap justify-center gap-2">
+      {vizOptions.map((option) => (
+        <button
+          key={option.id}
+          onClick={() => onChange(option.id)}
+          className={cn(
+            'relative px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 flex items-center gap-2',
+            active === option.id
+              ? 'text-warm-900'
+              : 'text-warm-500 hover:text-warm-700'
+          )}
+        >
+          {active === option.id && (
+            <motion.div
+              layoutId="activeVizPill"
+              className="absolute inset-0 bg-warm-100 border border-warm-200 rounded-full"
+              transition={{ type: 'spring', bounce: 0.2, duration: 0.4 }}
+            />
+          )}
+          <span className="relative z-10 flex items-center gap-2">
+            {option.icon}
+            {option.label}
+          </span>
+        </button>
+      ))}
+    </div>
+  )
+}
