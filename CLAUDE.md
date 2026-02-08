@@ -148,7 +148,7 @@ The filter bar uses `top-[68px]` to sit below the FloatingNav (which is ~44px ta
 
 ## Repository
 - **GitHub:** https://github.com/Ninety2UA/web-app-resume
-- **Commits:** `fb6a036` (Phases 0–7), `34e5062` (Phase 8 + launch prep)
+- **Commits:** `fb6a036` (Phases 0–7), `34e5062` (Phase 8 + launch prep), `53bdd97` (post-launch UI fixes), `47ba309` (Skills & Tech Stack merge)
 - **Branch:** `main`
 
 ## Project Documentation
@@ -162,5 +162,5 @@ Always read these files before starting any work.
 ## Session Continuity
 - **All development complete** — Phases 0–8 done, T01–T32 all passed
 - **Post-launch UI fixes committed** at `53bdd97`: nav/filter overlap, chart label typo, chart padding
-- **Skills & Tech Stack merge** (uncommitted): merged "Skills" + "Tech Stack" tabs into one "Skills & Tech Stack" tab with 7 categories (77 skills), interactive category filtering, 3 new accent colors (sky/rose/emerald). Deleted `SkillsProgression.tsx` and `TechStack.tsx`.
+- **Skills & Tech Stack merge committed** at `47ba309`: merged "Skills" + "Tech Stack" tabs into one "Skills & Tech Stack" tab with 7 categories (77 skills), interactive category filtering, 3 new accent colors (sky/rose/emerald). Deleted `SkillsProgression.tsx` and `TechStack.tsx`.
 - Remaining: Vercel deployment + custom domain (dbenger.com), optional company logos

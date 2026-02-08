@@ -11,6 +11,7 @@
 | `fb6a036` Initial commit | Phases 0–7: project setup, data layer, all components, both pages wired up |
 | `34e5062` Phase 8 + launch prep | T29 responsive, T30 accessibility, T31 performance, T32 final QA, Formspree wired, OG image, docs |
 | `53bdd97` Post-launch UI fixes | Nav/filter overlap fix, chart label typo, chart padding, docs update |
+| `47ba309` Skills & Tech Stack merge | Merged Skills + Tech Stack into single interactive tag grid (7 categories, 77 skills), reduced viz tabs 4→3, startup ritual in CLAUDE.md |
 
 Key files: 24 TSX/TS source files across `src/`, 3 data files, 3 visualizations (Career Path, Skills & Tech Stack, Industries), Tailwind theme, global styles, favicon, OG image.
 
@@ -54,7 +55,7 @@ Key files: 24 TSX/TS source files across `src/`, 3 data files, 3 visualizations 
 - [x] **Fix chart label typo** — RoleEvolution chart showed "AI & Innovation Focus" instead of "AI & Technology Focus". Fixed in `skills.ts`.
 - [x] **Reduce chart horizontal padding** — RoleEvolution SVG padding reduced from 60px to 20px per side, making the plotted line extend closer to chart boundaries. Added smart text anchoring (`start`/`end` for first/last nodes) to prevent label clipping at edges.
 
-## Skills & Tech Stack merge (uncommitted)
+## Skills & Tech Stack merge (committed at `47ba309`)
 - [x] **Merge "Skills" + "Tech Stack" into one tab** — Replaced the separate Skills (bar chart) and Tech Stack (timeline) visualizations with a single "Skills & Tech Stack" interactive tag grid.
 - **New data**: 7 categories, 77 skills from resume: Data/Analytics (13), Marketing Platforms (8), Cloud/Infrastructure (10), AI/LLM Tools (8), Developer Tools (22), Workflow Automation (6), Generative Media (10).
 - **New component**: `SkillsTechStack.tsx` — category filter buttons at top (click to isolate), color-coded skill tag pills, staggered Framer Motion animations, scrollable content area.

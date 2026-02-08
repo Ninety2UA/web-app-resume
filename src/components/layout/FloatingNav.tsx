@@ -10,6 +10,7 @@ const navLinks = [
   { label: 'Home', href: '#top' },
   { label: 'Experience', href: '#experience' },
   { label: 'Portfolio', href: '/portfolio' },
+  { label: 'Collaboration', href: '/collaboration' },
 ]
 
 export function FloatingNav() {
@@ -50,7 +51,7 @@ export function FloatingNav() {
           {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-1 bg-warm-50/80 backdrop-blur-md border border-warm-200 rounded-full px-2 py-1.5 shadow-nav">
             {navLinks.map((link) => {
-              const isCurrent = link.href === '/portfolio' ? pathname === '/portfolio' : link.href === '#top' && pathname === '/'
+              const isCurrent = link.href.startsWith('/') ? pathname === link.href : link.href === '#top' && pathname === '/'
               return (
                 <Link
                   key={link.label}
@@ -113,7 +114,7 @@ export function FloatingNav() {
                   )}
                 >
                   {navLinks.map((link) => {
-                    const isCurrent = link.href === '/portfolio' ? pathname === '/portfolio' : link.href === '#top' && pathname === '/'
+                    const isCurrent = link.href.startsWith('/') ? pathname === link.href : link.href === '#top' && pathname === '/'
                     return (
                       <Link
                         key={link.label}
