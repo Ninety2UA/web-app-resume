@@ -12,7 +12,7 @@ const colorMap: Record<string, { bar: string; bg: string; text: string }> = {
 
 export function SkillsProgression() {
   return (
-    <div className="w-full space-y-8">
+    <div className="w-full space-y-6 sm:space-y-8" role="img" aria-label="Skills proficiency chart across Marketing and Ads, Data and Analytics, Programming and Tools, and AI and Automation categories">
       {skillCategories.map((category, catIdx) => {
         const colors = colorMap[category.colorClass] || colorMap.coral
         return (
@@ -26,23 +26,24 @@ export function SkillsProgression() {
               ease: [0.25, 0.1, 0.25, 1],
             }}
           >
-            <div className="flex items-center gap-2 mb-3">
+            <div className="flex items-center gap-2 mb-2 sm:mb-3">
               <div
-                className="w-2.5 h-2.5 rounded-full"
+                className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full shrink-0"
                 style={{ backgroundColor: colors.bar }}
+                aria-hidden="true"
               />
-              <h3 className="text-sm font-semibold text-warm-800">
+              <h3 className="text-xs sm:text-sm font-semibold text-warm-800">
                 {category.name}
               </h3>
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-1.5 sm:space-y-2">
               {category.skills.map((skill, skillIdx) => (
-                <div key={skill.name} className="flex items-center gap-3">
-                  <span className="text-xs text-warm-600 w-28 md:w-36 text-right shrink-0 truncate">
+                <div key={skill.name} className="flex items-center gap-2 sm:gap-3">
+                  <span className="text-[10px] sm:text-[11px] md:text-xs text-warm-600 w-16 sm:w-28 md:w-36 text-right shrink-0 truncate">
                     {skill.name}
                   </span>
-                  <div className="flex-1 h-5 rounded-full overflow-hidden" style={{ backgroundColor: colors.bg }}>
+                  <div className="flex-1 h-4 sm:h-5 rounded-full overflow-hidden" style={{ backgroundColor: colors.bg }}>
                     <motion.div
                       className="h-full rounded-full relative"
                       style={{ backgroundColor: colors.bar }}
@@ -54,7 +55,7 @@ export function SkillsProgression() {
                         ease: [0.25, 0.1, 0.25, 1],
                       }}
                     >
-                      <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] font-bold text-white/90">
+                      <span className="absolute right-1.5 sm:right-2 top-1/2 -translate-y-1/2 text-[9px] sm:text-[10px] font-bold text-white/90">
                         {skill.level}
                       </span>
                     </motion.div>

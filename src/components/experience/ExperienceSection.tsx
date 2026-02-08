@@ -21,7 +21,7 @@ export function ExperienceSection({ activeFilters }: ExperienceSectionProps) {
   const additionalExperiences = filtered.filter((e) => e.isAdditional)
 
   return (
-    <section id="experience" className="py-20 px-6">
+    <section id="experience" className="py-20 px-4 md:px-6">
       <div className="max-w-4xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 16 }}
@@ -37,13 +37,13 @@ export function ExperienceSection({ activeFilters }: ExperienceSectionProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-warm-500 text-center mb-14 max-w-xl mx-auto"
+          className="text-warm-500 text-center mb-14 max-w-lg md:max-w-xl mx-auto"
         >
           10+ years of driving growth through data, analytics, and strategic leadership
         </motion.p>
 
         <AnimatePresence mode="popLayout">
-          <div className="space-y-6">
+          <div className="space-y-6" aria-live="polite">
             {mainExperiences.map((exp, i) => (
               <motion.div
                 key={exp.id}

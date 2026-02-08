@@ -13,9 +13,9 @@ export default function PortfolioPage() {
   return (
     <>
       <FloatingNav />
-      <main className="min-h-screen">
+      <main className="min-h-screen" aria-label="Portfolio">
         {/* Header */}
-        <section className="pt-28 pb-12 px-6">
+        <section className="pt-28 pb-12 px-4 md:px-6">
           <div className="max-w-6xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold text-warm-900 mb-4">
               Portfolio
@@ -27,14 +27,14 @@ export default function PortfolioPage() {
         </section>
 
         {/* Grid */}
-        <section className="px-6 pb-20">
+        <section className="px-4 md:px-6 pb-20">
           <div className="max-w-6xl mx-auto">
             <PortfolioGrid />
           </div>
         </section>
 
         {/* CTA */}
-        <section className="py-16 px-6 bg-warm-100/40 border-t border-warm-200/50">
+        <section className="py-16 px-4 md:px-6 bg-warm-100/40 border-t border-warm-200/50">
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-warm-900 mb-4">
               Interested in collaborating?

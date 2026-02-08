@@ -13,8 +13,8 @@ const colorMap: Record<string, string> = {
 
 export function RoleEvolution() {
   const width = 900
-  const height = 380
-  const padding = { top: 30, right: 140, bottom: 40, left: 140 }
+  const height = 420
+  const padding = { top: 50, right: 60, bottom: 50, left: 60 }
   const chartW = width - padding.left - padding.right
   const chartH = height - padding.top - padding.bottom
 
@@ -33,8 +33,9 @@ export function RoleEvolution() {
   }, '')
 
   return (
-    <div className="w-full">
-      <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-auto" preserveAspectRatio="xMidYMid meet">
+    <div className="w-full overflow-x-auto -mx-2 px-2 scrollbar-hide">
+      <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-auto min-w-[500px]" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Career progression chart showing role evolution from Marketing and BI Intern at Henkel in 2014 to AI and Innovation Focus in 2025">
+        <title>Career role evolution from 2014 to 2025</title>
         {/* Grid lines */}
         {[0, 1, 2, 3, 4, 5, 6].map((level) => {
           const y = padding.top + chartH - (level / 6) * chartH
@@ -48,6 +49,7 @@ export function RoleEvolution() {
               stroke="#EDE6DE"
               strokeWidth="1"
               strokeDasharray="4 4"
+              aria-hidden="true"
             />
           )
         })}
@@ -62,6 +64,7 @@ export function RoleEvolution() {
           initial={{ pathLength: 0 }}
           animate={{ pathLength: 1 }}
           transition={{ duration: 1.5, ease: [0.37, 0, 0.63, 1] }}
+          aria-hidden="true"
         />
 
         {/* Gradient definition */}
@@ -77,7 +80,7 @@ export function RoleEvolution() {
         {/* Nodes */}
         {nodes.map((node, i) => {
           const color = colorMap[node.company] || '#4A9B8E'
-          const isLeft = i % 2 === 0
+          const labelAbove = i % 2 === 0
           return (
             <motion.g
               key={node.id}
@@ -109,17 +112,17 @@ export function RoleEvolution() {
               {/* Label */}
               <text
                 x={node.x}
-                y={isLeft ? node.y - 26 : node.y + 34}
+                y={labelAbove ? node.y - 28 : node.y + 36}
                 textAnchor="middle"
-                className="text-[11px] font-semibold fill-warm-800"
+                className="text-[13px] font-semibold fill-warm-800"
               >
                 {node.title}
               </text>
               <text
                 x={node.x}
-                y={isLeft ? node.y - 13 : node.y + 47}
+                y={labelAbove ? node.y - 14 : node.y + 50}
                 textAnchor="middle"
-                className="text-[10px] fill-warm-500"
+                className="text-[11px] fill-warm-500"
               >
                 {node.company} · {node.year}
               </text>

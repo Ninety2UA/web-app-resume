@@ -14,9 +14,9 @@ export function IndustryVerticals() {
   const totalYears = industryData.reduce((sum, d) => sum + d.years, 0)
 
   return (
-    <div className="w-full">
+    <div className="w-full" role="img" aria-label="Industry experience breakdown showing years spent across Apps and Mobile Gaming, Retail and FMCG, Tech and SaaS, Agency and Consulting, and AI and Innovation">
       {/* Proportional bar */}
-      <div className="flex rounded-2xl overflow-hidden h-16 md:h-20 mb-8 shadow-card">
+      <div className="flex rounded-2xl overflow-hidden h-12 sm:h-16 md:h-20 mb-6 sm:mb-8 shadow-card" aria-hidden="true">
         {industryData.map((industry, i) => {
           const colors = colorMap[industry.colorClass] || colorMap.coral
           const widthPercent = (industry.years / totalYears) * 100
@@ -33,8 +33,8 @@ export function IndustryVerticals() {
                 ease: [0.25, 0.1, 0.25, 1],
               }}
             >
-              <span className="text-white text-[10px] md:text-xs font-bold text-center px-1 leading-tight">
-                {widthPercent > 12 ? industry.name : ''}
+              <span className="text-white text-[9px] sm:text-[10px] md:text-xs font-bold text-center px-0.5 sm:px-1 leading-tight">
+                {widthPercent > 15 ? industry.name : ''}
               </span>
             </motion.div>
           )
@@ -42,7 +42,7 @@ export function IndustryVerticals() {
       </div>
 
       {/* Detail cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
         {industryData.map((industry, i) => {
           const colors = colorMap[industry.colorClass] || colorMap.coral
           return (
@@ -55,18 +55,18 @@ export function IndustryVerticals() {
                 delay: 0.5 + i * 0.1,
                 ease: [0.25, 0.1, 0.25, 1],
               }}
-              className="rounded-xl p-4 border"
+              className="rounded-xl p-3 sm:p-4 border"
               style={{
                 backgroundColor: colors.bg,
                 borderColor: colors.border + '40',
               }}
             >
               <div className="flex items-start justify-between mb-2">
-                <h4 className="text-sm font-semibold" style={{ color: colors.text }}>
+                <h4 className="text-xs sm:text-sm font-semibold" style={{ color: colors.text }}>
                   {industry.name}
                 </h4>
                 <span
-                  className="text-lg font-extrabold tabular-nums"
+                  className="text-base sm:text-lg font-extrabold tabular-nums ml-2 shrink-0"
                   style={{ color: colors.accent }}
                 >
                   {industry.years}y

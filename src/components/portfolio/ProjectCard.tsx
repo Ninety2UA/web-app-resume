@@ -42,7 +42,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
       className="bg-warm-50 border border-warm-200 rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-shadow duration-300 group"
     >
       {/* Gradient thumbnail */}
-      <div className={`h-36 bg-gradient-to-br ${project.gradient} relative overflow-hidden`}>
+      <div className={`h-28 sm:h-36 bg-gradient-to-br ${project.gradient} relative overflow-hidden`}>
         <div className="absolute inset-0 bg-black/5 group-hover:bg-black/0 transition-colors duration-300" />
         <div className="absolute bottom-3 left-4">
           <span className="px-2.5 py-1 text-[11px] font-semibold rounded-full bg-white/90 text-warm-800 backdrop-blur-sm">
@@ -51,7 +51,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         </div>
       </div>
 
-      <div className="p-5">
+      <div className="p-4 sm:p-5">
         <h3 className="text-lg font-bold text-warm-900 mb-2">{project.title}</h3>
         <p className="text-sm text-warm-600 leading-relaxed mb-4">{project.description}</p>
 
@@ -75,6 +75,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={`${link.label} - ${project.title}`}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-full bg-warm-100 text-warm-700 hover:bg-coral hover:text-white border border-warm-200 hover:border-coral transition-all duration-200"
             >
               {iconMap[link.icon]}

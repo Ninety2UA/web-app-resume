@@ -56,13 +56,16 @@ const vizOptions: { id: VizType; label: string; icon: React.ReactNode }[] = [
 
 export function VisualizationToggle({ active, onChange }: VisualizationToggleProps) {
   return (
-    <div className="flex flex-wrap justify-center gap-2">
+    <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2" role="tablist" aria-label="Visualization type">
       {vizOptions.map((option) => (
         <button
           key={option.id}
           onClick={() => onChange(option.id)}
+          role="tab"
+          aria-selected={active === option.id}
+          aria-controls="viz-panel"
           className={cn(
-            'relative px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 flex items-center gap-2',
+            'relative px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-colors duration-200 flex items-center gap-1.5 sm:gap-2',
             active === option.id
               ? 'text-warm-900'
               : 'text-warm-500 hover:text-warm-700'
@@ -75,9 +78,9 @@ export function VisualizationToggle({ active, onChange }: VisualizationTogglePro
               transition={{ type: 'spring', bounce: 0.2, duration: 0.4 }}
             />
           )}
-          <span className="relative z-10 flex items-center gap-2">
-            {option.icon}
-            {option.label}
+          <span className="relative z-10 flex items-center gap-1.5 sm:gap-2">
+            <span aria-hidden="true">{option.icon}</span>
+            <span className="hidden sm:inline">{option.label}</span>
           </span>
         </button>
       ))}

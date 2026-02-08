@@ -14,7 +14,7 @@ export function ContactSection() {
     setState('submitting')
 
     try {
-      const res = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+      const res = await fetch('https://formspree.io/f/mojnqgnq', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -32,7 +32,7 @@ export function ContactSection() {
   }
 
   return (
-    <section id="contact" className="py-20 px-6 bg-warm-100/40">
+    <section id="contact" className="py-20 px-4 md:px-6 bg-warm-100/40">
       <div className="max-w-4xl mx-auto">
         <div className="grid md:grid-cols-2 gap-12 items-start">
           {/* Left - copy */}
@@ -85,7 +85,7 @@ export function ContactSection() {
             transition={{ duration: 0.5, delay: 0.15 }}
           >
             {state === 'success' ? (
-              <div className="bg-teal-50 border border-teal/20 rounded-2xl p-8 text-center">
+              <div className="bg-teal-50 border border-teal/20 rounded-2xl p-8 text-center" role="status">
                 <div className="w-12 h-12 bg-teal/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4A9B8E" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="20 6 9 17 4 12" />
@@ -104,6 +104,7 @@ export function ContactSection() {
                     id="name"
                     type="text"
                     required
+                    aria-required="true"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     className="w-full px-4 py-3 bg-warm-50 border border-warm-200 rounded-xl text-warm-800 text-sm placeholder:text-warm-400 focus:border-coral focus:ring-1 focus:ring-coral/20 transition-colors"
@@ -118,6 +119,7 @@ export function ContactSection() {
                     id="email"
                     type="email"
                     required
+                    aria-required="true"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     className="w-full px-4 py-3 bg-warm-50 border border-warm-200 rounded-xl text-warm-800 text-sm placeholder:text-warm-400 focus:border-coral focus:ring-1 focus:ring-coral/20 transition-colors"
@@ -131,6 +133,7 @@ export function ContactSection() {
                   <textarea
                     id="message"
                     required
+                    aria-required="true"
                     rows={4}
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -140,7 +143,7 @@ export function ContactSection() {
                 </div>
 
                 {state === 'error' && (
-                  <p className="text-sm text-red-600">
+                  <p className="text-sm text-red-600" role="alert">
                     Something went wrong. Please email me directly at{' '}
                     <a href="mailto:domi@dbenger.com" className="underline">domi@dbenger.com</a>.
                   </p>
@@ -165,7 +168,7 @@ export function ContactSection() {
                 </button>
 
                 {/* Honeypot field for spam */}
-                <input type="text" name="_gotcha" style={{ display: 'none' }} tabIndex={-1} />
+                <input type="text" name="_gotcha" style={{ display: 'none' }} tabIndex={-1} aria-hidden="true" autoComplete="off" />
               </form>
             )}
           </motion.div>

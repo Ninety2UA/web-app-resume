@@ -34,7 +34,7 @@ export function ExperienceCard({ experience, index, compact }: ExperienceCardPro
       transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
       className={`bg-warm-50 border border-warm-200 rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-shadow duration-300 border-l-4 ${accentColor}`}
     >
-      <div className={compact ? 'p-5' : 'p-6 md:p-8'}>
+      <div className={compact ? 'p-4 sm:p-5' : 'p-4 sm:p-5 md:p-8'}>
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 mb-4">
           <div>
@@ -83,7 +83,7 @@ export function ExperienceCard({ experience, index, compact }: ExperienceCardPro
 
         {/* Key Projects */}
         {!compact && experience.keyProjects && experience.keyProjects.length > 0 && (
-          <div className="mb-4 bg-warm-100/50 rounded-xl p-4 border border-warm-200/50">
+          <div className="mb-4 bg-warm-100/50 rounded-xl p-3 sm:p-4 border border-warm-200/50">
             <h4 className="text-sm font-semibold text-warm-700 mb-2">Key Projects</h4>
             {experience.keyProjects.map((project) => (
               <div key={project.title} className="mb-2 last:mb-0">
@@ -94,6 +94,7 @@ export function ExperienceCard({ experience, index, compact }: ExperienceCardPro
                       href={project.link}
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label={`View ${project.title} project`}
                       className="ml-2 text-coral hover:text-coral-dark text-xs font-normal"
                     >
                       View →
@@ -107,7 +108,7 @@ export function ExperienceCard({ experience, index, compact }: ExperienceCardPro
         )}
 
         {/* Tech pills */}
-        <div className="flex flex-wrap gap-1.5 mt-3">
+        <div className="flex flex-wrap gap-1.5 mt-3" aria-label="Technologies used">
           {experience.technologies.slice(0, compact ? 4 : undefined).map((tech) => (
             <span
               key={tech}
