@@ -5,17 +5,15 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { VisualizationToggle } from './VisualizationToggle'
 import { TimelineMarkers } from './TimelineMarkers'
 import { RoleEvolution } from './visualizations/RoleEvolution'
-import { SkillsProgression } from './visualizations/SkillsProgression'
+import { SkillsTechStack } from './visualizations/SkillsTechStack'
 import { IndustryVerticals } from './visualizations/IndustryVerticals'
-import { TechStack } from './visualizations/TechStack'
 
-export type VizType = 'role' | 'skills' | 'industry' | 'tech'
+export type VizType = 'role' | 'skillsTech' | 'industry'
 
 const vizComponents: Record<VizType, React.ComponentType> = {
   role: RoleEvolution,
-  skills: SkillsProgression,
+  skillsTech: SkillsTechStack,
   industry: IndustryVerticals,
-  tech: TechStack,
 }
 
 export function HeroSection() {

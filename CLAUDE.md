@@ -3,6 +3,28 @@
 ## Project Overview
 Interactive, animated web app replacing static PDF resumes with dynamic data visualizations, filterable career timelines, and portfolio showcase. Deployed at dbenger.com via Vercel.
 
+## Startup Ritual
+**At the start of every new session, before taking any action, you MUST:**
+
+1. **Read project status files** (in parallel):
+   - `docs/STATUS.md` — current project state
+   - `docs/tasks.md` — task backlog and priorities
+
+2. **Check git state** (in parallel):
+   - `git status` — uncommitted changes, staged files, current branch
+   - `git log --oneline -10` — recent commit history
+   - `git diff --stat` — summary of working tree changes
+
+3. **Summarize current status to the user**, including:
+   - Current branch and any uncommitted work
+   - What was done in the last few commits
+   - Any open tasks or next steps from `docs/tasks.md`
+   - Anything that looks like it needs attention (e.g., uncommitted changes, failing builds)
+
+4. **Wait for the user's instructions** before making any changes.
+
+Do NOT skip this ritual. Do NOT start modifying files until you have read the above and presented the summary. This ensures continuity across sessions and prevents accidentally overwriting in-progress work.
+
 ## Tech Stack
 - **Framework:** Next.js 15 (App Router, TypeScript)
 - **Styling:** Tailwind CSS 3.4
@@ -22,7 +44,7 @@ src/
 │   └── portfolio/    # /portfolio route
 ├── components/       # React components by section
 │   ├── layout/       # FloatingNav, Footer
-│   ├── hero/         # HeroSection, viz toggle, 4 visualizations
+│   ├── hero/         # HeroSection, viz toggle, 3 visualizations
 │   ├── experience/   # ExperienceSection, ExperienceCard
 │   ├── filters/      # FilterPills
 │   ├── contact/      # ContactSection (Formspree)
@@ -54,14 +76,15 @@ docs/
 - **Background:** #FDFCFA (warm off-white)
 - **Surface:** #F5F0EB (warm cream)
 - **Text:** #1A1814 (warm near-black), #6B6560 (secondary)
-- **Accents:** Terra cotta #E07A5F, Sage teal #4A9B8E, Amber #E6B35A, Lavender #7C6FB0
+- **Accents (core 4):** Terra cotta #E07A5F, Sage teal #4A9B8E, Amber #E6B35A, Lavender #7C6FB0
+- **Accents (extended):** Sky #5B8DB8, Rose #D4697A, Emerald #4A9B6E (used in SkillsTechStack only)
 - **Animations:** 400-500ms, staggered entrances, respects prefers-reduced-motion
 - **Spacing:** 8px grid system
 
 ## Architecture Decisions
 - Single scrollable page (Hero → Experience → Contact/Footer) + `/portfolio` route
 - Floating centered nav bar appears after scrolling past hero
-- 4 interactive infographic-style SVG visualizations (not a chart library)
+- 3 visualization tabs: Career Path (SVG), Skills & Tech Stack (interactive tag grid), Industries (stacked bar + cards)
 - Pill/chip filter toggles above experience section
 - Clickable era markers (not draggable timeline slider)
 - Static PDF download (pre-built, not generated)
@@ -100,6 +123,7 @@ The filter bar uses `top-[68px]` to sit below the FloatingNav (which is ~44px ta
 - **Filter pills**: `role="group"` + `aria-pressed` on each toggle button
 - **FloatingNav**: `aria-expanded` on mobile toggle, `role="menu"` / `role="menuitem"`, Escape key closes menu, `aria-current="page"` via `usePathname`
 - **SVG visualizations**: All have `role="img"` + descriptive `aria-label`; decorative elements use `aria-hidden="true"`
+- **SkillsTechStack**: Interactive category filter buttons; clicking a category isolates it, clicking again (or "All") resets
 - **Contact form**: `aria-required` on fields, `role="alert"` on error, `role="status"` on success
 - **Filtered results**: `aria-live="polite"` on ExperienceSection results container
 
@@ -137,5 +161,6 @@ Always read these files before starting any work.
 
 ## Session Continuity
 - **All development complete** — Phases 0–8 done, T01–T32 all passed
-- **Post-launch UI fixes applied** (uncommitted): nav/filter overlap, chart label typo, chart padding
+- **Post-launch UI fixes committed** at `53bdd97`: nav/filter overlap, chart label typo, chart padding
+- **Skills & Tech Stack merge** (uncommitted): merged "Skills" + "Tech Stack" tabs into one "Skills & Tech Stack" tab with 7 categories (77 skills), interactive category filtering, 3 new accent colors (sky/rose/emerald). Deleted `SkillsProgression.tsx` and `TechStack.tsx`.
 - Remaining: Vercel deployment + custom domain (dbenger.com), optional company logos

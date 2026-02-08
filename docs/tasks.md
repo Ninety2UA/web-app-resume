@@ -28,12 +28,13 @@
 | Task | Description | Status |
 |------|-------------|--------|
 | T13 | Build HeroSection wrapper | Done |
-| T14 | Build VisualizationToggle buttons | Done |
+| T14 | Build VisualizationToggle buttons (3 tabs) | Done |
 | T15 | Build Role Evolution visualization | Done |
-| T16 | Build Skills Progression visualization | Done |
+| T16 | ~~Build Skills Progression visualization~~ → merged into T33 | Replaced |
 | T17 | Build Industry Verticals visualization | Done |
-| T18 | Build Tech Stack visualization | Done |
+| T18 | ~~Build Tech Stack visualization~~ → merged into T33 | Replaced |
 | T19 | Build TimelineMarkers | Done |
+| T33 | Build merged Skills & Tech Stack visualization | **Done** |
 
 ## Phase 4: Filters & Experience Section
 | Task | Description | Status |
@@ -137,6 +138,18 @@ Browser-based visual QA across all breakpoints using Playwright:
 | U01 | Fix FloatingNav overlapping sticky filter bar — changed `top-0` to `top-[68px]` in `page.tsx` | **Done** |
 | U02 | Fix chart label "AI & Innovation Focus" → "AI & Technology Focus" in `skills.ts` | **Done** |
 | U03 | Reduce RoleEvolution chart horizontal padding (60px → 20px) + smart text anchoring for edge labels | **Done** |
+
+### T33 Detail — Merged Skills & Tech Stack (Complete)
+
+Merged "Skills" (bar chart, T16) and "Tech Stack" (timeline, T18) into a single "Skills & Tech Stack" tab:
+- **Data**: Replaced `skillCategories` (4 categories, 20 skills with levels) and `techTimeline` (12 years of tech adoption) with `skillsTechCategories` (7 categories, 77 skills as flat string arrays)
+- **Component**: New `SkillsTechStack.tsx` — interactive category filter pills at top, color-coded skill tags below organized by category section
+- **Categories**: Data/Analytics (13), Marketing Platforms (8), Cloud/Infrastructure (10), AI/LLM Tools (8), Developer Tools (22), Workflow Automation (6), Generative Media (10)
+- **Colors**: 4 existing (teal, coral, amber, lavender) + 3 new (sky #5B8DB8, rose #D4697A, emerald #4A9B6E) — inline styles, not Tailwind config
+- **Interactivity**: Click category filter to isolate; click again or "All" to reset. AnimatePresence for smooth transitions.
+- **Toggle**: VizType reduced from 4 to 3 options. Combined icon (grid + code bracket).
+- **Deleted**: `SkillsProgression.tsx`, `TechStack.tsx`
+- **Verified**: Build clean, tested at 375px + 1280px, category filtering works
 
 ## Pre-Launch Checklist
 | Item | Description | Status |

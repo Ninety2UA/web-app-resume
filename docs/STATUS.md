@@ -10,8 +10,9 @@
 |--------|-------|
 | `fb6a036` Initial commit | Phases 0–7: project setup, data layer, all components, both pages wired up |
 | `34e5062` Phase 8 + launch prep | T29 responsive, T30 accessibility, T31 performance, T32 final QA, Formspree wired, OG image, docs |
+| `53bdd97` Post-launch UI fixes | Nav/filter overlap fix, chart label typo, chart padding, docs update |
 
-Key files: 25 TSX/TS source files across `src/`, 3 data files, 4 SVG visualizations, Tailwind theme, global styles, favicon, OG image.
+Key files: 24 TSX/TS source files across `src/`, 3 data files, 3 visualizations (Career Path, Skills & Tech Stack, Industries), Tailwind theme, global styles, favicon, OG image.
 
 **All development tasks (T01–T32) are complete.** Code is pushed to GitHub.
 
@@ -29,11 +30,11 @@ Key files: 25 TSX/TS source files across `src/`, 3 data files, 4 SVG visualizati
 | Framework | Next.js 15 App Router, TypeScript, React 19 |
 | Styling | Tailwind CSS 3.4, custom warm palette (`#FDFCFA` bg, terra cotta/sage/amber/lavender accents) |
 | Animations | Framer Motion 11 — all scroll animations use `useScrollAnimation` hook with IntersectionObserver |
-| Visualizations | Custom SVG + Framer Motion (no charting library) — 4 views: RoleEvolution, SkillsProgression, IndustryVerticals, TechStack |
+| Visualizations | Custom SVG + Framer Motion (no charting library) — 3 views: RoleEvolution, SkillsTechStack, IndustryVerticals |
 | Font | Plus Jakarta Sans via `next/font/google` |
 | Contact | Formspree POST (client-side), honeypot spam field |
 | Analytics | Vercel Analytics |
-| Data model | Static TS files in `src/data/` — `experience.ts` (typed entries with sections, bullets, tags), `skills.ts` (categories + timeline), `portfolio.ts` (project cards) |
+| Data model | Static TS files in `src/data/` — `experience.ts` (typed entries with sections, bullets, tags), `skills.ts` (7 skill categories + industry + role data), `portfolio.ts` (project cards) |
 | UX | Floating pill nav (appears after 60vh scroll), sticky filter pills, pill toggles are inclusive OR, scroll-triggered fade-in animations (once), `prefers-reduced-motion` respected |
 | Cut from v1 | Shareable filter URLs, tech tag click-to-filter, dynamic PDF gen, blog/CMS |
 
@@ -48,10 +49,18 @@ Key files: 25 TSX/TS source files across `src/`, 3 data files, 4 SVG visualizati
 - [x] Add Open Graph image (`opengraph-image.png` — 1200×630)
 - [x] Set up git remote + push to GitHub
 
-## Post-launch UI fixes (uncommitted)
+## Post-launch UI fixes (committed at `53bdd97`)
 - [x] **Fix nav/filter overlap** — FloatingNav (fixed z-50) was overlapping the sticky filter bar. Changed filter bar from `sticky top-0` to `sticky top-[68px]` in `page.tsx` so it clears the nav.
 - [x] **Fix chart label typo** — RoleEvolution chart showed "AI & Innovation Focus" instead of "AI & Technology Focus". Fixed in `skills.ts`.
 - [x] **Reduce chart horizontal padding** — RoleEvolution SVG padding reduced from 60px to 20px per side, making the plotted line extend closer to chart boundaries. Added smart text anchoring (`start`/`end` for first/last nodes) to prevent label clipping at edges.
+
+## Skills & Tech Stack merge (uncommitted)
+- [x] **Merge "Skills" + "Tech Stack" into one tab** — Replaced the separate Skills (bar chart) and Tech Stack (timeline) visualizations with a single "Skills & Tech Stack" interactive tag grid.
+- **New data**: 7 categories, 77 skills from resume: Data/Analytics (13), Marketing Platforms (8), Cloud/Infrastructure (10), AI/LLM Tools (8), Developer Tools (22), Workflow Automation (6), Generative Media (10).
+- **New component**: `SkillsTechStack.tsx` — category filter buttons at top (click to isolate), color-coded skill tag pills, staggered Framer Motion animations, scrollable content area.
+- **3 new accent colors**: Sky (#5B8DB8), Rose (#D4697A), Emerald (#4A9B6E) — defined as inline styles in component colorMap (not in Tailwind config).
+- **Deleted**: `SkillsProgression.tsx`, `TechStack.tsx`, old `skillCategories` and `techTimeline` data exports.
+- **VizType reduced**: 4 tabs → 3 tabs (Career Path | Skills & Tech Stack | Industries).
 
 ## Remaining (deployment)
 - [ ] Set up Vercel project + custom domain (dbenger.com)

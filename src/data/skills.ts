@@ -1,153 +1,80 @@
-export interface SkillCategory {
+export interface SkillsTechCategory {
+  id: string
   name: string
-  colorClass: string
-  skills: {
-    name: string
-    level: number
-  }[]
+  colorKey: string
+  skills: string[]
 }
 
-export const skillCategories: SkillCategory[] = [
+export const skillsTechCategories: SkillsTechCategory[] = [
   {
-    name: 'Marketing & Ads',
-    colorClass: 'coral',
+    id: 'data',
+    name: 'Data / Analytics',
+    colorKey: 'teal',
     skills: [
-      { name: 'Google Ads', level: 95 },
-      { name: 'App Campaigns', level: 90 },
-      { name: 'Performance Marketing', level: 92 },
-      { name: 'SKAdNetwork', level: 80 },
-      { name: 'Media Planning', level: 75 },
+      'SQL', 'Python', 'BigQuery', 'Looker', 'Looker Studio',
+      'Performance KPI Scorecards & Alerting', 'Cohort / LTV Analysis',
+      'Funnel Analysis', 'Experimentation (A/B Tests, Lift Tests)',
+      'ROAS / CPI Optimization', 'Change-History Forensics',
+      'Attribution', 'Bid/Budget/Creative Optimization & Analysis',
     ],
   },
   {
-    name: 'Data & Analytics',
-    colorClass: 'teal',
+    id: 'marketing',
+    name: 'Marketing Platforms / Measurement',
+    colorKey: 'coral',
     skills: [
-      { name: 'BigQuery', level: 92 },
-      { name: 'SQL', level: 90 },
-      { name: 'Looker / Studio', level: 88 },
-      { name: 'A/B Testing', level: 80 },
-      { name: 'LTV & Cohort Analysis', level: 85 },
+      'Google Ads', 'Meta Ads', 'SKAdNetwork / iOS SKAN',
+      'Apple Search Ads', 'GA4', 'Firebase',
+      'MMP Integrations: Adjust, AppsFlyer', 'ROAS / CPI Optimization',
     ],
   },
   {
-    name: 'Programming & Tools',
-    colorClass: 'amber',
+    id: 'cloud',
+    name: 'Cloud / Infrastructure / Deployment',
+    colorKey: 'amber',
     skills: [
-      { name: 'Python', level: 75 },
-      { name: 'Google Cloud', level: 70 },
-      { name: 'Data Pipelines', level: 78 },
-      { name: 'Dashboard Building', level: 88 },
-      { name: 'SAP / Microsoft BI', level: 55 },
+      'Google Cloud Platform (GCP)', 'BigQuery Data Transfer Service (DTS)',
+      'BigQuery ML (BQML)', 'Google Ads API', 'AWS', 'Firebase',
+      'Vercel', 'Railway', 'Hostinger', 'GitHub',
     ],
   },
   {
-    name: 'AI & Automation',
-    colorClass: 'lavender',
+    id: 'ai',
+    name: 'AI / LLM Tools & Platforms',
+    colorKey: 'lavender',
     skills: [
-      { name: 'LLM Tools (Claude, GPT)', level: 82 },
-      { name: 'AI Workflows', level: 78 },
-      { name: 'Prompt Engineering', level: 80 },
-      { name: 'n8n / Make.com', level: 70 },
-      { name: 'Code Generation', level: 72 },
-    ],
-  },
-]
-
-export interface TechTimelineEntry {
-  year: number
-  technologies: {
-    name: string
-    category: 'marketing' | 'data' | 'programming' | 'ai'
-  }[]
-}
-
-export const techTimeline: TechTimelineEntry[] = [
-  {
-    year: 2014,
-    technologies: [
-      { name: 'SAP', category: 'data' },
-      { name: 'Microsoft BI', category: 'data' },
+      'ChatGPT', 'Gemini', 'Claude', 'Manus', 'Perplexity',
+      'NotebookLM', 'Google AI Studio', 'Notion AI',
     ],
   },
   {
-    year: 2015,
-    technologies: [
-      { name: 'Media Planning', category: 'marketing' },
-      { name: 'Market Research', category: 'marketing' },
+    id: 'devtools',
+    name: 'Developer Tools / IDEs / Agents',
+    colorKey: 'sky',
+    skills: [
+      'Claude Code', 'Cursor', 'Codex', 'Codex CLI', 'Gemini CLI',
+      'Firebase Studio', 'Replit', 'V0', 'Bolt.new', 'Warp',
+      'Lovable', 'Antigravity', 'Jules', 'AMP', 'Devin', 'Factory',
+      'Linear', 'Daytona', 'Composio', 'Ollama',
+      'Open Source Models (e.g., Kimi 2.5)', 'OpenClaw',
     ],
   },
   {
-    year: 2016,
-    technologies: [
-      { name: 'CRM', category: 'marketing' },
-      { name: 'Sales Tools', category: 'marketing' },
+    id: 'automation',
+    name: 'Workflow Automation',
+    colorKey: 'rose',
+    skills: [
+      'n8n', 'Make.com', 'Zapier', 'LangGraph', 'CrewAI', 'Gumloop',
     ],
   },
   {
-    year: 2017,
-    technologies: [
-      { name: 'Google Ads', category: 'marketing' },
-      { name: 'Google Analytics', category: 'data' },
-      { name: 'SQL', category: 'programming' },
-    ],
-  },
-  {
-    year: 2018,
-    technologies: [
-      { name: 'App Campaigns', category: 'marketing' },
-      { name: 'Attribution', category: 'data' },
-    ],
-  },
-  {
-    year: 2019,
-    technologies: [
-      { name: 'BigQuery', category: 'data' },
-      { name: 'Looker Studio', category: 'data' },
-    ],
-  },
-  {
-    year: 2020,
-    technologies: [
-      { name: 'Python', category: 'programming' },
-      { name: 'Data Pipelines', category: 'programming' },
-    ],
-  },
-  {
-    year: 2021,
-    technologies: [
-      { name: 'Looker', category: 'data' },
-      { name: 'SKAdNetwork', category: 'marketing' },
-    ],
-  },
-  {
-    year: 2022,
-    technologies: [
-      { name: 'A/B Testing', category: 'data' },
-      { name: 'Google Cloud', category: 'programming' },
-    ],
-  },
-  {
-    year: 2023,
-    technologies: [
-      { name: 'Gemini AI', category: 'ai' },
-      { name: 'AI Analytics', category: 'ai' },
-    ],
-  },
-  {
-    year: 2024,
-    technologies: [
-      { name: 'ChatGPT', category: 'ai' },
-      { name: 'Claude', category: 'ai' },
-    ],
-  },
-  {
-    year: 2025,
-    technologies: [
-      { name: 'Claude Code', category: 'ai' },
-      { name: 'n8n', category: 'ai' },
-      { name: 'Cursor', category: 'programming' },
-      { name: 'CrewAI', category: 'ai' },
+    id: 'media',
+    name: 'Generative Media',
+    colorKey: 'emerald',
+    skills: [
+      'Text-to-Image Models', 'Text-to-Video Models',
+      'Image-to-Video Models', 'ElevenLabs', 'Descript',
+      'Artlist', 'Higgsfield', 'Granola', 'Wispr Flow', 'ChatPRD',
     ],
   },
 ]
