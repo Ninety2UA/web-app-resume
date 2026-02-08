@@ -8,18 +8,20 @@
 ## What's done
 | Commit | Scope |
 |--------|-------|
-| `fb6a036` Initial commit | Phases 0–7 complete: project setup, data layer, all components, both pages wired up |
+| `fb6a036` Initial commit | Phases 0–7: project setup, data layer, all components, both pages wired up |
+| `34e5062` Phase 8 + launch prep | T29 responsive, T30 accessibility, T31 performance, T32 final QA, Formspree wired, OG image, docs |
 
-Key files: 22 TSX/TS source files across `src/`, 3 data files, 4 SVG visualizations, Tailwind theme, global styles, favicon.
+Key files: 25 TSX/TS source files across `src/`, 3 data files, 4 SVG visualizations, Tailwind theme, global styles, favicon, OG image.
 
-**Uncommitted:** Phase 8 complete (T29 responsive, T30 accessibility, T31 performance). All components responsive at 320–1024px+, full ARIA/a11y pass, next.config optimized. T32 (Final QA) pending visual verification.
+**All development tasks (T01–T32) are complete.** Code is pushed to GitHub.
 
 ## Current state of the code
-- `npm run build` — passes clean (no type or lint errors)
+- `npm run build` — passes clean (0 errors, 0 warnings, all pages SSG)
 - `npm run dev` — runs on localhost:3000, both `/` and `/portfolio` render
-- **Not broken**, but polish items remain (see Next Tasks)
-- Contact form wired to Formspree endpoint `mojnqgnq`
+- Contact form wired to Formspree endpoint `mojnqgnq` — live and functional
+- Open Graph image at `src/app/opengraph-image.png` (1200×630, auto-served by Next.js)
 - No tests (no test framework installed)
+- GitHub: https://github.com/Ninety2UA/web-app-resume
 
 ## Decisions made
 | Area | Decision |
@@ -35,17 +37,25 @@ Key files: 22 TSX/TS source files across `src/`, 3 data files, 4 SVG visualizati
 | UX | Floating pill nav (appears after 60vh scroll), sticky filter pills, pill toggles are inclusive OR, scroll-triggered fade-in animations (once), `prefers-reduced-motion` respected |
 | Cut from v1 | Shareable filter URLs, tech tag click-to-filter, dynamic PDF gen, blog/CMS |
 
-## Next tasks
+## Completed tasks
 - [x] Add favicon (`src/app/icon.svg`)
 - [x] Init git repo + first commit
 - [x] **T29 — Responsive design pass** (all components responsive 320–1024px+)
 - [x] **T30 — Accessibility audit** (skip-to-content, ARIA labels, keyboard nav, tablist/tabpanel, aria-pressed, aria-live)
 - [x] **T31 — Performance optimization** (build clean, 156 kB first load, SSG, next.config optimized)
-- [ ] **T32 — Final QA** (cross-browser check, all links work, contact form e2e with real Formspree ID, animation smoothness, content accuracy vs resume)
-- [x] Set real Formspree form ID in `ContactSection.tsx`
-- [x] Add Open Graph image (`opengraph-image.png`)
+- [x] **T32 — Final QA** (all viewports tested, all 4 visualizations verified, filters working, all links confirmed, PDF download 200, OG image route 200)
+- [x] Set real Formspree form ID in `ContactSection.tsx` (`mojnqgnq`)
+- [x] Add Open Graph image (`opengraph-image.png` — 1200×630)
+- [x] Set up git remote + push to GitHub
+
+## Post-launch UI fixes (uncommitted)
+- [x] **Fix nav/filter overlap** — FloatingNav (fixed z-50) was overlapping the sticky filter bar. Changed filter bar from `sticky top-0` to `sticky top-[68px]` in `page.tsx` so it clears the nav.
+- [x] **Fix chart label typo** — RoleEvolution chart showed "AI & Innovation Focus" instead of "AI & Technology Focus". Fixed in `skills.ts`.
+- [x] **Reduce chart horizontal padding** — RoleEvolution SVG padding reduced from 60px to 20px per side, making the plotted line extend closer to chart boundaries. Added smart text anchoring (`start`/`end` for first/last nodes) to prevent label clipping at edges.
+
+## Remaining (deployment)
 - [ ] Set up Vercel project + custom domain (dbenger.com)
-- [ ] Company logos in `public/logos/` where available (currently all text fallback)
+- [ ] Company logos in `public/logos/` where available (optional — styled text fallback works)
 
 ## Commands
 ```bash
@@ -62,4 +72,4 @@ No test runner installed. Lighthouse can be run via Chrome DevTools or `npx ligh
 - **SVG text in RoleEvolution** uses Tailwind `fill-warm-*` classes inside `<text>` elements — these require the Tailwind theme to be loaded; won't render in raw SVG viewers.
 - **Sticky filter bar is z-30, FloatingNav is z-50** — any new sticky/fixed elements need to respect this stacking.
 - **`prefers-reduced-motion`** is handled globally in CSS (forces 0.01ms durations) — but Framer Motion `animate` props still fire; they just complete instantly. Don't rely on animation callbacks for logic.
-- **No git remote yet** — repo is local only. Need to `git remote add origin` before push.
+- **`.gitignore` has `*.png`** — OG image has an exception (`!src/app/opengraph-image.png`). Add similar exceptions for any future PNG assets that need tracking.

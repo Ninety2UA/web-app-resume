@@ -20,7 +20,7 @@ export default function Home() {
         {/* Filter + Experience */}
         <section
           aria-label="Filter experience by category"
-          className="bg-warm-100/30 py-4 md:py-8 px-4 md:px-6 sticky top-0 z-30 backdrop-blur-sm border-b border-warm-200/50"
+          className="bg-warm-100/30 py-4 md:py-8 px-4 md:px-6 sticky top-[68px] z-30 backdrop-blur-sm border-b border-warm-200/50"
         >
           <div className="max-w-4xl mx-auto">
             <FilterPills activeFilters={activeFilters} onFilterChange={setActiveFilters} />

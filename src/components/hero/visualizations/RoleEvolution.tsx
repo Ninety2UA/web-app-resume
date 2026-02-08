@@ -14,15 +14,22 @@ const colorMap: Record<string, string> = {
 export function RoleEvolution() {
   const width = 900
   const height = 420
-  const padding = { top: 50, right: 60, bottom: 50, left: 60 }
+  const padding = { top: 50, right: 20, bottom: 50, left: 20 }
   const chartW = width - padding.left - padding.right
   const chartH = height - padding.top - padding.bottom
+  const nodeCount = roleNodes.length
 
   const nodes = roleNodes.map((node, i) => ({
     ...node,
-    x: padding.left + (i / (roleNodes.length - 1)) * chartW,
+    x: padding.left + (i / (nodeCount - 1)) * chartW,
     y: padding.top + chartH - (node.level / 6) * chartH,
   }))
+
+  const getTextAnchor = (i: number) => {
+    if (i === 0) return 'start'
+    if (i === nodeCount - 1) return 'end'
+    return 'middle'
+  }
 
   // Create smooth path through nodes
   const pathData = nodes.reduce((acc, node, i) => {
@@ -34,7 +41,7 @@ export function RoleEvolution() {
 
   return (
     <div className="w-full overflow-x-auto -mx-2 px-2 scrollbar-hide">
-      <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-auto min-w-[500px]" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Career progression chart showing role evolution from Marketing and BI Intern at Henkel in 2014 to AI and Innovation Focus in 2025">
+      <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-auto min-w-[500px]" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Career progression chart showing role evolution from Marketing and BI Intern at Henkel in 2014 to AI and Technology Focus in 2025">
         <title>Career role evolution from 2014 to 2025</title>
         {/* Grid lines */}
         {[0, 1, 2, 3, 4, 5, 6].map((level) => {
@@ -81,6 +88,7 @@ export function RoleEvolution() {
         {nodes.map((node, i) => {
           const color = colorMap[node.company] || '#4A9B8E'
           const labelAbove = i % 2 === 0
+          const anchor = getTextAnchor(i)
           return (
             <motion.g
               key={node.id}
@@ -113,7 +121,7 @@ export function RoleEvolution() {
               <text
                 x={node.x}
                 y={labelAbove ? node.y - 28 : node.y + 36}
-                textAnchor="middle"
+                textAnchor={anchor}
                 className="text-[13px] font-semibold fill-warm-800"
               >
                 {node.title}
@@ -121,7 +129,7 @@ export function RoleEvolution() {
               <text
                 x={node.x}
                 y={labelAbove ? node.y - 14 : node.y + 50}
-                textAnchor="middle"
+                textAnchor={anchor}
                 className="text-[11px] fill-warm-500"
               >
                 {node.company} · {node.year}

@@ -66,7 +66,7 @@
 | T29 | Responsive design pass | **Done** |
 | T30 | Accessibility audit | **Done** |
 | T31 | Performance optimization | **Done** |
-| T32 | Final QA | Pending (visual verification + cross-browser) |
+| T32 | Final QA | **Done** |
 
 ### T29 Detail — Responsive Design Pass (Complete)
 
@@ -119,11 +119,30 @@
 | F03 | Create `docs/STATUS.md` project status document | Done |
 | F04 | Create `docs/tasks.md` task tracker | Done |
 
+### T32 Detail — Final QA (Complete)
+
+Browser-based visual QA across all breakpoints using Playwright:
+- **Desktop (768px+)**: Hero, all 4 viz tabs, filters, experience cards, contact form, footer — all render correctly
+- **Tablet (768px)**: 2-column contact layout, viz labels visible, FloatingNav with horizontal links
+- **Mobile (375px)**: Clean text wrapping, icon-only viz tabs, horizontal scroll filter pills, stacked contact
+- **Extreme mobile (320px)**: No overflow, text wraps cleanly, CTA fits within viewport
+- **Visualizations**: Career Path, Skills, Industries, Tech Stack — all 4 render and switch correctly
+- **Filter pills**: Toggle works, experience cards filter correctly (tested Apps & Gaming)
+- **Links verified**: PDF download (200), portfolio route (200), OG image route (200), mailto, LinkedIn
+- **Accessibility snapshot**: Skip-to-content, tablist/tab/tabpanel, aria-pressed, role="group", role="img", landmarks — all present in DOM
+
+## Post-Launch UI Fixes
+| Task | Description | Status |
+|------|-------------|--------|
+| U01 | Fix FloatingNav overlapping sticky filter bar — changed `top-0` to `top-[68px]` in `page.tsx` | **Done** |
+| U02 | Fix chart label "AI & Innovation Focus" → "AI & Technology Focus" in `skills.ts` | **Done** |
+| U03 | Reduce RoleEvolution chart horizontal padding (60px → 20px) + smart text anchoring for edge labels | **Done** |
+
 ## Pre-Launch Checklist
 | Item | Description | Status |
 |------|-------------|--------|
 | L01 | Set real Formspree form ID in `ContactSection.tsx` | **Done** |
 | L02 | Add Open Graph image (`opengraph-image.png`) | **Done** |
 | L03 | Set up Vercel project + custom domain (dbenger.com) | Pending |
-| L04 | Add company logos to `public/logos/` | Pending |
-| L05 | Set up git remote + push | Pending |
+| L04 | Add company logos to `public/logos/` | Optional |
+| L05 | Set up git remote + push | **Done** |

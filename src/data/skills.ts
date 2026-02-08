@@ -207,5 +207,5 @@ export const roleNodes: RoleNode[] = [
   { id: 'google-am', title: 'Account Manager', company: 'Google', year: '2017', level: 3 },
   { id: 'google-tl', title: 'Technical Apps Lead', company: 'Google', year: '2018', level: 4 },
   { id: 'google-sal', title: 'Senior Analytical Lead', company: 'Google', year: '2021', level: 5 },
-  { id: 'career-break', title: 'AI & Innovation Focus', company: 'Gap Year', year: '2025', level: 6 },
+  { id: 'career-break', title: 'AI & Technology Focus', company: 'Gap Year', year: '2025', level: 6 },
 ]
