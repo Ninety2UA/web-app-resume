@@ -335,9 +335,52 @@ T25 → T26 → T27
 T28 → T29, T30, T31 → T32
 ```
 
+---
+
+## Phase 9: Collaboration Page (Post-Launch Feature)
+
+### T34 - Build Collaboration page
+- New `/collaboration` route with service offerings from `docs/Offering.md`
+- Data file: `offerings.ts` (10 offerings, 3 packages, add-ons, working principles, tool categories)
+- Components: OfferingCard (accordion deliverables), OfferingsGrid, PackageCards (3-tier + add-ons), WorkingStyleSection (principles + tool pills)
+- Page: server component with hero, 5 content sections, CTA matching portfolio
+- Nav: added "Collaboration" to FloatingNav, generalized `isCurrent` detection
+- **Status: Done** (committed at `18a2ea5`)
+
+---
+
+---
+
+## Phase 10: UI Rework (Uncommitted)
+
+### U06 - RoleEvolution year-proportional positioning + integrated timeline
+- Nodes positioned by actual year (2014-2025) via `yearToX()` instead of even spacing
+- Timeline eras integrated into SVG bottom, sharing same coordinate system
+- Label placement reworked: even below, odd above, last above; avoids bezier curve overlap
+- SVG height 420→500
+- **Status: Done**
+
+### U07 - FloatingNav always visible
+- Removed scroll-threshold (60vh) visibility toggle
+- Nav renders immediately as plain `<nav>`, no animation wrapper
+- **Status: Done**
+
+### U08 - Hide portfolio from navigation
+- Removed "Portfolio" link from FloatingNav and Footer
+- Page files preserved at `/portfolio` for future v2
+- **Status: Done**
+
+### U09 - HeroSection conditional TimelineMarkers
+- Standalone TimelineMarkers hidden when role viz active (SVG has its own)
+- Shows for Skills & Industries tabs
+- **Status: Done**
+
+---
+
 ## Cut from v1 Scope
 - Shareable filter URLs (query parameter state)
 - Technology tag click-to-filter in experience cards
 - Dynamic PDF generation (using static file)
 - Blog/CMS capabilities
 - Google Analytics (using Vercel Analytics instead)
+- Portfolio page (hidden, preserved for v2)

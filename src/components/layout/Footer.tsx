@@ -1,5 +1,3 @@
-import Link from 'next/link'
-
 const socialLinks = [
   {
     label: 'LinkedIn',
@@ -44,10 +42,6 @@ export function Footer() {
 
           <div className="flex flex-col items-center md:items-end gap-1">
             <div className="flex items-center gap-4 text-sm text-warm-500">
-              <Link href="/portfolio" className="hover:text-warm-700 transition-colors">
-                Portfolio
-              </Link>
-              <span className="text-warm-300">|</span>
               <a
                 href="/resume/Dominik_Benger_Resume.pdf"
                 download

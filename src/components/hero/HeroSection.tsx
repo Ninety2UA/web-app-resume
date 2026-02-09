@@ -107,15 +107,17 @@ export function HeroSection() {
           </AnimatePresence>
         </motion.div>
 
-        {/* Timeline Markers */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.75 }}
-          className="mt-6"
-        >
-          <TimelineMarkers />
-        </motion.div>
+        {/* Timeline Markers — role viz has its own aligned timeline */}
+        {activeViz !== 'role' && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.75 }}
+            className="mt-6"
+          >
+            <TimelineMarkers />
+          </motion.div>
+        )}
 
         {/* Scroll indicator */}
         <motion.div

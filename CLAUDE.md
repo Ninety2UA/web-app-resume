@@ -41,14 +41,16 @@ src/
 │   ├── layout.tsx    # Root layout (fonts, metadata)
 │   ├── page.tsx      # Home: Hero + Experience + Contact
 │   ├── globals.css   # Global styles + Tailwind
-│   └── portfolio/    # /portfolio route
+│   ├── portfolio/    # /portfolio route
+│   └── collaboration/ # /collaboration route (service offerings)
 ├── components/       # React components by section
 │   ├── layout/       # FloatingNav, Footer
 │   ├── hero/         # HeroSection, viz toggle, 3 visualizations
 │   ├── experience/   # ExperienceSection, ExperienceCard
 │   ├── filters/      # FilterPills
 │   ├── contact/      # ContactSection (Formspree)
-│   └── portfolio/    # PortfolioGrid, ProjectCard
+│   ├── portfolio/    # PortfolioGrid, ProjectCard
+│   └── collaboration/ # OfferingCard, OfferingsGrid, PackageCards, WorkingStyleSection
 ├── data/             # Static TypeScript data files
 ├── hooks/            # useScrollAnimation, etc.
 └── lib/              # Utility functions
@@ -61,6 +63,7 @@ docs/
 ├── Plan.md           # Implementation plan (phases & tasks)
 ├── STATUS.md         # High-level project status
 ├── tasks.md          # Detailed task tracker (T01–T32 + launch)
+├── Offering.md       # Service offerings content source
 ├── Dominik_Benger_Resume_4Page.md  # Source resume content
 └── resume-file/      # Original PDF resume source
 ```
@@ -82,11 +85,11 @@ docs/
 - **Spacing:** 8px grid system
 
 ## Architecture Decisions
-- Single scrollable page (Hero → Experience → Contact/Footer) + `/portfolio` route
-- Floating centered nav bar appears after scrolling past hero
-- 3 visualization tabs: Career Path (SVG), Skills & Tech Stack (interactive tag grid), Industries (stacked bar + cards)
+- Single scrollable page (Hero → Experience → Contact/Footer) + `/portfolio` (hidden) and `/collaboration` routes
+- Floating centered nav bar always visible at top (links: Home, Experience, Collaboration, PDF). Portfolio link removed (page preserved for v2).
+- 3 visualization tabs: Career Path (SVG with integrated timeline), Skills & Tech Stack (interactive tag grid), Industries (stacked bar + cards)
 - Pill/chip filter toggles above experience section
-- Clickable era markers (not draggable timeline slider)
+- RoleEvolution uses year-proportional X positioning (2014-2025) with timeline integrated into SVG
 - Static PDF download (pre-built, not generated)
 - All career data in TypeScript files under `src/data/`
 - Client components marked with 'use client' for interactivity
@@ -113,7 +116,9 @@ The filter bar uses `top-[68px]` to sit below the FloatingNav (which is ~44px ta
 - **Formspree ID** — `ContactSection.tsx:17` uses `mojnqgnq`. Endpoint: `https://formspree.io/f/mojnqgnq`.
 - **PDF path must match** — download button points to `/resume/Dominik_Benger_Resume.pdf`; source file in `docs/resume-file/` has spaces but was copied with underscores to `public/resume/`.
 - **SVG text in RoleEvolution** uses Tailwind `fill-warm-*` classes inside `<text>` elements — requires Tailwind theme to be loaded; won't render in raw SVG viewers.
-- **RoleEvolution text anchoring** — First node uses `textAnchor="start"`, last uses `"end"`, middle nodes use `"middle"`. This prevents edge label clipping with minimal SVG padding (20px).
+- **RoleEvolution text anchoring** — Nodes 0-1 use `textAnchor="start"`, last node uses `"end"`, middle nodes use `"middle"`. This prevents edge label clipping with minimal SVG padding (20px).
+- **RoleEvolution label placement** — Even indices (0,2,4) below, odd indices (1,3,5) above, last node always above. Above offsets: -50 (title) / -34 (subtitle). Below offsets: +38 / +52. SVG bezier curves can intersect labels between adjacent nodes — place labels on the side away from the curve direction.
+- **RoleEvolution year positioning** — Nodes positioned proportionally by year (2014-2025). Early career nodes (2014-2018) are bunched in left ~36% of chart. Timeline eras integrated into SVG bottom, sharing same `yearToX()` function.
 - **`prefers-reduced-motion`** is handled globally in CSS (forces 0.01ms durations) — but Framer Motion `animate` props still fire; they just complete instantly. Don't rely on animation callbacks for logic.
 - **`.gitignore` has `*.png`** — OG image required an exception: `!src/app/opengraph-image.png`.
 
@@ -121,7 +126,8 @@ The filter bar uses `top-[68px]` to sit below the FloatingNav (which is ~44px ta
 - **Skip-to-content**: `layout.tsx` — sr-only link targeting `#main-content`, visible on focus
 - **Viz toggle**: `VisualizationToggle` uses `role="tablist"` / `role="tab"` + `aria-selected` + `aria-controls="viz-panel"`; `HeroSection` viz area has `role="tabpanel" id="viz-panel"`
 - **Filter pills**: `role="group"` + `aria-pressed` on each toggle button
-- **FloatingNav**: `aria-expanded` on mobile toggle, `role="menu"` / `role="menuitem"`, Escape key closes menu, `aria-current="page"` via `usePathname`
+- **FloatingNav**: `aria-expanded` on mobile toggle, `role="menu"` / `role="menuitem"`, Escape key closes menu, `aria-current="page"` via `usePathname`. Route detection uses `link.href.startsWith('/')` for generalized matching.
+- **Collaboration page**: Accordion `aria-expanded` on deliverables toggle buttons
 - **SVG visualizations**: All have `role="img"` + descriptive `aria-label`; decorative elements use `aria-hidden="true"`
 - **SkillsTechStack**: Interactive category filter buttons; clicking a category isolates it, clicking again (or "All") resets
 - **Contact form**: `aria-required` on fields, `role="alert"` on error, `role="status"` on success
@@ -141,14 +147,14 @@ The filter bar uses `top-[68px]` to sit below the FloatingNav (which is ~44px ta
 
 ## Performance Profile
 - Build: 0 warnings, all pages statically generated (SSG)
-- `/` = 156 kB first load JS (gzipped), `/portfolio` = 146 kB
+- `/` = 156 kB first load JS (gzipped), `/portfolio` = 146 kB, `/collaboration` = 148 kB
 - CSS bundle = 25 kB raw (Tailwind purge working correctly)
 - `next.config.ts`: `reactStrictMode: true`, `poweredByHeader: false`, AVIF+WebP image formats
 - Deferred optimizations: dynamic imports for vizs, lazy loading below-fold, font weight subsetting
 
 ## Repository
 - **GitHub:** https://github.com/Ninety2UA/web-app-resume
-- **Commits:** `fb6a036` (Phases 0–7), `34e5062` (Phase 8 + launch prep), `53bdd97` (post-launch UI fixes), `47ba309` (Skills & Tech Stack merge)
+- **Commits:** `fb6a036` (Phases 0–7), `34e5062` (Phase 8 + launch prep), `53bdd97` (post-launch UI fixes), `47ba309` (Skills & Tech Stack merge), `18a2ea5` (Collaboration page)
 - **Branch:** `main`
 
 ## Project Documentation
@@ -160,7 +166,10 @@ The filter bar uses `top-[68px]` to sit below the FloatingNav (which is ~44px ta
 Always read these files before starting any work.
 
 ## Session Continuity
-- **All development complete** — Phases 0–8 done, T01–T32 all passed
-- **Post-launch UI fixes committed** at `53bdd97`: nav/filter overlap, chart label typo, chart padding
-- **Skills & Tech Stack merge committed** at `47ba309`: merged "Skills" + "Tech Stack" tabs into one "Skills & Tech Stack" tab with 7 categories (77 skills), interactive category filtering, 3 new accent colors (sky/rose/emerald). Deleted `SkillsProgression.tsx` and `TechStack.tsx`.
+- **All development complete** — Phases 0–9 done, T01–T34 all passed
+- **Uncommitted changes** (8 files): FloatingNav always visible, portfolio hidden from nav, RoleEvolution year-proportional positioning + integrated timeline, HeroSection conditional TimelineMarkers, Footer cleanup, doc updates.
+- **FloatingNav** — always visible (removed scroll threshold + animation wrapper). Portfolio link removed, kept Home/Experience/Collaboration/PDF.
+- **Portfolio page hidden** — `/portfolio` route still works but no links point to it. Files preserved for future v2.
+- **RoleEvolution major rework** — nodes positioned by year (2014-2025) instead of evenly spaced. Timeline integrated into SVG bottom. Label placement: even below, odd above, last above. SVG height 420→500.
+- **HeroSection** — standalone TimelineMarkers hidden when role viz is active (SVG has its own).
 - Remaining: Vercel deployment + custom domain (dbenger.com), optional company logos

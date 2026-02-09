@@ -151,6 +151,60 @@ Merged "Skills" (bar chart, T16) and "Tech Stack" (timeline, T18) into a single 
 - **Deleted**: `SkillsProgression.tsx`, `TechStack.tsx`
 - **Verified**: Build clean, tested at 375px + 1280px, category filtering works
 
+## Phase 9: Collaboration Page
+| Task | Description | Status |
+|------|-------------|--------|
+| T34 | Build Collaboration page (`/collaboration`) with service offerings | **Done** |
+| U04 | Fix RoleEvolution label overlap (node 0 vs node 1) | **Done** |
+| U05 | Fix RoleEvolution labels touching circle nodes (increase offsets) | **Done** |
+
+### T34 Detail — Collaboration Page (Complete)
+
+New `/collaboration` route with service offerings from `docs/Offering.md`:
+- **Data**: `src/data/offerings.ts` — 10 core offerings (typed with audience/outcome/deliverables), 3 packages (Audit/Build/Operate), 4 add-ons, 3 working principles, 4 tool categories
+- **Components**: `OfferingCard.tsx` (accordion via Framer Motion AnimatePresence, `border-l-4` accent, numbered badge), `OfferingsGrid.tsx` (2-col at lg), `PackageCards.tsx` (3-col at md, accent top stripe, checkmark items, add-ons section), `WorkingStyleSection.tsx` (3-col principle cards, tool pills by category)
+- **Page**: Server component — hero, Core Offerings, Simple Packages + Add-ons, Working Style + Tooling, CTA (matching portfolio)
+- **Nav**: Added "Collaboration" to FloatingNav, generalized `isCurrent` with `startsWith('/')`
+- **Build**: 148 kB first load, SSG, responsive at 375px + 1280px, all accordions tested
+
+### U04–U05 Detail — RoleEvolution Label Fixes (Superseded by U06–U09)
+
+- **U04**: Originally forced node 1 above. Superseded by U06 year-proportional rework.
+- **U05**: Originally adjusted offsets. Superseded by U06 rework with new offset scheme.
+
+## Phase 10: UI Rework (Uncommitted)
+| Task | Description | Status |
+|------|-------------|--------|
+| U06 | RoleEvolution year-proportional positioning + integrated timeline | **Done** |
+| U07 | FloatingNav always visible (remove scroll threshold) | **Done** |
+| U08 | Hide portfolio from navigation (preserve files for v2) | **Done** |
+| U09 | HeroSection: hide standalone TimelineMarkers when role viz active | **Done** |
+
+### U06 Detail — RoleEvolution Year-Proportional Positioning
+
+Major rework of RoleEvolution chart:
+- **X positioning**: `yearToX(year) = padding.left + ((year - 2014) / 11) * chartW` — nodes at actual year positions instead of evenly spaced
+- **Label placement**: Even indices (0,2,4) below, odd (1,3,5) above, last node always above. Avoids bezier curve overlapping labels.
+- **Offsets**: Above -50 (title) / -34 (subtitle). Below +38 / +52.
+- **Timeline integrated**: Era markers rendered inside SVG at y=448, sharing same `yearToX()`. Eras: 2014-15, 2016-17, 2017-18, 2018-21, 2021-25, 2025+.
+- **SVG dimensions**: 900×500 (was 900×420), padding top=70, bottom=130.
+- **Text anchoring**: nodes 0-1 `start`, last `end`, middle `middle`. Eras: first `start`, last `end`, middle `middle`.
+
+### U07 Detail — FloatingNav Always Visible
+
+- Removed `visible` state (was `useState(false)`)
+- Removed scroll listener (triggered at `window.innerHeight * 0.6`)
+- Replaced `motion.nav` + `AnimatePresence` wrapper with plain `<nav>`
+- Removed "Portfolio" link from nav links array
+- Mobile dropdown animation preserved (still uses `motion`/`AnimatePresence`)
+
+### U08 Detail — Portfolio Hidden
+
+- Removed "Portfolio" link from FloatingNav `navLinks` array
+- Removed "Portfolio" link + separator from Footer
+- Removed unused `Link` import from Footer
+- Page files (`src/app/portfolio/`, `src/components/portfolio/`, `src/data/portfolio.ts`) preserved
+
 ## Pre-Launch Checklist
 | Item | Description | Status |
 |------|-------------|--------|

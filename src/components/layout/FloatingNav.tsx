@@ -9,12 +9,10 @@ import { cn } from '@/lib/utils'
 const navLinks = [
   { label: 'Home', href: '#top' },
   { label: 'Experience', href: '#experience' },
-  { label: 'Portfolio', href: '/portfolio' },
   { label: 'Collaboration', href: '/collaboration' },
 ]
 
 export function FloatingNav() {
-  const [visible, setVisible] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const pathname = usePathname()
 
@@ -29,25 +27,8 @@ export function FloatingNav() {
     return () => document.removeEventListener('keydown', handleKeyDown)
   }, [mobileOpen])
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const heroHeight = window.innerHeight * 0.6
-      setVisible(window.scrollY > heroHeight)
-    }
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
   return (
-    <AnimatePresence>
-      {visible && (
-        <motion.nav
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.3, ease: 'easeOut' }}
-          className="fixed top-4 left-1/2 -translate-x-1/2 z-50"
-        >
+    <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50">
           {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-1 bg-warm-50/80 backdrop-blur-md border border-warm-200 rounded-full px-2 py-1.5 shadow-nav">
             {navLinks.map((link) => {
@@ -140,8 +121,6 @@ export function FloatingNav() {
               )}
             </AnimatePresence>
           </div>
-        </motion.nav>
-      )}
-    </AnimatePresence>
+    </nav>
   )
 }

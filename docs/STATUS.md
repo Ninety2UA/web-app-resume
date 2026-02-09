@@ -2,7 +2,7 @@
 
 ## What we're building
 - Interactive resume web app for Dominik Benger (dbenger.com) — replaces a static PDF with animated visualizations, a filterable career timeline, and a contact form
-- Single scrollable page (Hero → Experience → Contact) plus a `/portfolio` route
+- Single scrollable page (Hero → Experience → Contact) plus `/portfolio` and `/collaboration` routes
 - Deployed via Vercel; all career data lives in TypeScript files, no CMS
 
 ## What's done
@@ -12,14 +12,15 @@
 | `34e5062` Phase 8 + launch prep | T29 responsive, T30 accessibility, T31 performance, T32 final QA, Formspree wired, OG image, docs |
 | `53bdd97` Post-launch UI fixes | Nav/filter overlap fix, chart label typo, chart padding, docs update |
 | `47ba309` Skills & Tech Stack merge | Merged Skills + Tech Stack into single interactive tag grid (7 categories, 77 skills), reduced viz tabs 4→3, startup ritual in CLAUDE.md |
+| `18a2ea5` Collaboration page | New `/collaboration` route: 10 service offerings (accordion cards), 3 packages (Audit/Build/Operate), add-ons, working style + tooling pills, nav updated |
 
-Key files: 24 TSX/TS source files across `src/`, 3 data files, 3 visualizations (Career Path, Skills & Tech Stack, Industries), Tailwind theme, global styles, favicon, OG image.
+Key files: 30 TSX/TS source files across `src/`, 4 data files, 3 visualizations (Career Path, Skills & Tech Stack, Industries), Tailwind theme, global styles, favicon, OG image.
 
-**All development tasks (T01–T32) are complete.** Code is pushed to GitHub.
+**All development tasks (T01–T34) are complete.** Code is pushed to GitHub.
 
 ## Current state of the code
 - `npm run build` — passes clean (0 errors, 0 warnings, all pages SSG)
-- `npm run dev` — runs on localhost:3000, both `/` and `/portfolio` render
+- `npm run dev` — runs on localhost:3000, `/`, `/portfolio`, and `/collaboration` all render
 - Contact form wired to Formspree endpoint `mojnqgnq` — live and functional
 - Open Graph image at `src/app/opengraph-image.png` (1200×630, auto-served by Next.js)
 - No tests (no test framework installed)
@@ -35,8 +36,8 @@ Key files: 24 TSX/TS source files across `src/`, 3 data files, 3 visualizations 
 | Font | Plus Jakarta Sans via `next/font/google` |
 | Contact | Formspree POST (client-side), honeypot spam field |
 | Analytics | Vercel Analytics |
-| Data model | Static TS files in `src/data/` — `experience.ts` (typed entries with sections, bullets, tags), `skills.ts` (7 skill categories + industry + role data), `portfolio.ts` (project cards) |
-| UX | Floating pill nav (appears after 60vh scroll), sticky filter pills, pill toggles are inclusive OR, scroll-triggered fade-in animations (once), `prefers-reduced-motion` respected |
+| Data model | Static TS files in `src/data/` — `experience.ts` (typed entries with sections, bullets, tags), `skills.ts` (7 skill categories + industry + role data), `portfolio.ts` (project cards), `offerings.ts` (10 offerings, 3 packages, add-ons, tools) |
+| UX | Floating pill nav (always visible), sticky filter pills, pill toggles are inclusive OR, scroll-triggered fade-in animations (once), `prefers-reduced-motion` respected |
 | Cut from v1 | Shareable filter URLs, tech tag click-to-filter, dynamic PDF gen, blog/CMS |
 
 ## Completed tasks
@@ -62,6 +63,21 @@ Key files: 24 TSX/TS source files across `src/`, 3 data files, 3 visualizations 
 - **3 new accent colors**: Sky (#5B8DB8), Rose (#D4697A), Emerald (#4A9B6E) — defined as inline styles in component colorMap (not in Tailwind config).
 - **Deleted**: `SkillsProgression.tsx`, `TechStack.tsx`, old `skillCategories` and `techTimeline` data exports.
 - **VizType reduced**: 4 tabs → 3 tabs (Career Path | Skills & Tech Stack | Industries).
+
+## Collaboration page (committed at `18a2ea5`)
+- [x] **New `/collaboration` route** — service offerings page sourced from `docs/Offering.md`
+- **Data**: `src/data/offerings.ts` — 10 core offerings, 3 packages (Audit/Build/Operate), 4 add-ons, 3 working principles, 4 tool categories
+- **Components**: `OfferingCard.tsx` (accordion deliverables, accent bar, number badge), `OfferingsGrid.tsx` (2-col responsive), `PackageCards.tsx` (3-tier comparison + add-ons), `WorkingStyleSection.tsx` (principles cards + tool pills)
+- **Page**: Server component with hero, 5 sections, CTA matching portfolio pattern
+- **Nav**: Added "Collaboration" link to FloatingNav, generalized `isCurrent` route detection
+- **Build**: 148 kB first load, SSG, 0 warnings
+
+## UI rework (uncommitted)
+- [x] **FloatingNav always visible** — removed scroll-threshold visibility (60vh). Nav renders immediately as plain `<nav>` (no animation wrapper). Mobile dropdown still animates. Removed `visible` state + scroll listener.
+- [x] **Portfolio hidden from navigation** — removed "Portfolio" link from FloatingNav and Footer. Page files intact at `/portfolio` for future v2. Cleaned up unused `Link` import in Footer.
+- [x] **RoleEvolution year-proportional positioning** — nodes positioned by actual year (2014-2025) instead of evenly spaced. Early-career roles (2014-2018) bunched left, later roles spread right. Timeline eras integrated into SVG bottom sharing same `yearToX()` function, guaranteeing alignment. SVG height 420→500.
+- [x] **RoleEvolution label fix** — "Marketing & BI Intern" moved below node (even indices below, odd above, last always above). Offsets: above -50/-34, below +38/+52. Avoids bezier curve intersection.
+- [x] **HeroSection timeline conditional** — standalone TimelineMarkers hidden when role viz is active (SVG has its own). Shows for Skills & Industries tabs.
 
 ## Remaining (deployment)
 - [ ] Set up Vercel project + custom domain (dbenger.com)
