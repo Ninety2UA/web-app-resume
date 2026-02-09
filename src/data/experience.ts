@@ -21,6 +21,7 @@ export interface ExperienceEntry {
   industries: string[]
   roleType: string[]
   isAdditional?: boolean
+  logo?: string
 }
 
 export const experiences: ExperienceEntry[] = [
@@ -28,6 +29,7 @@ export const experiences: ExperienceEntry[] = [
     id: 'career-break',
     company: 'Career Break',
     companyShort: 'Gap Year',
+    logo: '/logos/ai.png',
     role: 'AI & Technology Focus',
     location: 'Munich, Germany',
     startDate: '2025-02',
@@ -58,49 +60,71 @@ export const experiences: ExperienceEntry[] = [
     id: 'google-lcs',
     company: 'Google',
     companyShort: 'Google',
+    logo: '/logos/google.png',
     role: 'Senior Analytical Lead',
     team: 'Large Customer Sales, Northern Europe',
     location: 'Amsterdam, Netherlands',
     startDate: '2021-09',
     endDate: '2025-02',
-    summary: 'Partnered with the largest apps and mobile gaming advertisers in Benelux + Nordics as a strategic partner and industry thought leader.',
+    summary: 'Google\'s Large Customer Sales (LCS) teams are strategic partners and industry thought leaders to the world\'s leading brands. LCS teams continuously challenge how customers think about their business and how Google can support growth. Partnered with the largest apps and mobile gaming advertisers in Benelux + Nordics.',
     sections: [
       {
         title: 'Revenue & Client Impact',
         bullets: [
-          'Partnered with leading global app and gaming advertisers across Northern Europe, delivering $XXXmm+ per quarter with 40% average YoY growth.',
-          'Engaged C-suite and senior executives to present insights and strategic recommendations, building credibility at the leadership level.',
-          'Collaborated on development and implementation of business strategies contributing to sustained revenue growth and market leadership.',
+          'Partnered with leading global app and gaming advertisers across Northern Europe to develop innovative digital solutions, leveraging Google\'s resources to drive business growth and exceed client objectives—delivering $XXXmm+ per quarter with 40% average YoY growth.',
+          'Engaged C-suite and senior executives to present insights and strategic recommendations, building credibility and driving high-impact conversations at the leadership level.',
+          'Collaborated on the development and implementation of business strategies that contributed to sustained revenue growth and market leadership.',
         ],
       },
       {
         title: 'Performance Operations & Analytics',
         bullets: [
-          'Built KPI scorecards, alerting systems, and cohort/LTV views in BigQuery and Looker; translated signals into actions reducing time-to-insight.',
-          'Operated a "daily performance engine": automated data pipelines, performance decoding, and executive dashboards for rapid optimization decisions.',
-          'Combined change-history forensics with funnel analysis to diagnose performance swings and prioritize highest-marginal-gain actions.',
+          'Owned daily pacing and analytics across Google Ads: built KPI scorecards, alerting systems, and cohort/LTV views in BigQuery and Looker; translated signals into actions (budget shifts, bidding, creatives), reducing time-to-insight and improving operational efficiency.',
+          'Embedded with client growth teams to manage day-to-day performance operations: monitored ROAS, CPI, LTV, and retention metrics; triaged anomalies; and guided bid, budget, and creative optimizations that sustained targets while unlocking incremental scale.',
+          'Operated a "daily performance engine": automated data pipelines, performance decoding, and executive dashboards; led standups with senior stakeholders to align on risks and opportunities and trigger rapid optimization decisions.',
+          'Delivered hands-on analytics and optimization: combined change-history forensics with funnel analysis to diagnose performance swings and prioritize actions with the highest marginal gain.',
+        ],
+      },
+      {
+        title: 'Experimentation & Insights',
+        bullets: [
+          'Led day-to-day experimentation and analysis: designed A/B and lift tests, quantified impact on CPA, ROAS, and retention, and codified winning tactics into playbooks adopted across markets.',
+          'Coordinated cross-team execution across marketing, product, and data functions to connect campaign metrics to downstream events (in-app revenue, LTV), ensuring optimizations served business outcomes rather than vanity metrics.',
+          'Converted findings into scalable artifacts (SOPs, checklists, GTM documentation), raising operational consistency and enabling rapid onboarding across accounts and markets.',
+        ],
+      },
+      {
+        title: 'Cross-Functional Leadership & Strategy',
+        bullets: [
+          'Led cross-functional teams in executing complex, data-driven initiatives designed to scale operations and improve advertiser performance.',
+          'Built and implemented comprehensive cross-functional plans, delivering tailored strategic support that accelerated business growth.',
+          'Mentored stakeholders and managed complex technical relationships, providing ongoing consultative support to high-priority clients.',
+          'Organized and directed workflows across cross-functional teams, streamlining solution discovery and planning processes to increase collaboration and output quality.',
         ],
       },
       {
         title: 'Platform & Capability Building',
         bullets: [
-          'Pioneered an end-to-end performance insights platform, resulting in commercialized offerings and improved client satisfaction.',
-          'Established the team\'s data and reporting strategic pillar; led Sales-Value-Add and Go-To-Market processes from ideation to execution.',
-          'Founded an internal performance analytics capability with standardized packages generating actionable recommendations.',
+          'Pioneered and operationalized the end-to-end process for a performance insights platform, resulting in commercialized offerings, improved service quality, and higher client satisfaction.',
+          'Established the team\'s data and reporting strategic pillar; led Sales-Value-Add and Go-To-Market (GTM) processes from ideation to execution.',
+          'Founded an internal performance analytics capability with standardized packages and narratives to generate actionable recommendations and measurable performance improvements.',
+          'Demonstrated prototypes and proofs-of-concept using Google Cloud infrastructure and BigQuery, enabling feedback loops that improved tool usability and data access.',
         ],
       },
       {
-        title: 'AI Integration',
+        title: 'AI Integration & Innovation',
         bullets: [
-          'Leveraged AI and Gemini models to optimize analytics, performance analysis, and internal data workflows.',
-          'Applied conversational analytics within Looker and Google AI Studio, uncovering multimillion-dollar opportunities at scale.',
+          'Leveraged AI and Gemini models to optimize analytics, performance analysis, and internal data workflows—streamlining reporting, surfacing advanced insights, and reducing time-to-insight.',
+          'Applied Gemini-assisted features to dashboards, surfacing narrative insights, next-best actions, and risk flags; accelerated weekly business review preparation and improved cross-functional alignment.',
+          'Applied conversational analytics within Looker and Google AI Studio to enhance product and performance insights, uncovering multimillion-dollar opportunities at scale.',
+          'Integrated emerging AI capabilities into day-to-day operations, scaling strategic recommendations and improving stakeholder alignment with product impact.',
         ],
       },
     ],
     keyProjects: [
       {
         title: 'iOS SKAN Reporting Pack',
-        description: 'Comprehensive performance reporting solution integrating Google Ads App Campaign and SKAdNetwork data for seamless iOS campaign analysis. Published externally.',
+        description: 'Developed a comprehensive performance reporting solution integrating Google Ads App Campaign and SKAdNetwork data for seamless iOS campaign analysis. Combined Google Ads change history and campaign performance reports with SKAdNetwork reports to visualize iOS performance data and translate SKAdNetwork values into meaningful metrics with real-time SKAN CV schema decoding and cohort analysis. Solution officially included in the internal Sales-Value-Add solutions catalog and published externally.',
         link: 'https://github.com/google/app-reporting-pack',
       },
     ],
@@ -112,45 +136,56 @@ export const experiences: ExperienceEntry[] = [
     id: 'google-igt',
     company: 'Google',
     companyShort: 'Google',
+    logo: '/logos/google.png',
     role: 'Technical Apps Lead',
     team: 'EMEA International Growth Team',
     location: 'Hamburg, Germany',
     startDate: '2018-12',
     endDate: '2021-08',
-    summary: 'Accelerated international growth of customers through in-depth strategic and operational consultations across EMEA.',
+    summary: 'The EMEA International Growth Team is a specialist consultative sales organization responsible for accelerating the international growth of customers through in-depth strategic and operational consultations, scalable initiatives, and opening new revenue lines. Managed large advertisers across EMEA.',
     sections: [
       {
         title: 'Client Management & Revenue Growth',
         bullets: [
           'Managed and consulted over 25 clients across Gaming and Non-Gaming app verticals, driving 55% average YoY increase in market exports.',
-          'Adopted a hands-on approach to craft personalized performance strategies, achieving 100% client satisfaction rate.',
-          'Developed customized tools that increased client productivity by 40%.',
+          'Led export revenue growth by advising gaming clients on market expansion and improving performance in key markets through a data-driven approach.',
+          'Adopted a hands-on approach to craft personalized performance and market export strategies, achieving 100% client satisfaction rate through direct communication and customized tools.',
+          'Developed and implemented customized tools that increased client productivity by 40%.',
         ],
       },
       {
         title: 'Executive Engagement & Thought Leadership',
         bullets: [
-          'Delivered workshops to C-level management on gaming strategy, resulting in success stories published on Think with Google.',
-          'Presented gaming growth opportunities at Google Conferences (GameCamp, AppHub).',
+          'Engaged and advised C-level executives to align strategies with business objectives.',
+          'Delivered workshops to C-level management on gaming strategy and opportunities, resulting in multiple success stories and cases published on Think with Google.',
+          'Advised the Analytical Consultant community on app insights and data knowledge; presented gaming growth opportunities at Google Conferences (GameCamp, AppHub).',
         ],
       },
       {
         title: 'Program Leadership & Scaled Solutions',
         bullets: [
-          'Established and co-led the IGT EMEA Apps & Gaming program, securing 2 funded headcounts.',
-          'Achieved 1,500+ clients adopting narratives and solutions via scaled tools—increasing client investment by 300% YoY.',
-          'Launched and scaled a complete Go-To-Market playbook globally.',
+          'Established and co-led the IGT EMEA Apps & Gaming program, securing 2 funded headcounts with potential for 2 additional roles.',
+          'Collaborated with Global Program Managers for App Development on the export initiative, achieving 1,500+ clients adopting narratives and solutions via scaled tools—increasing client investment by 300% YoY.',
+          'Launched, developed, and scaled a complete Go-To-Market playbook globally, leading the export initiative alongside Global Program Managers for Apps.',
+          'Established scalable narratives, tools, and Go-To-Market processes for sub-regional teams.',
+        ],
+      },
+      {
+        title: 'Reporting & Cross-Functional Operations',
+        bullets: [
+          'Owned and led reporting for cross-functional teams at Google EMEA, streamlining the delivery of App Promo insights at scale.',
+          'Developed impactful narratives and solutions for market expansion and performance enhancement in key markets.',
         ],
       },
     ],
     keyProjects: [
       {
-        title: '"One-Stop Shop" BI Platform',
-        description: 'Comprehensive app campaign insights platform with in-depth analysis and recommendations. Multi-billion USD in revenue coverage; 3,000+ daily/weekly active users.',
+        title: '"One-Stop Shop" App Campaigns BI Platform',
+        description: 'Designed, developed, and managed a comprehensive app campaign insights platform providing in-depth analysis and recommendations for client performance, creative trends, seasonal trends, and benchmarking. Automated data retrieval and visualization processes. Impact: Multi-billion USD in revenue coverage; 3,000+ daily/weekly internal active users.',
       },
       {
-        title: 'Global Data Sharing Compliance Policy',
-        description: 'Identified compliance limitations, initiated comprehensive policy solution. Co-led global training rollout published for all App Campaigns sales teams worldwide.',
+        title: 'Global App Campaigns Data Sharing Compliance Policy & Framework',
+        description: 'Identified compliance limitations restricting advertisers from reaching full campaign potential; initiated development of a comprehensive policy solution. Collaborated with Global Product Leads and Go-To-Market teams to design and launch the policy, officially published for all App Campaigns sales teams worldwide. Co-led the global training rollout.',
       },
     ],
     technologies: ['Google Ads', 'BigQuery', 'Python', 'Looker Studio', 'App Campaigns'],
@@ -161,20 +196,22 @@ export const experiences: ExperienceEntry[] = [
     id: 'google-smb',
     company: 'Google',
     companyShort: 'Google',
+    logo: '/logos/google.png',
     role: 'Account Manager',
     team: 'Marketing Solutions, SMB Ad Sales',
     location: 'Dublin, Ireland',
     startDate: '2017-08',
     endDate: '2018-12',
-    summary: 'Managed top-tier clients in UK/I and CE/CEE markets, excelling in growing the book of business through customized digital strategies.',
+    summary: 'Managed top-tier clients in the UK/I and CE/CEE markets with revenue under management ranging from $XXXk to $XXMM per quarter. Excelled in growing the book of business by developing customized digital strategies that matched client needs with Google solutions.',
     sections: [
       {
         title: 'Key Achievements',
         bullets: [
-          'Achieved 135% of Q4\'17 target a month early; 157% of Q1\'18 target two months early; exceeded Q2-Q3\'18 revenue by +15%.',
-          'Advised 20 mid-size clients (Apps/Retail/Tech/Travel) on digital strategy, growth, and export; built strategies for 140 SMBs.',
-          'Drove +383% audience depth (top-18 CE pod) and +158% automation growth; scaled RLSA from 87% to 562% with >50% win rate.',
-          'Trained 50+ representatives across EMEA/US on automation and insight generation.',
+          'Achieved 135% of Q4\'17 target a month early; 157% of Q1\'18 target two months early; exceeded Q2–Q3\'18 revenue by +15% and hit targets a month early. Awards: H1 CE Brilliant Basics winner; GMS UK&I Audience Champion.',
+          'Advised 20 mid-size clients (Apps/Retail/Tech/Travel; $XXXk to $XXMM per quarter) on digital strategy, growth, and export; mapped needs to Google solutions for high ROAS. Built strategies for 140 SMBs ($XXk–$XXXk/quarter).',
+          'Drove +383% audience depth (top-18 CE pod) and +158% automation growth; scaled RLSA from 87% to 562% with >50% win rate; led team in Attribution, Audience Depth, Display & Search Auto-bidding.',
+          'Served as analytical consultant across Google; shipped automated QBRs, reports, and scripts; delivered AppDev performance dashboard and shareable multi-market brand-popularity models; provided EMEA-wide insights and technical support.',
+          'Trained 50+ representatives across EMEA/US on automation and insight generation; upgraded AppDev KPI best practices via automation; led CE/CEE projects to build an information/insights hub and helped develop the startup-client pipeline.',
         ],
       },
     ],
@@ -186,18 +223,18 @@ export const experiences: ExperienceEntry[] = [
     id: 'google-intern',
     company: 'Google',
     companyShort: 'Google',
+    logo: '/logos/google.png',
     role: 'Analytical Consultant Intern',
     location: 'Zagreb, Croatia',
     startDate: '2017-08',
     endDate: '2021-12',
-    summary: 'Supported Google LCS across CEE markets, delivering quantitative market analyses and presenting insights to Industry Managers.',
+    summary: 'Supported Google LCS across CEE markets, delivering quantitative market landscape work and presenting insights to Industry Managers.',
     sections: [
       {
         title: 'Contributions',
         bullets: [
-          'Supported Google LCS across CEE (Apps, Airlines, Gaming, IT, Fashion, Retail, Government, OTAs).',
-          'Led CEE ad market sizing (online/offline), built SQL/Looker Studio data products including a multi-market brand-popularity tracker.',
-          'Contributed to portfolio modeling and quarter-by-quarter forecasting.',
+          'Supported Google LCS across CEE (Apps, Airlines, Gaming, IT, Fashion, Retail, Government, OTAs), delivering quantitative market landscape work and presenting insights to Industry Managers.',
+          'Led a CEE ad market sizing (online/offline), built SQL/Looker Studio data products including a multi-market brand-popularity tracker, and contributed to portfolio modeling and quarter-by-quarter forecasting.',
         ],
       },
     ],
@@ -210,17 +247,18 @@ export const experiences: ExperienceEntry[] = [
     id: 'q-agency',
     company: 'Q Agency',
     companyShort: 'Q Agency',
+    logo: '/logos/q-agency.png',
     role: 'Business Development Manager',
     location: 'Zagreb, Croatia',
     startDate: '2016-01',
     endDate: '2017-01',
-    summary: 'Operated at a Top 10 World\'s Best Agency (Clutch, 2022), owning the UK market and full sales cycle.',
+    summary: 'Operated at a Top 10 World\'s Best Agency (Clutch, 2022); owned the UK market and the full sales cycle from pre-sales to post-sales.',
     sections: [
       {
         title: 'Key Contributions',
         bullets: [
           'Owned the UK market and the full sales cycle from pre-sales to post-sales (presentations, negotiation, contracting, account management).',
-          'Built the sales operating system: introduced new sales strategy and toolset, implemented CRM with trainings, and defined reporting metrics.',
+          'Built the sales operating system: introduced a new sales strategy and toolset, implemented CRM for the team with trainings, and defined reporting metrics/cadence to track performance and hit goals.',
         ],
       },
     ],
@@ -233,17 +271,17 @@ export const experiences: ExperienceEntry[] = [
     id: 'loreal',
     company: "L'Oréal",
     companyShort: "L'Oréal",
+    logo: '/logos/loreal.png',
     role: 'Marketing Analyst Intern',
     location: 'Zagreb, Croatia',
     startDate: '2015-09',
     endDate: '2015-12',
-    summary: 'Supported PMs and Brand Managers on Croatia GTM: localized global concepts, ran launch ops, and managed media budgets.',
+    summary: 'Supported PMs and Brand Managers on Croatia GTM: localized global concepts/ads, ran launch ops and catalog management, built sales/brand/competitor analyses, and planned/optimized the annual media budget.',
     sections: [
       {
         title: 'Key Contributions',
         bullets: [
-          'Localized global concepts/ads, ran launch ops and catalog management for Croatia market.',
-          'Built sales/brand/competitor analyses and planned/optimized the annual media budget.',
+          'Supported PMs and Brand Managers on Croatia GTM: localized global concepts/ads, ran launch ops and catalog management, built sales/brand/competitor analyses, and planned/optimized the annual media budget.',
         ],
       },
     ],
@@ -256,18 +294,18 @@ export const experiences: ExperienceEntry[] = [
     id: 'henkel',
     company: 'Henkel',
     companyShort: 'Henkel',
-    role: 'Marketing & Business Intelligence Intern',
+    logo: '/logos/henkel.png',
+    role: 'Marketing and Business Intelligence Intern',
     location: 'Zagreb, Croatia',
     startDate: '2014-12',
     endDate: '2015-08',
-    summary: 'B2B media planning and business intelligence reporting across IMEA region.',
+    summary: 'Ran B2B media planning (print/online) with partner coordination and audience analysis; delivered monthly IMEA slow-mover analytics and contributed to supply-chain reporting migration.',
     sections: [
       {
         title: 'Key Contributions',
         bullets: [
-          'Ran B2B media planning (print/online) with partner coordination and audience analysis.',
-          'Delivered monthly IMEA slow-mover analytics (SAP/Microsoft BI) to the Regional Lead.',
-          'Contributed to migrating supply-chain reporting from SAP to Microsoft BI.',
+          'Ran B2B media planning (print/online) with partner coordination and audience analysis; delivered monthly IMEA slow-mover analytics (SAP/Microsoft BI) to the Regional Lead.',
+          'Contributed to migrating supply-chain reporting from SAP to Microsoft BI; owned OtC KPI tracking and performance.',
         ],
       },
     ],

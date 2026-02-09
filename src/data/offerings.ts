@@ -258,7 +258,7 @@ export const toolCategories: ToolCategory[] = [
   },
   {
     name: 'Marketing measurement',
-    tools: ['Google Ads', 'SKAdNetwork', 'iOS SKAN', 'Adjust', 'AppsFlyer'],
+    tools: ['Google Ads', 'Meta Ads', 'App Campaigns', 'iOS SKAN', 'GA4', 'Firebase', 'Apple Search Ads', 'Adjust', 'AppsFlyer'],
   },
   {
     name: 'Cloud & shipping',
@@ -266,6 +266,12 @@ export const toolCategories: ToolCategory[] = [
   },
   {
     name: 'AI & automation',
-    tools: ['Gemini', 'Claude', 'ChatGPT', 'n8n', 'Make', 'Zapier', 'LangGraph', 'CrewAI'],
+    tools: [
+      'ChatGPT', 'Gemini', 'Claude', 'Manus', 'Perplexity', 'NotebookLM', 'Google AI Studio', 'Notion AI',
+      'Claude Code', 'Cursor', 'Codex', 'Codex CLI', 'Gemini CLI', 'Firebase Studio', 'Antigravity', 'Lovable',
+      'Replit', 'V0', 'Bolt.new', 'Jules', 'AMP', 'Devin', 'Factory', 'Linear', 'Warp',
+      'n8n', 'Make.com', 'LangGraph', 'CrewAI', 'Zapier', 'Gumloop',
+      'ElevenLabs', 'Descript', 'Artlist', 'Higgsfield', 'Granola', 'Wispr Flow', 'ChatPRD',
+    ],
   },
 ]

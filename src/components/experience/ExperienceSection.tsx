@@ -98,7 +98,11 @@ export function ExperienceSection({ activeFilters }: ExperienceSectionProps) {
           className="mt-16 text-center"
         >
           <h3 className="text-xl font-semibold text-warm-700 mb-3">Education</h3>
-          <p className="text-warm-800 font-medium">Rochester Institute of Technology</p>
+          <p className="text-warm-800 font-medium flex items-center justify-center gap-2">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logos/rit.png" alt="RIT logo" className="h-7 w-auto max-w-[80px] object-contain" />
+            Rochester Institute of Technology
+          </p>
           <p className="text-warm-500 text-sm">B.S. in International Business & Marketing · 2017</p>
         </motion.div>
       </div>

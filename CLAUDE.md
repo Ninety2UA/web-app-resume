@@ -87,9 +87,9 @@ docs/
 ## Architecture Decisions
 - Single scrollable page (Hero → Experience → Contact/Footer) + `/portfolio` (hidden) and `/collaboration` routes
 - Floating centered nav bar always visible at top (links: Home, Experience, Collaboration, PDF). Portfolio link removed (page preserved for v2).
-- 3 visualization tabs: Career Path (SVG with integrated timeline), Skills & Tech Stack (interactive tag grid), Industries (stacked bar + cards)
+- 3 visualization tabs: Career Path (SVG + aligned HTML timeline), Skills & Tech Stack (interactive tag grid), Industries (stacked bar + cards)
 - Pill/chip filter toggles above experience section
-- RoleEvolution uses year-proportional X positioning (2014-2025) with timeline integrated into SVG
+- RoleEvolution uses year-proportional X positioning (2014-2025) with HTML timeline below chart aligned via shared `yearToX()` percentages
 - Static PDF download (pre-built, not generated)
 - All career data in TypeScript files under `src/data/`
 - Client components marked with 'use client' for interactivity
@@ -116,11 +116,11 @@ The filter bar uses `top-[68px]` to sit below the FloatingNav (which is ~44px ta
 - **Formspree ID** — `ContactSection.tsx:17` uses `mojnqgnq`. Endpoint: `https://formspree.io/f/mojnqgnq`.
 - **PDF path must match** — download button points to `/resume/Dominik_Benger_Resume.pdf`; source file in `docs/resume-file/` has spaces but was copied with underscores to `public/resume/`.
 - **SVG text in RoleEvolution** uses Tailwind `fill-warm-*` classes inside `<text>` elements — requires Tailwind theme to be loaded; won't render in raw SVG viewers.
-- **RoleEvolution text anchoring** — Nodes 0-1 use `textAnchor="start"`, last node uses `"end"`, middle nodes use `"middle"`. This prevents edge label clipping with minimal SVG padding (20px).
-- **RoleEvolution label placement** — Even indices (0,2,4) below, odd indices (1,3,5) above, last node always above. Above offsets: -50 (title) / -34 (subtitle). Below offsets: +38 / +52. SVG bezier curves can intersect labels between adjacent nodes — place labels on the side away from the curve direction.
-- **RoleEvolution year positioning** — Nodes positioned proportionally by year (2014-2025). Early career nodes (2014-2018) are bunched in left ~36% of chart. Timeline eras integrated into SVG bottom, sharing same `yearToX()` function.
+- **RoleEvolution label placement** — Per-node `labelPlacements` array with custom `dx`, `titleDy`, `subtitleDy`, `anchor` per node. Bunched nodes (1-4) use diagonal placement (above-left or below-right) to avoid circles and curves. Nodes 5-6 use standard above. Node 1 must be below-right (not above-left) because it's too close to SVG left edge for `textAnchor="end"`.
+- **RoleEvolution year positioning** — Nodes positioned proportionally by year (2014-2025). Early career nodes (2014-2018) are bunched in left ~36% of chart. Timeline rendered as HTML below SVG, sharing same `yearToX()` percentages for alignment.
 - **`prefers-reduced-motion`** is handled globally in CSS (forces 0.01ms durations) — but Framer Motion `animate` props still fire; they just complete instantly. Don't rely on animation callbacks for logic.
-- **`.gitignore` has `*.png`** — OG image required an exception: `!src/app/opengraph-image.png`.
+- **`.gitignore` has `*.png`** — OG image exception: `!src/app/opengraph-image.png`. Logos exception: `!public/logos/*.png`.
+- **Company logos use `<img>` not `next/image`** — `next/image` produces dimension mismatch warnings when logos have varying aspect ratios. Plain `<img>` with `eslint-disable` block in `ExperienceCard.tsx`. Logos are small static PNGs (3–153KB) that don't benefit from the optimization pipeline.
 
 ## Accessibility Patterns
 - **Skip-to-content**: `layout.tsx` — sr-only link targeting `#main-content`, visible on focus
@@ -143,18 +143,17 @@ The filter bar uses `top-[68px]` to sit below the FloatingNav (which is ~44px ta
 ## Scope Notes
 - Cut from v1: Shareable filter URLs (query params), technology tag click-to-filter
 - Portfolio page uses placeholder project cards (real content TBD)
-- Company logos: use where available, styled text as fallback
 
 ## Performance Profile
 - Build: 0 warnings, all pages statically generated (SSG)
-- `/` = 156 kB first load JS (gzipped), `/portfolio` = 146 kB, `/collaboration` = 148 kB
+- `/` = 156 kB first load JS (gzipped), `/portfolio` = 146 kB, `/collaboration` = 148 kB (reduced from 162 kB after switching logos to `<img>`)
 - CSS bundle = 25 kB raw (Tailwind purge working correctly)
 - `next.config.ts`: `reactStrictMode: true`, `poweredByHeader: false`, AVIF+WebP image formats
 - Deferred optimizations: dynamic imports for vizs, lazy loading below-fold, font weight subsetting
 
 ## Repository
 - **GitHub:** https://github.com/Ninety2UA/web-app-resume
-- **Commits:** `fb6a036` (Phases 0–7), `34e5062` (Phase 8 + launch prep), `53bdd97` (post-launch UI fixes), `47ba309` (Skills & Tech Stack merge), `18a2ea5` (Collaboration page)
+- **Commits:** `fb6a036` (Phases 0–7), `34e5062` (Phase 8 + launch prep), `53bdd97` (post-launch UI fixes), `47ba309` (Skills & Tech Stack merge), `18a2ea5` (Collaboration page), `b5e26ea` (UI rework: chart, timeline, nav)
 - **Branch:** `main`
 
 ## Project Documentation
@@ -166,10 +165,11 @@ The filter bar uses `top-[68px]` to sit below the FloatingNav (which is ~44px ta
 Always read these files before starting any work.
 
 ## Session Continuity
-- **All development complete** — Phases 0–9 done, T01–T34 all passed
-- **Uncommitted changes** (8 files): FloatingNav always visible, portfolio hidden from nav, RoleEvolution year-proportional positioning + integrated timeline, HeroSection conditional TimelineMarkers, Footer cleanup, doc updates.
-- **FloatingNav** — always visible (removed scroll threshold + animation wrapper). Portfolio link removed, kept Home/Experience/Collaboration/PDF.
+- **All development complete** — Phases 0–10 + L04 + U11–U13 done. T01–T34, U06–U13 all passed.
+- **Uncommitted work** — L04 logos + U11–U13 tweaks. Files: `.gitignore`, `experience.ts`, `ExperienceCard.tsx`, `HeroSection.tsx`, `offerings.ts`, + 5 PNGs in `public/logos/`, docs updates.
+- **Company logos** — all 8 experience cards show logos inline with job title (left side). `ExperienceEntry.logo?: string` field. Uses `<img>` (not `next/image`) with eslint-disable block. Logos: google.png, henkel.png, loreal.png, q-agency.png, ai.png.
+- **HeroSection** — bottom padding set to `pb-0` (was `py-20`), reducing gap below "Scroll to explore".
+- **Collaboration tooling** — Marketing Measurement expanded to 9 tools (removed SKAdNetwork, added Meta Ads, Firebase, GA4, App Campaigns, Apple Search Ads). AI & Automation expanded to 37 tools (all from resume).
+- **FloatingNav** — always visible (plain `<nav>`, no scroll threshold). Links: Home, Experience, Collaboration, PDF.
 - **Portfolio page hidden** — `/portfolio` route still works but no links point to it. Files preserved for future v2.
-- **RoleEvolution major rework** — nodes positioned by year (2014-2025) instead of evenly spaced. Timeline integrated into SVG bottom. Label placement: even below, odd above, last above. SVG height 420→500.
-- **HeroSection** — standalone TimelineMarkers hidden when role viz is active (SVG has its own).
-- Remaining: Vercel deployment + custom domain (dbenger.com), optional company logos
+- Remaining: commit all changes, Vercel deployment + custom domain (dbenger.com)

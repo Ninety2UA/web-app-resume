@@ -172,23 +172,26 @@ New `/collaboration` route with service offerings from `docs/Offering.md`:
 - **U04**: Originally forced node 1 above. Superseded by U06 year-proportional rework.
 - **U05**: Originally adjusted offsets. Superseded by U06 rework with new offset scheme.
 
-## Phase 10: UI Rework (Uncommitted)
+## Phase 10: UI Rework (committed at `b5e26ea`)
 | Task | Description | Status |
 |------|-------------|--------|
-| U06 | RoleEvolution year-proportional positioning + integrated timeline | **Done** |
+| U06 | RoleEvolution year-proportional positioning | **Done** |
 | U07 | FloatingNav always visible (remove scroll threshold) | **Done** |
 | U08 | Hide portfolio from navigation (preserve files for v2) | **Done** |
 | U09 | HeroSection: hide standalone TimelineMarkers when role viz active | **Done** |
+| U10 | RoleEvolution: aligned timeline below chart + label overlap fix | **Done** |
 
 ### U06 Detail — RoleEvolution Year-Proportional Positioning
 
 Major rework of RoleEvolution chart:
 - **X positioning**: `yearToX(year) = padding.left + ((year - 2014) / 11) * chartW` — nodes at actual year positions instead of evenly spaced
-- **Label placement**: Even indices (0,2,4) below, odd (1,3,5) above, last node always above. Avoids bezier curve overlapping labels.
-- **Offsets**: Above -50 (title) / -34 (subtitle). Below +38 / +52.
-- **Timeline integrated**: Era markers rendered inside SVG at y=448, sharing same `yearToX()`. Eras: 2014-15, 2016-17, 2017-18, 2018-21, 2021-25, 2025+.
-- **SVG dimensions**: 900×500 (was 900×420), padding top=70, bottom=130.
-- **Text anchoring**: nodes 0-1 `start`, last `end`, middle `middle`. Eras: first `start`, last `end`, middle `middle`.
+- **SVG dimensions**: 900×440, padding top=70, right=20, bottom=70, left=20
+
+### U10 Detail — Aligned Timeline + Label Overlap Fix
+
+- **Timeline moved below chart**: Removed SVG-integrated timeline. Added HTML timeline below SVG inside same scrollable container, using `yearToX()` percentages for alignment with chart nodes.
+- **Per-node label placement**: Replaced generic even/odd rule with `labelPlacements` array. Each node has custom `dx`, `titleDy`, `subtitleDy`, `anchor`. Bunched nodes (1-4) use diagonal placement (above-left or below-right) to keep text clear of circles and bezier curves. Nodes 5-6 use standard above.
+- **Node 1 special case**: Too close to SVG left edge for `textAnchor="end"` — placed below-right instead of above-left.
 
 ### U07 Detail — FloatingNav Always Visible
 
@@ -211,5 +214,28 @@ Major rework of RoleEvolution chart:
 | L01 | Set real Formspree form ID in `ContactSection.tsx` | **Done** |
 | L02 | Add Open Graph image (`opengraph-image.png`) | **Done** |
 | L03 | Set up Vercel project + custom domain (dbenger.com) | Pending |
-| L04 | Add company logos to `public/logos/` | Optional |
+| L04 | Add company logos to experience cards | **Done** (uncommitted) |
 | L05 | Set up git remote + push | **Done** |
+
+### L04 Detail — Company Logos (Complete, uncommitted)
+
+Added company logos inline with job titles in experience card headers:
+- **Logos**: `public/logos/` — google.png, henkel.png, loreal.png, q-agency.png, ai.png
+- **Data**: Added `logo?: string` to `ExperienceEntry` interface, logo paths on all 8 entries
+- **Component**: `ExperienceCard.tsx` renders `<img>` with `h-7 w-auto max-w-[80px] object-contain` in flex row with job title `<h3>`
+- **Decision**: Used `<img>` instead of `next/image` — `next/image` produces dimension mismatch warnings when logos have varying aspect ratios. ESLint `no-img-element` suppressed with disable/enable block.
+- **gitignore**: Added `!public/logos/*.png` exception
+- **Build**: Clean (0 warnings), first load JS dropped from 162kB to 156kB (no `next/image` import)
+
+## Phase 11: UI Tweaks (uncommitted)
+| Task | Description | Status |
+|------|-------------|--------|
+| U11 | Move company logo from company name row to job title row | **Done** |
+| U12 | HeroSection: remove bottom padding below "Scroll to explore" (`py-20` → `pt-20 pb-0`) | **Done** |
+| U13 | Collaboration tooling: expand Marketing Measurement (9 tools) and AI & Automation (37 tools) | **Done** |
+
+### U13 Detail — Collaboration Tooling Update
+
+Updated `toolCategories` in `offerings.ts`:
+- **Marketing Measurement** (was 5 tools → 9): Removed SKAdNetwork. Added Meta Ads, App Campaigns, GA4, Firebase, Apple Search Ads. Split MMP integrations into separate Adjust and AppsFlyer pills.
+- **AI & Automation** (was 8 tools → 37): All AI/dev/automation tools from resume — AI platforms (ChatGPT, Gemini, Claude, Manus, Perplexity, NotebookLM, Google AI Studio, Notion AI), developer tools (Claude Code, Cursor, Codex, Codex CLI, Gemini CLI, Firebase Studio, Antigravity, Lovable, Replit, V0, Bolt.new, Jules, AMP, Devin, Factory, Linear, Warp), automation (n8n, Make.com, LangGraph, CrewAI, Zapier, Gumloop), generative media (ElevenLabs, Descript, Artlist, Higgsfield, Granola, Wispr Flow, ChatPRD, Text-to-Image/Video/Image-to-Video Models).

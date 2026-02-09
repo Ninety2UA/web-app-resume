@@ -22,7 +22,7 @@ export function HeroSection() {
   const ActiveViz = vizComponents[activeViz]
 
   return (
-    <section id="top" className="relative min-h-screen flex flex-col justify-center px-6 py-20 overflow-hidden">
+    <section id="top" className="relative min-h-screen flex flex-col justify-center px-6 pt-20 pb-0 overflow-hidden">
       {/* Subtle background gradient */}
       <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-warm-50 via-warm-50 to-warm-100 pointer-events-none" />
 
@@ -91,7 +91,7 @@ export function HeroSection() {
           id="viz-panel"
           role="tabpanel"
           aria-label="Career visualization"
-          className="mt-8 bg-warm-50 border border-warm-200 rounded-2xl p-4 sm:p-6 md:p-8 shadow-card min-h-[300px] md:min-h-[400px] flex items-center justify-center"
+          className="mt-8 bg-warm-50 border border-warm-200 rounded-2xl p-4 sm:p-6 md:p-8 shadow-card flex items-center justify-center"
         >
           <AnimatePresence mode="wait">
             <motion.div

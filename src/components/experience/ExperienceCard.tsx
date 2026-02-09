@@ -38,9 +38,20 @@ export function ExperienceCard({ experience, index, compact }: ExperienceCardPro
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 mb-4">
           <div>
-            <h3 className={`font-bold text-warm-900 ${compact ? 'text-lg' : 'text-xl'}`}>
-              {experience.role}
-            </h3>
+            <div className="flex items-center gap-2">
+              {/* eslint-disable @next/next/no-img-element */}
+              {experience.logo && (
+                <img
+                  src={experience.logo}
+                  alt=""
+                  className="h-7 w-auto max-w-[80px] object-contain"
+                />
+              )}
+              {/* eslint-enable @next/next/no-img-element */}
+              <h3 className={`font-bold text-warm-900 ${compact ? 'text-lg' : 'text-xl'}`}>
+                {experience.role}
+              </h3>
+            </div>
             <p className="text-warm-600 font-medium">
               {experience.company}
               {experience.team && (

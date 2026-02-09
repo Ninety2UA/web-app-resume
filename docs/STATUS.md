@@ -13,10 +13,11 @@
 | `53bdd97` Post-launch UI fixes | Nav/filter overlap fix, chart label typo, chart padding, docs update |
 | `47ba309` Skills & Tech Stack merge | Merged Skills + Tech Stack into single interactive tag grid (7 categories, 77 skills), reduced viz tabs 4→3, startup ritual in CLAUDE.md |
 | `18a2ea5` Collaboration page | New `/collaboration` route: 10 service offerings (accordion cards), 3 packages (Audit/Build/Operate), add-ons, working style + tooling pills, nav updated |
+| `b5e26ea` UI rework | Year-proportional chart positioning, aligned HTML timeline below chart, per-node diagonal label placement, FloatingNav always visible, portfolio hidden from nav |
 
 Key files: 30 TSX/TS source files across `src/`, 4 data files, 3 visualizations (Career Path, Skills & Tech Stack, Industries), Tailwind theme, global styles, favicon, OG image.
 
-**All development tasks (T01–T34) are complete.** Code is pushed to GitHub.
+**All development tasks (T01–T34, U06–U10) are complete.** Code is pushed to GitHub.
 
 ## Current state of the code
 - `npm run build` — passes clean (0 errors, 0 warnings, all pages SSG)
@@ -72,16 +73,30 @@ Key files: 30 TSX/TS source files across `src/`, 4 data files, 3 visualizations 
 - **Nav**: Added "Collaboration" link to FloatingNav, generalized `isCurrent` route detection
 - **Build**: 148 kB first load, SSG, 0 warnings
 
-## UI rework (uncommitted)
+## UI rework (committed at `b5e26ea`)
 - [x] **FloatingNav always visible** — removed scroll-threshold visibility (60vh). Nav renders immediately as plain `<nav>` (no animation wrapper). Mobile dropdown still animates. Removed `visible` state + scroll listener.
 - [x] **Portfolio hidden from navigation** — removed "Portfolio" link from FloatingNav and Footer. Page files intact at `/portfolio` for future v2. Cleaned up unused `Link` import in Footer.
-- [x] **RoleEvolution year-proportional positioning** — nodes positioned by actual year (2014-2025) instead of evenly spaced. Early-career roles (2014-2018) bunched left, later roles spread right. Timeline eras integrated into SVG bottom sharing same `yearToX()` function, guaranteeing alignment. SVG height 420→500.
-- [x] **RoleEvolution label fix** — "Marketing & BI Intern" moved below node (even indices below, odd above, last always above). Offsets: above -50/-34, below +38/+52. Avoids bezier curve intersection.
-- [x] **HeroSection timeline conditional** — standalone TimelineMarkers hidden when role viz is active (SVG has its own). Shows for Skills & Industries tabs.
+- [x] **RoleEvolution year-proportional positioning** — nodes positioned by actual year (2014-2025) instead of evenly spaced. Early-career roles (2014-2018) bunched left, later roles spread right. SVG 900×440, padding 70/20/70/20.
+- [x] **RoleEvolution aligned timeline** — timeline moved from inside SVG to HTML below chart. Uses `yearToX()` percentages for alignment with chart nodes. TimelineMarkers component used for other viz tabs only.
+- [x] **RoleEvolution label overlap fix** — per-node `labelPlacements` array with diagonal offsets (above-left / below-right) for bunched nodes 1-4. Nodes 5-6 use standard above. No labels overlap circles or curves.
+- [x] **HeroSection timeline conditional** — standalone TimelineMarkers hidden when role viz is active (has its own aligned timeline). Shows for Skills & Industries tabs.
+
+## Company logos (uncommitted — L04)
+- [x] **Added company logos to experience cards** — 5 logos in `public/logos/` (google.png, henkel.png, loreal.png, q-agency.png, ai.png)
+- Added `logo?: string` field to `ExperienceEntry` interface in `experience.ts`
+- `ExperienceCard.tsx` renders logo inline with **job title** (left side) using `<img>` (not `next/image` — avoids dimension mismatch warnings for varying aspect ratios)
+- `.gitignore` updated with `!public/logos/*.png` exception
+- All 8 experience entries now have logos (including career-break with ai.png)
+- Build: 156 kB first load (down from 162 kB — `next/image` module no longer imported)
+
+## UI tweaks (uncommitted — U11–U13)
+- [x] **U11 — Logo position**: Moved company logo from company name row to job title row (flex with `<h3>`)
+- [x] **U12 — HeroSection bottom padding**: Changed `py-20` to `pt-20 pb-0`, removing gap below "Scroll to explore"
+- [x] **U13 — Collaboration tooling update**: Marketing Measurement expanded (removed SKAdNetwork, added Meta Ads, App Campaigns, GA4, Firebase, Apple Search Ads, split Adjust/AppsFlyer — 9 tools). AI & Automation expanded from 8 to 37 tools (all AI/dev/automation tools from resume).
 
 ## Remaining (deployment)
+- [ ] Commit all uncommitted changes
 - [ ] Set up Vercel project + custom domain (dbenger.com)
-- [ ] Company logos in `public/logos/` where available (optional — styled text fallback works)
 
 ## Commands
 ```bash
@@ -98,4 +113,5 @@ No test runner installed. Lighthouse can be run via Chrome DevTools or `npx ligh
 - **SVG text in RoleEvolution** uses Tailwind `fill-warm-*` classes inside `<text>` elements — these require the Tailwind theme to be loaded; won't render in raw SVG viewers.
 - **Sticky filter bar is z-30, FloatingNav is z-50** — any new sticky/fixed elements need to respect this stacking.
 - **`prefers-reduced-motion`** is handled globally in CSS (forces 0.01ms durations) — but Framer Motion `animate` props still fire; they just complete instantly. Don't rely on animation callbacks for logic.
-- **`.gitignore` has `*.png`** — OG image has an exception (`!src/app/opengraph-image.png`). Add similar exceptions for any future PNG assets that need tracking.
+- **`.gitignore` has `*.png`** — OG image exception: `!src/app/opengraph-image.png`. Logos exception: `!public/logos/*.png`.
+- **Company logos use `<img>` not `next/image`** — `next/image` produces dimension mismatch warnings with varying aspect ratio logos. Plain `<img>` with `eslint-disable` block in `ExperienceCard.tsx`.

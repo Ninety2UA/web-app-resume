@@ -351,13 +351,11 @@ T28 → T29, T30, T31 → T32
 
 ---
 
-## Phase 10: UI Rework (Uncommitted)
+## Phase 10: UI Rework (committed at `b5e26ea`)
 
-### U06 - RoleEvolution year-proportional positioning + integrated timeline
+### U06 - RoleEvolution year-proportional positioning
 - Nodes positioned by actual year (2014-2025) via `yearToX()` instead of even spacing
-- Timeline eras integrated into SVG bottom, sharing same coordinate system
-- Label placement reworked: even below, odd above, last above; avoids bezier curve overlap
-- SVG height 420→500
+- SVG 900×440, padding top=70, right=20, bottom=70, left=20
 - **Status: Done**
 
 ### U07 - FloatingNav always visible
@@ -373,6 +371,42 @@ T28 → T29, T30, T31 → T32
 ### U09 - HeroSection conditional TimelineMarkers
 - Standalone TimelineMarkers hidden when role viz active (SVG has its own)
 - Shows for Skills & Industries tabs
+- **Status: Done**
+
+### U10 - RoleEvolution aligned timeline + label overlap fix
+- Timeline moved from SVG-integrated to HTML below chart, using `yearToX()` percentages for alignment
+- Per-node `labelPlacements` array with custom dx/dy/anchor for each node
+- Bunched nodes (1-4) use diagonal placement (above-left or below-right) to avoid circles and curves
+- Node 1 special case: below-right instead of above-left (too close to SVG left edge for end anchor)
+- **Status: Done**
+
+---
+
+## Launch: Company Logos (L04, uncommitted)
+
+### L04 - Add company logos to experience cards
+- Copied 5 logos to `public/logos/` (google.png, henkel.png, loreal.png, q-agency.png, ai.png)
+- Added `logo?: string` to `ExperienceEntry` interface, logo paths on all 8 entries
+- `ExperienceCard.tsx` renders `<img>` inline with company name (h-7, max-w-[80px])
+- Used `<img>` instead of `next/image` to avoid dimension mismatch warnings
+- `.gitignore` updated with `!public/logos/*.png`
+- **Status: Done** (uncommitted)
+
+---
+
+## Phase 11: UI Tweaks (uncommitted)
+
+### U11 - Move logo to job title row
+- Company logo moved from company name `<p>` to flex row alongside job title `<h3>`
+- **Status: Done**
+
+### U12 - HeroSection bottom padding
+- Changed `py-20` to `pt-20 pb-0` to remove gap below "Scroll to explore"
+- **Status: Done**
+
+### U13 - Collaboration tooling update
+- Marketing Measurement expanded: removed SKAdNetwork, added Meta Ads, App Campaigns, GA4, Firebase, Apple Search Ads (5 → 9 tools)
+- AI & Automation expanded: all AI/dev/automation tools from resume (8 → 37 tools)
 - **Status: Done**
 
 ---
