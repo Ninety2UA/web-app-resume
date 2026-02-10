@@ -32,7 +32,7 @@ export function ContactSection() {
   }
 
   return (
-    <section id="contact" className="py-20 px-4 md:px-6 bg-warm-100/40">
+    <section id="contact" className="scroll-mt-[140px] py-20 px-4 md:px-6 bg-warm-100/40">
       <div className="max-w-4xl mx-auto">
         <div className="grid md:grid-cols-2 gap-12 items-start">
           {/* Left - copy */}
