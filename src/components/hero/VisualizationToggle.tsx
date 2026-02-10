@@ -46,7 +46,7 @@ const vizOptions: { id: VizType; label: string; icon: React.ReactNode }[] = [
 
 export function VisualizationToggle({ active, onChange }: VisualizationToggleProps) {
   return (
-    <div className="flex justify-center gap-1 sm:gap-2" role="tablist" aria-label="Visualization type">
+    <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2" role="tablist" aria-label="Visualization type">
       {vizOptions.map((option) => (
         <button
           key={option.id}
