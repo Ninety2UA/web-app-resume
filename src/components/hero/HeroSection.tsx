@@ -22,7 +22,7 @@ export function HeroSection() {
   const ActiveViz = vizComponents[activeViz]
 
   return (
-    <section id="top" className="relative min-h-screen flex flex-col justify-center px-6 pt-20 pb-0 overflow-hidden">
+    <section id="top" className="relative min-h-screen flex flex-col justify-center px-6 pt-20 pb-12 overflow-hidden">
       {/* Subtle background gradient */}
       <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-warm-50 via-warm-50 to-warm-100 pointer-events-none" />
 
