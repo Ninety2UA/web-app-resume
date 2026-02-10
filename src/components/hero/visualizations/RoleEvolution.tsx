@@ -12,12 +12,12 @@ const colorMap: Record<string, string> = {
 }
 
 const eras = [
-  { label: '2014–15', sublabel: 'Early Career', year: 2014, hideOnMobile: false },
-  { label: '2016–17', sublabel: 'Growth', year: 2016, hideOnMobile: true },
-  { label: '2017–18', sublabel: 'Google Start', year: 2017, hideOnMobile: true },
-  { label: '2018–21', sublabel: 'Technical Lead', year: 2018, hideOnMobile: false },
-  { label: '2021–25', sublabel: 'Senior Leadership', year: 2021, hideOnMobile: false },
-  { label: '2025+', sublabel: 'AI Era', year: 2025, hideOnMobile: false },
+  { label: '2014–15', sublabel: 'Early Career', year: 2014 },
+  { label: '2016–17', sublabel: 'Growth', year: 2016 },
+  { label: '2017–18', sublabel: 'Google Start', year: 2017 },
+  { label: '2018–21', sublabel: 'Technical Lead', year: 2018 },
+  { label: '2021–25', sublabel: 'Senior Leadership', year: 2021 },
+  { label: '2025+', sublabel: 'AI Era', year: 2025 },
 ]
 
 export function RoleEvolution() {
@@ -124,8 +124,8 @@ export function RoleEvolution() {
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{
-                duration: 0.4,
-                delay: 0.3 + i * 0.18,
+                duration: 0.3,
+                delay: 0.2 + i * 0.08,
                 ease: [0.25, 0.1, 0.25, 1],
               }}
             >
@@ -187,7 +187,7 @@ export function RoleEvolution() {
           return (
             <div
               key={era.label}
-              className={`absolute flex flex-col items-center ${era.hideOnMobile ? 'hidden sm:flex' : ''}`}
+              className="absolute flex flex-col items-center"
               style={{
                 left: `${pct}%`,
                 transform: isFirst ? 'none' : isLast ? 'translateX(-100%)' : 'translateX(-50%)',

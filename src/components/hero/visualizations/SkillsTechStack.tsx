@@ -108,15 +108,9 @@ export function SkillsTechStack() {
 
                   {/* Skill tags */}
                   <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                    {category.skills.map((skill, skillIdx) => (
-                      <motion.span
+                    {category.skills.map((skill) => (
+                      <span
                         key={skill}
-                        initial={{ opacity: 0, scale: 0.85 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{
-                          duration: 0.25,
-                          delay: catIdx * 0.06 + skillIdx * 0.02,
-                        }}
                         className="inline-flex items-center px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-medium border cursor-default hover:shadow-sm transition-shadow duration-150"
                         style={{
                           backgroundColor: colors.bg,
@@ -125,7 +119,7 @@ export function SkillsTechStack() {
                         }}
                       >
                         {skill}
-                      </motion.span>
+                      </span>
                     ))}
                   </div>
                 </motion.div>
