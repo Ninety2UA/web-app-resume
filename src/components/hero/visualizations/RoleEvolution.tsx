@@ -12,12 +12,12 @@ const colorMap: Record<string, string> = {
 }
 
 const eras = [
-  { label: '2014–15', sublabel: 'Early Career', year: 2014 },
-  { label: '2016–17', sublabel: 'Growth', year: 2016 },
-  { label: '2017–18', sublabel: 'Google Start', year: 2017 },
-  { label: '2018–21', sublabel: 'Technical Lead', year: 2018 },
-  { label: '2021–25', sublabel: 'Senior Leadership', year: 2021 },
-  { label: '2025+', sublabel: 'AI Era', year: 2025 },
+  { label: '2014–15', sublabel: 'Early Career', year: 2014, hideOnMobile: false },
+  { label: '2016–17', sublabel: 'Growth', year: 2016, hideOnMobile: true },
+  { label: '2017–18', sublabel: 'Google Start', year: 2017, hideOnMobile: true },
+  { label: '2018–21', sublabel: 'Technical Lead', year: 2018, hideOnMobile: false },
+  { label: '2021–25', sublabel: 'Senior Leadership', year: 2021, hideOnMobile: false },
+  { label: '2025+', sublabel: 'AI Era', year: 2025, hideOnMobile: false },
 ]
 
 export function RoleEvolution() {
@@ -187,7 +187,7 @@ export function RoleEvolution() {
           return (
             <div
               key={era.label}
-              className="absolute flex flex-col items-center"
+              className={`absolute flex flex-col items-center ${era.hideOnMobile ? 'hidden sm:flex' : ''}`}
               style={{
                 left: `${pct}%`,
                 transform: isFirst ? 'none' : isLast ? 'translateX(-100%)' : 'translateX(-50%)',
