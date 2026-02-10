@@ -213,7 +213,7 @@ Major rework of RoleEvolution chart:
 |------|-------------|--------|
 | L01 | Set real Formspree form ID in `ContactSection.tsx` | **Done** |
 | L02 | Add Open Graph image (`opengraph-image.png`) | **Done** |
-| L03 | Set up Vercel project + custom domain (dbenger.com) | Pending |
+| L03 | Set up Vercel project + custom domain (dbenger.com) | **Done** |
 | L04 | Add company logos to experience cards | **Done** (committed at `2d65169`) |
 | L05 | Set up git remote + push | **Done** |
 

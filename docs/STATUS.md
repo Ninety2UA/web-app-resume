@@ -100,10 +100,10 @@ Key files: 30 TSX/TS source files across `src/`, 4 data files, 3 visualizations 
 - [x] Comprehensive README with table of contents, z-index stacking order, expanded troubleshooting (9 issues), customization guides, design system tokens, deployment instructions
 - [x] CLAUDE.md synced with FloatingNav anchor link pitfall and corrected route detection docs
 
-## Remaining (deployment)
+## Deployment (complete)
 - [x] ~~Commit all uncommitted changes~~ — done at `2d65169` and `6863c84`
-- [ ] Push `6863c84` to origin (`main` is 1 commit ahead)
-- [ ] Set up Vercel project + custom domain (dbenger.com)
+- [x] Push to origin — done at `e8f9cae`
+- [x] Set up Vercel project + custom domain — live at https://dbenger.com (also https://www.dbenger.com)
 
 ## Commands
 ```bash
