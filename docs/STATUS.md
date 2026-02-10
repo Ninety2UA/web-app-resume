@@ -19,6 +19,9 @@
 | `e8f9cae` Doc sync | Synced CLAUDE.md, Plan.md, STATUS.md, tasks.md with latest commit history |
 | `78bb8f6` Deployment | Vercel project created, dbenger.com + www.dbenger.com live, L03 done |
 | `ec931fc` RIT logo update | Replaced RIT logo with new version, manual Vercel deploy |
+| `1f47fd8` Mobile layout fixes | RoleEvolution chart fits viewport (no horizontal scroll), FloatingNav inline pill nav at all sizes (no hamburger) |
+| `648994d` Google intern date fix | Corrected Google Analytical Consultant Intern dates from Aug 2017–Dec 2021 to Jan 2017–Aug 2017 |
+| `d083605` Resume PDF V3 update | Updated downloadable resume PDF (`public/resume/Dominik_Benger_Resume.pdf`) to latest V3 |
 
 Key files: 30 TSX/TS source files across `src/`, 4 data files, 3 visualizations (Career Path, Skills & Tech Stack, Industries), Tailwind theme, global styles, favicon, OG image.
 
@@ -79,7 +82,7 @@ Key files: 30 TSX/TS source files across `src/`, 4 data files, 3 visualizations 
 - **Build**: 148 kB first load, SSG, 0 warnings
 
 ## UI rework (committed at `b5e26ea`)
-- [x] **FloatingNav always visible** — removed scroll-threshold visibility (60vh). Nav renders immediately as plain `<nav>` (no animation wrapper). Mobile dropdown still animates. Removed `visible` state + scroll listener.
+- [x] **FloatingNav always visible** — removed scroll-threshold visibility (60vh). Nav renders immediately as plain `<nav>` (no animation wrapper). Removed `visible` state + scroll listener. Mobile hamburger replaced with inline pill nav at all sizes (commit `1f47fd8`).
 - [x] **Portfolio hidden from navigation** — removed "Portfolio" link from FloatingNav and Footer. Page files intact at `/portfolio` for future v2. Cleaned up unused `Link` import in Footer.
 - [x] **RoleEvolution year-proportional positioning** — nodes positioned by actual year (2014-2025) instead of evenly spaced. Early-career roles (2014-2018) bunched left, later roles spread right. SVG 900×440, padding 70/20/70/20.
 - [x] **RoleEvolution aligned timeline** — timeline moved from inside SVG to HTML below chart. Uses `yearToX()` percentages for alignment with chart nodes. TimelineMarkers component used for other viz tabs only.
@@ -125,3 +128,11 @@ No test runner installed. Lighthouse can be run via Chrome DevTools or `npx ligh
 - **`prefers-reduced-motion`** is handled globally in CSS (forces 0.01ms durations) — but Framer Motion `animate` props still fire; they just complete instantly. Don't rely on animation callbacks for logic.
 - **`.gitignore` has `*.png`** — OG image exception: `!src/app/opengraph-image.png`. Logos exception: `!public/logos/*.png`.
 - **Company logos use `<img>` not `next/image`** — `next/image` produces dimension mismatch warnings with varying aspect ratio logos. Plain `<img>` with `eslint-disable` block in `ExperienceCard.tsx`.
+
+## Mobile layout fixes (committed at `1f47fd8`)
+- [x] **U14 — RoleEvolution chart fits viewport** — Removed `min-w-[500px]` from SVG and timeline, removed `overflow-x-auto scrollbar-hide` from wrapper. Chart now scales to fit any viewport via SVG `viewBox` + `preserveAspectRatio`.
+- [x] **U15 — FloatingNav inline pill nav** — Replaced mobile hamburger menu with same horizontal pill nav at all sizes. Responsive sizing: `text-xs`/`px-2.5` base, `sm:text-sm`/`sm:px-4`. Removed unused imports (useState, useEffect, motion, AnimatePresence, cn). No more mobile dropdown, Escape key handler, or AnimatePresence.
+
+## Data & content fixes (committed at `648994d`, `d083605`)
+- [x] **Fix Google intern dates** — Corrected Google Analytical Consultant Intern from `2017-08`/`2021-12` to `2017-01`/`2017-08` in `experience.ts`
+- [x] **Update resume PDF** — Replaced `public/resume/Dominik_Benger_Resume.pdf` with latest V3 from `docs/resume-file/`

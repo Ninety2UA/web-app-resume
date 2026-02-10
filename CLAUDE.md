@@ -127,7 +127,7 @@ The filter bar uses `top-[68px]` to sit below the FloatingNav (which is ~44px ta
 - **Skip-to-content**: `layout.tsx` — sr-only link targeting `#main-content`, visible on focus
 - **Viz toggle**: `VisualizationToggle` uses `role="tablist"` / `role="tab"` + `aria-selected` + `aria-controls="viz-panel"`; `HeroSection` viz area has `role="tabpanel" id="viz-panel"`
 - **Filter pills**: `role="group"` + `aria-pressed` on each toggle button
-- **FloatingNav**: `aria-expanded` on mobile toggle, `role="menu"` / `role="menuitem"`, Escape key closes menu, `aria-current="page"` via `usePathname`. Route detection: `/#` prefixed links check `pathname === '/'` for Home; `/path` links check `pathname === link.href`.
+- **FloatingNav**: `aria-current="page"` via `usePathname`. Route detection: `/#` prefixed links check `pathname === '/'` for Home; `/path` links check `pathname === link.href`. No mobile hamburger — same inline pill nav at all sizes.
 - **Collaboration page**: Accordion `aria-expanded` on deliverables toggle buttons
 - **SVG visualizations**: All have `role="img"` + descriptive `aria-label`; decorative elements use `aria-hidden="true"`
 - **SkillsTechStack**: Interactive category filter buttons; clicking a category isolates it, clicking again (or "All") resets
@@ -138,7 +138,7 @@ The filter bar uses `top-[68px]` to sit below the FloatingNav (which is ~44px ta
 - Base (320px+) → `sm` (640px) → `md` (768px) → `lg` (1024px)
 - Mobile-first: all components use base styles stepping up
 - VisualizationToggle: icon-only below `sm`, labels shown at `sm`+
-- RoleEvolution SVG: horizontal scroll with `min-w-[500px]` + `scrollbar-hide`
+- RoleEvolution SVG: scales to fit viewport via `viewBox` (no min-width, no horizontal scroll)
 - Section padding: `px-4` base, `md:px-6` on wider screens
 
 ## Scope Notes
@@ -154,7 +154,7 @@ The filter bar uses `top-[68px]` to sit below the FloatingNav (which is ~44px ta
 
 ## Repository
 - **GitHub:** https://github.com/Ninety2UA/web-app-resume
-- **Commits:** `fb6a036` (Phases 0–7), `34e5062` (Phase 8 + launch prep), `53bdd97` (post-launch UI fixes), `47ba309` (Skills & Tech Stack merge), `18a2ea5` (Collaboration page), `b5e26ea` (UI rework: chart, timeline, nav), `2d65169` (logos, full resume content, nav fix, RIT logo, README), `6863c84` (comprehensive README + CLAUDE.md sync), `e8f9cae` (doc sync), `78bb8f6` (deployment complete), `ec931fc` (RIT logo update)
+- **Commits:** `fb6a036` (Phases 0–7), `34e5062` (Phase 8 + launch prep), `53bdd97` (post-launch UI fixes), `47ba309` (Skills & Tech Stack merge), `18a2ea5` (Collaboration page), `b5e26ea` (UI rework: chart, timeline, nav), `2d65169` (logos, full resume content, nav fix, RIT logo, README), `6863c84` (comprehensive README + CLAUDE.md sync), `e8f9cae` (doc sync), `78bb8f6` (deployment complete), `ec931fc` (RIT logo update), `1f47fd8` (mobile layout fixes), `648994d` (Google intern date fix), `d083605` (resume PDF V3 update)
 - **Branch:** `main`
 
 ## Project Documentation
@@ -166,8 +166,10 @@ The filter bar uses `top-[68px]` to sit below the FloatingNav (which is ~44px ta
 Always read these files before starting any work.
 
 ## Session Continuity
-- **All tasks complete** — Phases 0–13, L01–L05, U06–U13 done. Latest commit: `ec931fc`.
+- **All tasks complete** — Phases 0–14, L01–L05, U06–U15 done. Latest commit: `d083605`.
 - **Deployed** — live at https://dbenger.com (Vercel, manual deploy via `npx vercel --prod` when Git auto-deploy doesn't trigger)
-- **All tasks complete** — no remaining work items.
-- **FloatingNav** — always visible, links use `/#section` format for cross-page navigation. Links: Home, Experience, Collaboration, PDF.
+- **Google intern dates** — corrected to Jan 2017 – Aug 2017 (was Aug 2017 – Dec 2021)
+- **Resume PDF** — updated to V3 in `public/resume/`
+- **FloatingNav** — always visible inline pill nav at all screen sizes (no hamburger menu). Links use `/#section` format for cross-page navigation. Links: Home, Experience, Collaboration, PDF.
+- **RoleEvolution** — chart scales to fit viewport via SVG viewBox. No horizontal scroll on mobile.
 - **Portfolio page hidden** — `/portfolio` route still works but no links point to it. Files preserved for future v2.

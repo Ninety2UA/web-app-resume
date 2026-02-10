@@ -73,7 +73,7 @@
 
 **All components now responsive at 320px / 375px / 768px / 1024px+:**
 - FilterPills — horizontal scroll, smaller pills on mobile
-- RoleEvolution — min-w-[500px] with scrollbar-hide horizontal scroll
+- RoleEvolution — scales to fit viewport via SVG viewBox (no min-width or horizontal scroll)
 - SkillsProgression — responsive label widths (w-16 sm:w-28 md:w-36), smaller bars/text on mobile
 - IndustryVerticals — smaller proportional bar (h-12 sm:h-16 md:h-20), smaller cards, text threshold raised
 - TechStack — compact timeline (smaller year labels, tags, dots on mobile)
@@ -94,7 +94,7 @@
 - **VisualizationToggle**: role="tablist", buttons get role="tab" + aria-selected + aria-controls
 - **Viz panel**: id="viz-panel", role="tabpanel", aria-label
 - **FilterPills**: role="group", aria-label, aria-pressed on each toggle
-- **FloatingNav**: aria-expanded on mobile toggle, Escape key closes menu, role="menu" + role="menuitem", aria-current="page" via usePathname
+- **FloatingNav**: aria-current="page" via usePathname. Inline pill nav at all sizes (no hamburger menu)
 - **HeroSection**: aria-hidden on decorative elements, aria-label on download link
 - **ContactSection**: aria-required on form fields, role="alert" on error, role="status" on success, aria-hidden on honeypot
 - **ExperienceCard**: aria-label on "View" links with project name, aria-label on tech pills
@@ -239,3 +239,27 @@ Added company logos inline with job titles in experience card headers:
 Updated `toolCategories` in `offerings.ts`:
 - **Marketing Measurement** (was 5 tools → 9): Removed SKAdNetwork. Added Meta Ads, App Campaigns, GA4, Firebase, Apple Search Ads. Split MMP integrations into separate Adjust and AppsFlyer pills.
 - **AI & Automation** (was 8 tools → 37): All AI/dev/automation tools from resume — AI platforms (ChatGPT, Gemini, Claude, Manus, Perplexity, NotebookLM, Google AI Studio, Notion AI), developer tools (Claude Code, Cursor, Codex, Codex CLI, Gemini CLI, Firebase Studio, Antigravity, Lovable, Replit, V0, Bolt.new, Jules, AMP, Devin, Factory, Linear, Warp), automation (n8n, Make.com, LangGraph, CrewAI, Zapier, Gumloop), generative media (ElevenLabs, Descript, Artlist, Higgsfield, Granola, Wispr Flow, ChatPRD, Text-to-Image/Video/Image-to-Video Models).
+
+## Phase 14: Mobile Layout Fixes (committed at `1f47fd8`)
+| Task | Description | Status |
+|------|-------------|--------|
+| U14 | RoleEvolution chart fits viewport — remove min-w-[500px] and horizontal scroll | **Done** |
+| U15 | FloatingNav inline pill nav — replace hamburger with responsive horizontal links | **Done** |
+
+### U14 Detail — RoleEvolution Mobile Fit
+- Removed `min-w-[500px]` from SVG element and timeline div
+- Removed `overflow-x-auto`, `-mx-2 px-2`, `scrollbar-hide` from wrapper div
+- SVG scales naturally via `viewBox="0 0 900 440"` + `preserveAspectRatio="xMidYMid meet"`
+
+### U15 Detail — FloatingNav Inline Pill Nav
+- Removed mobile hamburger menu (button, dropdown, AnimatePresence)
+- Single horizontal pill nav at all breakpoints with responsive sizing
+- Base: `text-xs px-2.5 py-1 gap-0.5` → sm: `text-sm px-4 py-1.5 gap-1`
+- Removed unused imports: `useState`, `useEffect`, `motion`, `AnimatePresence`, `cn`
+- Net change: −87 lines, +7 lines
+
+## Phase 15: Data & Content Fixes (committed at `648994d`, `d083605`)
+| Task | Description | Status |
+|------|-------------|--------|
+| U16 | Fix Google Analytical Consultant Intern dates (Jan 2017 – Aug 2017) | **Done** |
+| U17 | Update downloadable resume PDF to V3 | **Done** |

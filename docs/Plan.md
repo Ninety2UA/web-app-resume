@@ -437,6 +437,33 @@ T28 → T29, T30, T31 → T32
 
 ---
 
+## Phase 14: Mobile Layout Fixes (committed at `1f47fd8`)
+
+### U14 - RoleEvolution chart fits viewport
+- Removed `min-w-[500px]` and `overflow-x-auto scrollbar-hide` from chart wrapper
+- SVG scales naturally via `viewBox` + `preserveAspectRatio` at any screen width
+- **Status: Done**
+
+### U15 - FloatingNav inline pill nav
+- Replaced mobile hamburger menu with same horizontal pill nav at all sizes
+- Responsive sizing: `text-xs`/`px-2.5` base, `sm:text-sm`/`sm:px-4`
+- Removed unused imports (useState, useEffect, motion, AnimatePresence, cn)
+- **Status: Done**
+
+---
+
+## Phase 15: Data & Content Fixes (committed at `648994d`, `d083605`)
+
+### U16 - Fix Google intern dates
+- Corrected Google Analytical Consultant Intern dates from `2017-08`/`2021-12` to `2017-01`/`2017-08` in `experience.ts`
+- **Status: Done**
+
+### U17 - Update resume PDF to V3
+- Copied latest `Dominik Benger - Resume [V3].pdf` from `docs/resume-file/` to `public/resume/Dominik_Benger_Resume.pdf`
+- **Status: Done**
+
+---
+
 ## Cut from v1 Scope
 - Shareable filter URLs (query parameter state)
 - Technology tag click-to-filter in experience cards
