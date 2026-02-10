@@ -121,12 +121,13 @@ The filter bar uses `top-[68px]` to sit below the FloatingNav (which is ~44px ta
 - **`prefers-reduced-motion`** is handled globally in CSS (forces 0.01ms durations) — but Framer Motion `animate` props still fire; they just complete instantly. Don't rely on animation callbacks for logic.
 - **`.gitignore` has `*.png`** — OG image exception: `!src/app/opengraph-image.png`. Logos exception: `!public/logos/*.png`.
 - **Company logos use `<img>` not `next/image`** — `next/image` produces dimension mismatch warnings when logos have varying aspect ratios. Plain `<img>` with `eslint-disable` block in `ExperienceCard.tsx`. Logos are small static PNGs (3–153KB) that don't benefit from the optimization pipeline.
+- **FloatingNav anchor links must use `/#section` format** — plain `#section` hrefs don't navigate between pages in Next.js. Must prefix with `/` (e.g., `/#top`, `/#experience`) for cross-page navigation to work.
 
 ## Accessibility Patterns
 - **Skip-to-content**: `layout.tsx` — sr-only link targeting `#main-content`, visible on focus
 - **Viz toggle**: `VisualizationToggle` uses `role="tablist"` / `role="tab"` + `aria-selected` + `aria-controls="viz-panel"`; `HeroSection` viz area has `role="tabpanel" id="viz-panel"`
 - **Filter pills**: `role="group"` + `aria-pressed` on each toggle button
-- **FloatingNav**: `aria-expanded` on mobile toggle, `role="menu"` / `role="menuitem"`, Escape key closes menu, `aria-current="page"` via `usePathname`. Route detection uses `link.href.startsWith('/')` for generalized matching.
+- **FloatingNav**: `aria-expanded` on mobile toggle, `role="menu"` / `role="menuitem"`, Escape key closes menu, `aria-current="page"` via `usePathname`. Route detection: `/#` prefixed links check `pathname === '/'` for Home; `/path` links check `pathname === link.href`.
 - **Collaboration page**: Accordion `aria-expanded` on deliverables toggle buttons
 - **SVG visualizations**: All have `role="img"` + descriptive `aria-label`; decorative elements use `aria-hidden="true"`
 - **SkillsTechStack**: Interactive category filter buttons; clicking a category isolates it, clicking again (or "All") resets
@@ -146,14 +147,14 @@ The filter bar uses `top-[68px]` to sit below the FloatingNav (which is ~44px ta
 
 ## Performance Profile
 - Build: 0 warnings, all pages statically generated (SSG)
-- `/` = 156 kB first load JS (gzipped), `/portfolio` = 146 kB, `/collaboration` = 148 kB (reduced from 162 kB after switching logos to `<img>`)
+- `/` = 158 kB first load JS (gzipped), `/portfolio` = 146 kB, `/collaboration` = 148 kB
 - CSS bundle = 25 kB raw (Tailwind purge working correctly)
 - `next.config.ts`: `reactStrictMode: true`, `poweredByHeader: false`, AVIF+WebP image formats
 - Deferred optimizations: dynamic imports for vizs, lazy loading below-fold, font weight subsetting
 
 ## Repository
 - **GitHub:** https://github.com/Ninety2UA/web-app-resume
-- **Commits:** `fb6a036` (Phases 0–7), `34e5062` (Phase 8 + launch prep), `53bdd97` (post-launch UI fixes), `47ba309` (Skills & Tech Stack merge), `18a2ea5` (Collaboration page), `b5e26ea` (UI rework: chart, timeline, nav)
+- **Commits:** `fb6a036` (Phases 0–7), `34e5062` (Phase 8 + launch prep), `53bdd97` (post-launch UI fixes), `47ba309` (Skills & Tech Stack merge), `18a2ea5` (Collaboration page), `b5e26ea` (UI rework: chart, timeline, nav), `2d65169` (logos, full resume content, nav fix, RIT logo, README)
 - **Branch:** `main`
 
 ## Project Documentation
@@ -165,11 +166,14 @@ The filter bar uses `top-[68px]` to sit below the FloatingNav (which is ~44px ta
 Always read these files before starting any work.
 
 ## Session Continuity
-- **All development complete** — Phases 0–10 + L04 + U11–U13 done. T01–T34, U06–U13 all passed.
-- **Uncommitted work** — L04 logos + U11–U13 tweaks. Files: `.gitignore`, `experience.ts`, `ExperienceCard.tsx`, `HeroSection.tsx`, `offerings.ts`, + 5 PNGs in `public/logos/`, docs updates.
-- **Company logos** — all 8 experience cards show logos inline with job title (left side). `ExperienceEntry.logo?: string` field. Uses `<img>` (not `next/image`) with eslint-disable block. Logos: google.png, henkel.png, loreal.png, q-agency.png, ai.png.
-- **HeroSection** — bottom padding set to `pb-0` (was `py-20`), reducing gap below "Scroll to explore".
-- **Collaboration tooling** — Marketing Measurement expanded to 9 tools (removed SKAdNetwork, added Meta Ads, Firebase, GA4, App Campaigns, Apple Search Ads). AI & Automation expanded to 37 tools (all from resume).
-- **FloatingNav** — always visible (plain `<nav>`, no scroll threshold). Links: Home, Experience, Collaboration, PDF.
+- **All development complete and committed** — Phases 0–11 + L04 + U11–U14 done. All pushed at `2d65169`.
+- **Working tree clean** — no uncommitted changes.
+- **Latest session work** (committed at `2d65169`):
+  - Fixed FloatingNav anchor links for cross-page navigation (`#top` → `/#top`, `#experience` → `/#experience`)
+  - Updated all experience entries with full verbatim resume content (new sections: Experimentation & Insights, Cross-Functional Leadership & Strategy, Reporting & Cross-Functional Operations; expanded all bullets and key project descriptions)
+  - Added RIT logo to Education section (`public/logos/rit.png`, inline with school name)
+  - Created comprehensive `README.md` (architecture, features, setup, customization, deployment, troubleshooting)
+  - Company logos on all 8 experience cards + RIT on education (6 logos total in `public/logos/`)
+- **FloatingNav** — always visible, links use `/#section` format for cross-page navigation. Links: Home, Experience, Collaboration, PDF.
 - **Portfolio page hidden** — `/portfolio` route still works but no links point to it. Files preserved for future v2.
-- Remaining: commit all changes, Vercel deployment + custom domain (dbenger.com)
+- Remaining: L03 — Vercel deployment + custom domain (dbenger.com)
