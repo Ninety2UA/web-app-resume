@@ -70,7 +70,7 @@ export function VisualizationToggle({ active, onChange }: VisualizationTogglePro
           )}
           <span className="relative z-10 flex items-center gap-1.5 sm:gap-2">
             <span aria-hidden="true">{option.icon}</span>
-            <span className="hidden sm:inline">{option.label}</span>
+            <span>{option.label}</span>
           </span>
         </button>
       ))}

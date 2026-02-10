@@ -7,6 +7,7 @@ const navLinks = [
   { label: 'Home', href: '/#top' },
   { label: 'Experience', href: '/#experience' },
   { label: 'Collaboration', href: '/collaboration' },
+  { label: 'Contact', href: '/#contact' },
 ]
 
 export function FloatingNav() {
