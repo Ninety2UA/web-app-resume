@@ -68,7 +68,7 @@ export function SkillsTechStack() {
       </div>
 
       {/* Skills grid */}
-      <div className="max-h-[340px] sm:max-h-[360px] overflow-y-auto scrollbar-hide space-y-4 sm:space-y-5">
+      <div className="space-y-4 sm:space-y-5">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeFilter ?? 'all'}
