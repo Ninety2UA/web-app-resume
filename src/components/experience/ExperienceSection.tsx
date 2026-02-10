@@ -21,7 +21,7 @@ export function ExperienceSection({ activeFilters }: ExperienceSectionProps) {
   const additionalExperiences = filtered.filter((e) => e.isAdditional)
 
   return (
-    <section id="experience" className="py-20 px-4 md:px-6">
+    <section id="experience" className="scroll-mt-[140px] py-20 px-4 md:px-6">
       <div className="max-w-4xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 16 }}
