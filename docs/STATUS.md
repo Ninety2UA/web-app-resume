@@ -2,7 +2,7 @@
 
 ## What we're building
 - Interactive resume web app for Dominik Benger (dbenger.com) — replaces a static PDF with animated visualizations, a filterable career timeline, and a contact form
-- Single scrollable page (Hero → Experience → Contact) plus `/portfolio` and `/collaboration` routes
+- Single scrollable page (Hero → Experience → Contact) plus `/portfolio`, `/collaboration`, and `/how-i-built-this` routes
 - Deployed via Vercel; all career data lives in TypeScript files, no CMS
 
 ## What's done
@@ -22,10 +22,24 @@
 | `1f47fd8` Mobile layout fixes | RoleEvolution chart fits viewport (no horizontal scroll), FloatingNav inline pill nav at all sizes (no hamburger) |
 | `648994d` Google intern date fix | Corrected Google Analytical Consultant Intern dates from Aug 2017–Dec 2021 to Jan 2017–Aug 2017 |
 | `d083605` Resume PDF V3 update | Updated downloadable resume PDF (`public/resume/Dominik_Benger_Resume.pdf`) to latest V3 |
+| `6823438` Hero bottom padding | Added `pb-12` to HeroSection for breathing room between scroll indicator and filter bar on mobile |
+| `fb4ece0` Mobile nav + chart spacing | Tightened FloatingNav link padding, reduced hero section + viz card padding on mobile for larger chart rendering |
+| `9ce59d3` Contact anchor scroll fix | Added `scroll-mt-[140px]` to `#contact` section so "Get in Touch" clears fixed nav + filter bar |
+| `e2d7434` Experience anchor scroll fix | Added `scroll-mt-[140px]` to `#experience` section so "Experience" heading clears fixed nav + filter bar |
 
-Key files: 30 TSX/TS source files across `src/`, 4 data files, 3 visualizations (Career Path, Skills & Tech Stack, Industries), Tailwind theme, global styles, favicon, OG image.
+Key files: 32 TSX/TS source files across `src/`, 4 data files, 3 visualizations (Career Path, Skills & Tech Stack, Industries), Tailwind theme, global styles, favicon, OG image.
 
-**All development tasks (T01–T34, U06–U13, L04) are complete.** Code is pushed to GitHub.
+**All development tasks (T01–T35, U06–U21, L04) are complete.** Ebook page (T35) uncommitted, pending review.
+
+## Uncommitted changes (pending commit)
+
+### T35 — "How I Built This" ebook page
+- New `/how-i-built-this` route: full article rendering `docs/ebook-building-dbenger-com.md` content as styled JSX
+- New files: `src/app/how-i-built-this/page.tsx` (server component), `src/components/ebook/EbookContent.tsx` (client component, ~600 lines)
+- 12 sections with Table of Contents, code blocks, tables, callout blockquotes, color swatches, stats grid, footer CTA
+- Subtle "How I build this Web App" pill button added above "Dominik Benger" in HeroSection
+- Build: 0 warnings, `/how-i-built-this` = 158 kB first load JS, SSG
+- NOT added to FloatingNav — accessible only via hero button
 
 ## Current state of the code
 - `npm run build` — passes clean (0 errors, 0 warnings, all pages SSG)
@@ -136,3 +150,11 @@ No test runner installed. Lighthouse can be run via Chrome DevTools or `npx ligh
 ## Data & content fixes (committed at `648994d`, `d083605`)
 - [x] **Fix Google intern dates** — Corrected Google Analytical Consultant Intern from `2017-08`/`2021-12` to `2017-01`/`2017-08` in `experience.ts`
 - [x] **Update resume PDF** — Replaced `public/resume/Dominik_Benger_Resume.pdf` with latest V3 from `docs/resume-file/`
+
+## Mobile spacing polish (committed at `6823438`, `fb4ece0`)
+- [x] **U18 — HeroSection bottom padding** — Changed `pb-0` to `pb-12` for breathing room between "Scroll to explore" and filter bar on mobile
+- [x] **U19 — Mobile nav + chart spacing** — FloatingNav link padding `px-2.5` → `px-2`, HeroSection `px-6` → `px-4 sm:px-6`, viz card `p-4` → `p-2 sm:p-6` — all mobile only, ~32px more chart width
+
+## Anchor scroll fixes (committed at `9ce59d3`, `e2d7434`)
+- [x] **U20 — Contact anchor scroll** — Added `scroll-mt-[140px]` to `#contact` section so "Get in Touch" heading clears the fixed FloatingNav + sticky filter bar when navigating via Contact nav link
+- [x] **U21 — Experience anchor scroll** — Same `scroll-mt-[140px]` fix applied to `#experience` section

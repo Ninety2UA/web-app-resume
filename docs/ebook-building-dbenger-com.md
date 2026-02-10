@@ -82,6 +82,7 @@ The final site features:
 |------|---------|
 | **ChatPRD** | AI product management — helped draft the initial Product Requirements Document |
 | **Codex** | AI research assistant — helped refine PRD structure, user stories, and requirements |
+| **Cursor** | AI-powered IDE — used in Plan Mode with Codex models for planning and development alongside Claude Code |
 | **Claude Code** | AI pair-programming — wrote the vast majority of code, docs, and config |
 | **Git / GitHub** | Version control, hosted at github.com/Ninety2UA/web-app-resume |
 | **Vercel** | Hosting, CDN, SSL, custom domain management |
@@ -183,15 +184,16 @@ The global CSS (`globals.css`, 70 lines) handles:
 
 ### Page Architecture
 
-The site is a single-page scrollable app with two additional routes:
+The site is a single-page scrollable app with three additional routes:
 
 ```
 /                    → Hero + Visualizations + Filters + Experience + Contact + Footer
 /collaboration       → Service offerings, packages, working style
+/how-i-built-this    → Case study: how the site was built with AI tools
 /portfolio           → Project cards (hidden from nav — preserved for v2)
 ```
 
-All three routes are **statically generated** (SSG) at build time. There are no API routes, no server-side data fetching, and no client-side data fetching. The entire site is served as pre-rendered HTML with hydrated React components for interactivity.
+All four routes are **statically generated** (SSG) at build time. There are no API routes, no server-side data fetching, and no client-side data fetching. The entire site is served as pre-rendered HTML with hydrated React components for interactivity.
 
 ### Component Tree
 
@@ -220,6 +222,9 @@ Layout (all pages)
 ├── OfferingsGrid → OfferingCard (accordion deliverables)
 ├── PackageCards (3-tier comparison + add-ons)
 └── WorkingStyleSection (principles + tool pills)
+
+/how-i-built-this
+└── EbookContent (full case study article with 12 sections)
 ```
 
 ### Data Architecture
@@ -298,7 +303,7 @@ This project was built using **Claude Code** (Anthropic's CLI for Claude) as the
 
 Before writing a single line of code, I created three foundational documents:
 
-1. **PRD (Product Requirements Document)** — ~900 lines covering goals, user stories, functional requirements, UX flows, success metrics, and technical considerations. I used **ChatPRD** and **Codex** to draft and refine the initial PRD — ChatPRD helped structure the product thinking (goals, user stories, success metrics), while Codex helped research best practices and sharpen the requirements.
+1. **PRD (Product Requirements Document)** — ~900 lines covering goals, user stories, functional requirements, UX flows, success metrics, and technical considerations. I used **ChatPRD** and **Codex** to draft and refine the initial PRD — ChatPRD helped structure the product thinking (goals, user stories, success metrics), while Codex helped research best practices and sharpen the requirements. I also used **Cursor** in Plan Mode with Codex models for planning and iterating on development strategy alongside Claude Code.
 2. **Technical Specification** — ~380 lines defining the tech stack, data models, design system tokens, component specs, and performance budgets
 3. **Implementation Plan** — ~470 lines breaking the project into 32+ tasks across 8 phases with explicit dependencies
 
@@ -321,7 +326,7 @@ This file was the single most important artifact for multi-session development. 
 
 ### Task Breakdown and Phasing
 
-The project was organized into 15 phases:
+The project was organized into 19 phases:
 
 | Phase | Scope | Tasks |
 |-------|-------|-------|
@@ -340,6 +345,10 @@ The project was organized into 15 phases:
 | 12 | Documentation (README, CLAUDE.md sync) | D01–D02 |
 | 13 | Deployment (Vercel, custom domain) | L03 |
 | 14 | Mobile layout fixes | U14–U15 |
+| 15 | Data & content fixes | U16–U17 |
+| 16 | Mobile spacing polish | U18–U19 |
+| 17 | Anchor scroll fixes | U20–U21 |
+| 18 | Ebook / case study page | T35 |
 
 Phases 0–7 were completed in the **first commit** (`fb6a036`) — over 10,000 lines of code across 41 files. This was the "autonomous full build" phase where Claude Code worked through the plan end-to-end.
 
@@ -773,13 +782,13 @@ This created a chain of context that survived across sessions. The AI didn't nee
 | Metric | Value |
 |--------|-------|
 | **Development time** | ~3 days (Feb 8–10, 2026) |
-| **Total commits** | 18 |
-| **Source files** | ~30 TSX/TS files |
+| **Total commits** | 29 |
+| **Source files** | ~32 TSX/TS files |
 | **Lines of code (initial commit)** | 10,581 |
 | **Production dependencies** | 5 |
 | **First Load JS (home)** | 158 kB (gzipped) |
 | **CSS bundle** | 25 kB (Tailwind purge) |
-| **Pages generated (SSG)** | 3 |
+| **Pages generated (SSG)** | 4 |
 | **Build warnings** | 0 |
 | **Skills showcased** | 77 across 7 categories |
 | **Experience entries** | 8 (with education) |
@@ -838,6 +847,10 @@ The site is live at [dbenger.com](https://dbenger.com). The code is open at [git
 | Feb 10 | `1f47fd8` | Fix mobile layout: remove chart scroll, inline pill nav |
 | Feb 10 | `648994d` | Fix Google intern dates to Jan 2017 – Aug 2017 |
 | Feb 10 | `d083605` | Update downloadable resume PDF to V3 |
+| Feb 10 | `6823438` | Add bottom padding to hero section for mobile spacing |
+| Feb 10 | `fb4ece0` | Tighten mobile nav tabs and enlarge hero chart on mobile |
+| Feb 10 | `9ce59d3` | Fix Contact anchor scroll on mobile |
+| Feb 10 | `e2d7434` | Fix Experience anchor scroll: heading hidden behind fixed nav |
 
 ---
 
@@ -853,6 +866,7 @@ src/app/
 ├── icon.svg                            Favicon (DB monogram)
 ├── opengraph-image.png                 OG image (1200×630)
 ├── collaboration/page.tsx              /collaboration route
+├── how-i-built-this/page.tsx           /how-i-built-this route (case study)
 └── portfolio/page.tsx                  /portfolio route (hidden)
 
 src/components/
@@ -873,7 +887,8 @@ src/components/
 ├── collaboration/OfferingCard.tsx      Service offering with accordion
 ├── collaboration/OfferingsGrid.tsx     2-column offering grid
 ├── collaboration/PackageCards.tsx      3-tier package comparison
-└── collaboration/WorkingStyleSection.tsx  Principles + tool pills
+├── collaboration/WorkingStyleSection.tsx  Principles + tool pills
+└── ebook/EbookContent.tsx             Case study article (12 sections)
 
 src/data/
 ├── experience.ts                       8 career entries + education + filter tags
@@ -910,6 +925,7 @@ tasks.md                        Task Tracker (~270 lines)
 STATUS.md                       Project Status (~140 lines)
 Dominik_Benger_Resume_4Page.md  Source resume content
 Offering.md                     Service offerings source
+ebook-building-dbenger-com.md   Source content for the case study page
 resume-file/                    Original PDF resume
 ```
 

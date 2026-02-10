@@ -263,3 +263,47 @@ Updated `toolCategories` in `offerings.ts`:
 |------|-------------|--------|
 | U16 | Fix Google Analytical Consultant Intern dates (Jan 2017 – Aug 2017) | **Done** |
 | U17 | Update downloadable resume PDF to V3 | **Done** |
+
+## Phase 16: Mobile Spacing Polish (committed at `6823438`, `fb4ece0`)
+| Task | Description | Status |
+|------|-------------|--------|
+| U18 | HeroSection bottom padding — `pb-0` → `pb-12` for scroll indicator gap | **Done** |
+| U19 | Mobile nav + chart spacing — tighter nav padding, reduced hero/card padding for larger chart | **Done** |
+
+### U19 Detail — Mobile Nav + Chart Spacing
+- FloatingNav: link padding `px-2.5` → `px-2` on mobile (both nav links and PDF button)
+- HeroSection: section padding `px-6` → `px-4 sm:px-6` on mobile
+- Viz panel card: padding `p-4` → `p-2 sm:p-6 md:p-8` on mobile
+- Net ~32px more rendering width for Career Path chart on mobile
+- Desktop (`sm:` and up) unchanged
+
+## Phase 17: Anchor Scroll Fixes (committed at `9ce59d3`, `e2d7434`)
+| Task | Description | Status |
+|------|-------------|--------|
+| U20 | Contact anchor scroll — add `scroll-mt-[140px]` to `#contact` section | **Done** |
+| U21 | Experience anchor scroll — add `scroll-mt-[140px]` to `#experience` section | **Done** |
+
+### U20–U21 Detail — Anchor Scroll Offset
+- **Problem**: Tapping "Contact" or "Experience" nav links on mobile scrolled the section heading behind the fixed FloatingNav (~60px) + sticky filter bar (~80px at `top-[68px]`).
+- **Fix**: Added `scroll-mt-[140px]` to both `<section id="contact">` in `ContactSection.tsx` and `<section id="experience">` in `ExperienceSection.tsx`.
+- **Verified**: Tested on 375px mobile viewport via Playwright — "Get in Touch" and "Experience" headings now fully visible after nav click.
+
+## Phase 18: Ebook / Case Study Page (uncommitted)
+| Task | Description | Status |
+|------|-------------|--------|
+| T35 | "How I Built This" ebook page (`/how-i-built-this`) + hero button | **Done** (uncommitted) |
+
+### T35 Detail — Ebook Page (Complete, uncommitted)
+
+New `/how-i-built-this` route rendering the ebook case study (`docs/ebook-building-dbenger-com.md`):
+- **Page**: `src/app/how-i-built-this/page.tsx` — server component with metadata, FloatingNav, Footer (follows collaboration page pattern)
+- **Content**: `src/components/ebook/EbookContent.tsx` (~600 lines) — client component with all 12 sections:
+  - Inline helpers: `CodeBlock` (dark theme with optional file label), `Callout` (coral-bordered blockquote), `SectionTitle`, `SubTitle`
+  - Table of Contents with anchor links to each section
+  - Styled tables, ordered/unordered lists, code blocks, color swatch grid, stats metric grid
+  - Framer Motion `whileInView` scroll animations on each section
+  - Footer CTA: "View the Live Site" + "View Source on GitHub"
+- **Hero button**: Subtle pill link "How I build this Web App" added above `<h1>` in `HeroSection.tsx`. Uses `text-xs font-medium text-warm-500 bg-warm-100 border border-warm-200 rounded-full` styling with coral hover.
+- **Navigation**: Page NOT in FloatingNav — accessible only via hero button
+- **Build**: 0 warnings, 17 kB component, 158 kB first load JS, SSG
+- **Content**: Article uses `max-w-3xl` for comfortable reading width; no markdown renderer dependency (all JSX)

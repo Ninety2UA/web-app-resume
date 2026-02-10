@@ -42,7 +42,8 @@ src/
 │   ├── page.tsx      # Home: Hero + Experience + Contact
 │   ├── globals.css   # Global styles + Tailwind
 │   ├── portfolio/    # /portfolio route
-│   └── collaboration/ # /collaboration route (service offerings)
+│   ├── collaboration/ # /collaboration route (service offerings)
+│   └── how-i-built-this/ # /how-i-built-this route (ebook case study)
 ├── components/       # React components by section
 │   ├── layout/       # FloatingNav, Footer
 │   ├── hero/         # HeroSection, viz toggle, 3 visualizations
@@ -50,7 +51,8 @@ src/
 │   ├── filters/      # FilterPills
 │   ├── contact/      # ContactSection (Formspree)
 │   ├── portfolio/    # PortfolioGrid, ProjectCard
-│   └── collaboration/ # OfferingCard, OfferingsGrid, PackageCards, WorkingStyleSection
+│   ├── collaboration/ # OfferingCard, OfferingsGrid, PackageCards, WorkingStyleSection
+│   └── ebook/        # EbookContent (case study article)
 ├── data/             # Static TypeScript data files
 ├── hooks/            # useScrollAnimation, etc.
 └── lib/              # Utility functions
@@ -85,8 +87,8 @@ docs/
 - **Spacing:** 8px grid system
 
 ## Architecture Decisions
-- Single scrollable page (Hero → Experience → Contact/Footer) + `/portfolio` (hidden) and `/collaboration` routes
-- Floating centered nav bar always visible at top (links: Home, Experience, Collaboration, PDF). Portfolio link removed (page preserved for v2).
+- Single scrollable page (Hero → Experience → Contact/Footer) + `/portfolio` (hidden), `/collaboration`, and `/how-i-built-this` routes
+- Floating centered nav bar always visible at top (links: Home, Experience, Collaboration, Contact, PDF). Portfolio link removed (page preserved for v2). Ebook page accessible via subtle hero button only (not in nav).
 - 3 visualization tabs: Career Path (SVG + aligned HTML timeline), Skills & Tech Stack (interactive tag grid), Industries (stacked bar + cards)
 - Pill/chip filter toggles above experience section
 - RoleEvolution uses year-proportional X positioning (2014-2025) with HTML timeline below chart aligned via shared `yearToX()` percentages
@@ -122,6 +124,7 @@ The filter bar uses `top-[68px]` to sit below the FloatingNav (which is ~44px ta
 - **`.gitignore` has `*.png`** — OG image exception: `!src/app/opengraph-image.png`. Logos exception: `!public/logos/*.png`.
 - **Company logos use `<img>` not `next/image`** — `next/image` produces dimension mismatch warnings when logos have varying aspect ratios. Plain `<img>` with `eslint-disable` block in `ExperienceCard.tsx`. Logos are small static PNGs (3–153KB) that don't benefit from the optimization pipeline.
 - **FloatingNav anchor links must use `/#section` format** — plain `#section` hrefs don't navigate between pages in Next.js. Must prefix with `/` (e.g., `/#top`, `/#experience`) for cross-page navigation to work.
+- **Anchor scroll offset** — Sections with `id` anchors need `scroll-mt-[140px]` to clear the fixed FloatingNav (~60px) + sticky filter bar (~80px) when navigating via nav links. Applied to `#contact` and `#experience`.
 
 ## Accessibility Patterns
 - **Skip-to-content**: `layout.tsx` — sr-only link targeting `#main-content`, visible on focus
@@ -139,6 +142,7 @@ The filter bar uses `top-[68px]` to sit below the FloatingNav (which is ~44px ta
 - Mobile-first: all components use base styles stepping up
 - VisualizationToggle: icon-only below `sm`, labels shown at `sm`+
 - RoleEvolution SVG: scales to fit viewport via `viewBox` (no min-width, no horizontal scroll)
+- HeroSection padding: `px-4` base, `sm:px-6` on wider screens; viz card `p-2` base, `sm:p-6`, `md:p-8`
 - Section padding: `px-4` base, `md:px-6` on wider screens
 
 ## Scope Notes
@@ -147,14 +151,14 @@ The filter bar uses `top-[68px]` to sit below the FloatingNav (which is ~44px ta
 
 ## Performance Profile
 - Build: 0 warnings, all pages statically generated (SSG)
-- `/` = 158 kB first load JS (gzipped), `/portfolio` = 146 kB, `/collaboration` = 148 kB
+- `/` = 158 kB first load JS (gzipped), `/portfolio` = 144 kB, `/collaboration` = 148 kB, `/how-i-built-this` = 158 kB
 - CSS bundle = 25 kB raw (Tailwind purge working correctly)
 - `next.config.ts`: `reactStrictMode: true`, `poweredByHeader: false`, AVIF+WebP image formats
 - Deferred optimizations: dynamic imports for vizs, lazy loading below-fold, font weight subsetting
 
 ## Repository
 - **GitHub:** https://github.com/Ninety2UA/web-app-resume
-- **Commits:** `fb6a036` (Phases 0–7), `34e5062` (Phase 8 + launch prep), `53bdd97` (post-launch UI fixes), `47ba309` (Skills & Tech Stack merge), `18a2ea5` (Collaboration page), `b5e26ea` (UI rework: chart, timeline, nav), `2d65169` (logos, full resume content, nav fix, RIT logo, README), `6863c84` (comprehensive README + CLAUDE.md sync), `e8f9cae` (doc sync), `78bb8f6` (deployment complete), `ec931fc` (RIT logo update), `1f47fd8` (mobile layout fixes), `648994d` (Google intern date fix), `d083605` (resume PDF V3 update)
+- **Commits:** `fb6a036` (Phases 0–7), `34e5062` (Phase 8 + launch prep), `53bdd97` (post-launch UI fixes), `47ba309` (Skills & Tech Stack merge), `18a2ea5` (Collaboration page), `b5e26ea` (UI rework: chart, timeline, nav), `2d65169` (logos, full resume content, nav fix, RIT logo, README), `6863c84` (comprehensive README + CLAUDE.md sync), `e8f9cae` (doc sync), `78bb8f6` (deployment complete), `ec931fc` (RIT logo update), `1f47fd8` (mobile layout fixes), `648994d` (Google intern date fix), `d083605` (resume PDF V3 update), `fb4ece0` (mobile nav + chart spacing), `9ce59d3` (contact anchor scroll fix), `e2d7434` (experience anchor scroll fix)
 - **Branch:** `main`
 
 ## Project Documentation
@@ -166,10 +170,8 @@ The filter bar uses `top-[68px]` to sit below the FloatingNav (which is ~44px ta
 Always read these files before starting any work.
 
 ## Session Continuity
-- **All tasks complete** — Phases 0–14, L01–L05, U06–U15 done. Latest commit: `d083605`.
+- **Latest work** — Added `/how-i-built-this` ebook page (T35) + subtle hero button. Uncommitted, pending review.
 - **Deployed** — live at https://dbenger.com (Vercel, manual deploy via `npx vercel --prod` when Git auto-deploy doesn't trigger)
-- **Google intern dates** — corrected to Jan 2017 – Aug 2017 (was Aug 2017 – Dec 2021)
-- **Resume PDF** — updated to V3 in `public/resume/`
-- **FloatingNav** — always visible inline pill nav at all screen sizes (no hamburger menu). Links use `/#section` format for cross-page navigation. Links: Home, Experience, Collaboration, PDF.
-- **RoleEvolution** — chart scales to fit viewport via SVG viewBox. No horizontal scroll on mobile.
+- **Ebook page** — `/how-i-built-this` route: full case study article from `docs/ebook-building-dbenger-com.md`. Server page wrapping `EbookContent` client component. Accessible via subtle pill button above "Dominik Benger" in HeroSection. Not in FloatingNav.
+- **FloatingNav** — always visible inline pill nav at all screen sizes (no hamburger menu). Links use `/#section` format for cross-page navigation. Links: Home, Experience, Collaboration, Contact, PDF.
 - **Portfolio page hidden** — `/portfolio` route still works but no links point to it. Files preserved for future v2.

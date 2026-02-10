@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import Link from 'next/link'
 import { VisualizationToggle } from './VisualizationToggle'
 import { TimelineMarkers } from './TimelineMarkers'
 import { RoleEvolution } from './visualizations/RoleEvolution'
@@ -38,6 +39,18 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
           >
+            <div className="mb-3">
+              <Link
+                href="/how-i-built-this"
+                className="inline-flex items-center gap-1.5 text-xs font-medium text-warm-500 bg-warm-100 border border-warm-200 rounded-full px-3 py-1 hover:text-coral hover:border-coral/30 transition-all duration-200"
+              >
+                How I build this Web App
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M5 12h14" />
+                  <path d="M12 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </div>
             <h1 className="text-5xl md:text-7xl font-extrabold text-warm-900 tracking-tight mb-4">
               Dominik Benger
             </h1>

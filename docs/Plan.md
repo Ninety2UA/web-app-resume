@@ -464,6 +464,52 @@ T28 → T29, T30, T31 → T32
 
 ---
 
+## Phase 16: Mobile Spacing Polish (committed at `6823438`, `fb4ece0`)
+
+### U18 - HeroSection bottom padding
+- Changed `pb-0` to `pb-12` for breathing room between "Scroll to explore" and filter bar on mobile
+- **Status: Done**
+
+### U19 - Mobile nav + chart spacing
+- FloatingNav link padding `px-2.5` → `px-2` on mobile (nav links + PDF button)
+- HeroSection section padding `px-6` → `px-4 sm:px-6` on mobile
+- Viz card padding `p-4` → `p-2 sm:p-6 md:p-8` on mobile
+- Net ~32px more chart rendering width on mobile; desktop unchanged
+- **Status: Done**
+
+---
+
+## Phase 17: Anchor Scroll Fixes (committed at `9ce59d3`, `e2d7434`)
+
+### U20 - Contact anchor scroll fix
+- Added `scroll-mt-[140px]` to `#contact` section so heading clears fixed nav + sticky filter bar
+- **Status: Done**
+
+### U21 - Experience anchor scroll fix
+- Added `scroll-mt-[140px]` to `#experience` section so heading clears fixed nav + sticky filter bar
+- **Status: Done**
+
+---
+
+## Phase 18: Ebook / Case Study Page (uncommitted)
+
+### T35 - "How I Built This" ebook page
+- New `/how-i-built-this` route rendering `docs/ebook-building-dbenger-com.md` as styled JSX article
+- Server page: `src/app/how-i-built-this/page.tsx` (metadata, FloatingNav, Footer)
+- Client component: `src/components/ebook/EbookContent.tsx` (~600 lines) with:
+  - Hero section ("Case Study" label, title, subtitle, author/date)
+  - Clickable Table of Contents (12 sections)
+  - All 10 sections + 2 appendices: tables, code blocks (dark theme), callout blockquotes, color swatches, stats grid
+  - Inline helper components: `CodeBlock`, `Callout`, `SectionTitle`, `SubTitle`
+  - Framer Motion `whileInView` scroll animations on each section
+  - Footer CTA with "View the Live Site" and "View Source on GitHub" buttons
+- Subtle pill button "How I build this Web App" added above "Dominik Benger" in `HeroSection.tsx`
+- Page NOT in FloatingNav — accessible via hero button only
+- Build: 17 kB component, 158 kB first load JS, SSG, 0 warnings
+- **Status: Done** (uncommitted, pending review)
+
+---
+
 ## Cut from v1 Scope
 - Shareable filter URLs (query parameter state)
 - Technology tag click-to-filter in experience cards
