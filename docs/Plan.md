@@ -382,19 +382,19 @@ T28 → T29, T30, T31 → T32
 
 ---
 
-## Launch: Company Logos (L04, uncommitted)
+## Launch: Company Logos (L04, committed at `2d65169`)
 
 ### L04 - Add company logos to experience cards
-- Copied 5 logos to `public/logos/` (google.png, henkel.png, loreal.png, q-agency.png, ai.png)
-- Added `logo?: string` to `ExperienceEntry` interface, logo paths on all 8 entries
-- `ExperienceCard.tsx` renders `<img>` inline with company name (h-7, max-w-[80px])
+- Copied 6 logos to `public/logos/` (google.png, henkel.png, loreal.png, q-agency.png, ai.png, rit.png)
+- Added `logo?: string` to `ExperienceEntry` interface, logo paths on all 8 entries + RIT on education
+- `ExperienceCard.tsx` renders `<img>` inline with job title (h-7, max-w-[80px])
 - Used `<img>` instead of `next/image` to avoid dimension mismatch warnings
 - `.gitignore` updated with `!public/logos/*.png`
-- **Status: Done** (uncommitted)
+- **Status: Done** (committed at `2d65169`)
 
 ---
 
-## Phase 11: UI Tweaks (uncommitted)
+## Phase 11: UI Tweaks (committed at `2d65169`)
 
 ### U11 - Move logo to job title row
 - Company logo moved from company name `<p>` to flex row alongside job title `<h3>`
@@ -407,6 +407,18 @@ T28 → T29, T30, T31 → T32
 ### U13 - Collaboration tooling update
 - Marketing Measurement expanded: removed SKAdNetwork, added Meta Ads, App Campaigns, GA4, Firebase, Apple Search Ads (5 → 9 tools)
 - AI & Automation expanded: all AI/dev/automation tools from resume (8 → 37 tools)
+- **Status: Done**
+
+---
+
+## Phase 12: Documentation (committed at `6863c84`)
+
+### D01 - Comprehensive README rewrite
+- Table of contents (18 linked entries), z-index stacking order section, expanded troubleshooting (9 issues with Cause column), customization guides with color palette table, design system tokens (border radius, shadows), deployment instructions with alternative hosting note
+- **Status: Done**
+
+### D02 - CLAUDE.md sync
+- Added FloatingNav anchor link pitfall, corrected route detection docs
 - **Status: Done**
 
 ---

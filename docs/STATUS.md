@@ -14,10 +14,12 @@
 | `47ba309` Skills & Tech Stack merge | Merged Skills + Tech Stack into single interactive tag grid (7 categories, 77 skills), reduced viz tabs 4→3, startup ritual in CLAUDE.md |
 | `18a2ea5` Collaboration page | New `/collaboration` route: 10 service offerings (accordion cards), 3 packages (Audit/Build/Operate), add-ons, working style + tooling pills, nav updated |
 | `b5e26ea` UI rework | Year-proportional chart positioning, aligned HTML timeline below chart, per-node diagonal label placement, FloatingNav always visible, portfolio hidden from nav |
+| `2d65169` Content + logos | Company logos on all 8 experience cards + RIT on education, full verbatim resume content, FloatingNav anchor link fix, README |
+| `6863c84` README + docs sync | Comprehensive README rewrite (TOC, z-index docs, expanded troubleshooting), CLAUDE.md sync |
 
 Key files: 30 TSX/TS source files across `src/`, 4 data files, 3 visualizations (Career Path, Skills & Tech Stack, Industries), Tailwind theme, global styles, favicon, OG image.
 
-**All development tasks (T01–T34, U06–U10) are complete.** Code is pushed to GitHub.
+**All development tasks (T01–T34, U06–U13, L04) are complete.** Code is pushed to GitHub.
 
 ## Current state of the code
 - `npm run build` — passes clean (0 errors, 0 warnings, all pages SSG)
@@ -81,21 +83,26 @@ Key files: 30 TSX/TS source files across `src/`, 4 data files, 3 visualizations 
 - [x] **RoleEvolution label overlap fix** — per-node `labelPlacements` array with diagonal offsets (above-left / below-right) for bunched nodes 1-4. Nodes 5-6 use standard above. No labels overlap circles or curves.
 - [x] **HeroSection timeline conditional** — standalone TimelineMarkers hidden when role viz is active (has its own aligned timeline). Shows for Skills & Industries tabs.
 
-## Company logos (uncommitted — L04)
-- [x] **Added company logos to experience cards** — 5 logos in `public/logos/` (google.png, henkel.png, loreal.png, q-agency.png, ai.png)
+## Company logos (committed at `2d65169` — L04)
+- [x] **Added company logos to experience cards** — 6 logos in `public/logos/` (google.png, henkel.png, loreal.png, q-agency.png, ai.png, rit.png)
 - Added `logo?: string` field to `ExperienceEntry` interface in `experience.ts`
 - `ExperienceCard.tsx` renders logo inline with **job title** (left side) using `<img>` (not `next/image` — avoids dimension mismatch warnings for varying aspect ratios)
 - `.gitignore` updated with `!public/logos/*.png` exception
-- All 8 experience entries now have logos (including career-break with ai.png)
+- All 8 experience entries now have logos (including career-break with ai.png) + RIT on education
 - Build: 156 kB first load (down from 162 kB — `next/image` module no longer imported)
 
-## UI tweaks (uncommitted — U11–U13)
+## UI tweaks (committed at `2d65169` — U11–U13)
 - [x] **U11 — Logo position**: Moved company logo from company name row to job title row (flex with `<h3>`)
 - [x] **U12 — HeroSection bottom padding**: Changed `py-20` to `pt-20 pb-0`, removing gap below "Scroll to explore"
 - [x] **U13 — Collaboration tooling update**: Marketing Measurement expanded (removed SKAdNetwork, added Meta Ads, App Campaigns, GA4, Firebase, Apple Search Ads, split Adjust/AppsFlyer — 9 tools). AI & Automation expanded from 8 to 37 tools (all AI/dev/automation tools from resume).
 
+## README rewrite (committed at `6863c84`)
+- [x] Comprehensive README with table of contents, z-index stacking order, expanded troubleshooting (9 issues), customization guides, design system tokens, deployment instructions
+- [x] CLAUDE.md synced with FloatingNav anchor link pitfall and corrected route detection docs
+
 ## Remaining (deployment)
-- [ ] Commit all uncommitted changes
+- [x] ~~Commit all uncommitted changes~~ — done at `2d65169` and `6863c84`
+- [ ] Push `6863c84` to origin (`main` is 1 commit ahead)
 - [ ] Set up Vercel project + custom domain (dbenger.com)
 
 ## Commands

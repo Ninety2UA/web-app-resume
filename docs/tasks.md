@@ -214,10 +214,10 @@ Major rework of RoleEvolution chart:
 | L01 | Set real Formspree form ID in `ContactSection.tsx` | **Done** |
 | L02 | Add Open Graph image (`opengraph-image.png`) | **Done** |
 | L03 | Set up Vercel project + custom domain (dbenger.com) | Pending |
-| L04 | Add company logos to experience cards | **Done** (uncommitted) |
+| L04 | Add company logos to experience cards | **Done** (committed at `2d65169`) |
 | L05 | Set up git remote + push | **Done** |
 
-### L04 Detail — Company Logos (Complete, uncommitted)
+### L04 Detail — Company Logos (Complete, committed at `2d65169`)
 
 Added company logos inline with job titles in experience card headers:
 - **Logos**: `public/logos/` — google.png, henkel.png, loreal.png, q-agency.png, ai.png
@@ -227,7 +227,7 @@ Added company logos inline with job titles in experience card headers:
 - **gitignore**: Added `!public/logos/*.png` exception
 - **Build**: Clean (0 warnings), first load JS dropped from 162kB to 156kB (no `next/image` import)
 
-## Phase 11: UI Tweaks (uncommitted)
+## Phase 11: UI Tweaks (committed at `2d65169`)
 | Task | Description | Status |
 |------|-------------|--------|
 | U11 | Move company logo from company name row to job title row | **Done** |

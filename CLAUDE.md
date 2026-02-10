@@ -154,7 +154,7 @@ The filter bar uses `top-[68px]` to sit below the FloatingNav (which is ~44px ta
 
 ## Repository
 - **GitHub:** https://github.com/Ninety2UA/web-app-resume
-- **Commits:** `fb6a036` (Phases 0–7), `34e5062` (Phase 8 + launch prep), `53bdd97` (post-launch UI fixes), `47ba309` (Skills & Tech Stack merge), `18a2ea5` (Collaboration page), `b5e26ea` (UI rework: chart, timeline, nav), `2d65169` (logos, full resume content, nav fix, RIT logo, README)
+- **Commits:** `fb6a036` (Phases 0–7), `34e5062` (Phase 8 + launch prep), `53bdd97` (post-launch UI fixes), `47ba309` (Skills & Tech Stack merge), `18a2ea5` (Collaboration page), `b5e26ea` (UI rework: chart, timeline, nav), `2d65169` (logos, full resume content, nav fix, RIT logo, README), `6863c84` (comprehensive README + CLAUDE.md sync)
 - **Branch:** `main`
 
 ## Project Documentation
@@ -166,14 +166,17 @@ The filter bar uses `top-[68px]` to sit below the FloatingNav (which is ~44px ta
 Always read these files before starting any work.
 
 ## Session Continuity
-- **All development complete and committed** — Phases 0–11 + L04 + U11–U14 done. All pushed at `2d65169`.
+- **All development complete and committed** — Phases 0–11 + L04 + U11–U13 done. Latest commit: `6863c84`.
+- **Branch `main` is 1 commit ahead of `origin/main`** — needs `git push`.
 - **Working tree clean** — no uncommitted changes.
-- **Latest session work** (committed at `2d65169`):
+- **Latest session work** (committed at `6863c84`):
+  - Rewrote `README.md` with table of contents, z-index stacking order section, expanded troubleshooting (9 issues with Cause column), improved customization guides (color palette table, data separation notes), and clearer deployment instructions
+  - Synced `CLAUDE.md` with FloatingNav anchor link pitfall and corrected route detection docs
+- **Previous session** (committed at `2d65169`):
   - Fixed FloatingNav anchor links for cross-page navigation (`#top` → `/#top`, `#experience` → `/#experience`)
-  - Updated all experience entries with full verbatim resume content (new sections: Experimentation & Insights, Cross-Functional Leadership & Strategy, Reporting & Cross-Functional Operations; expanded all bullets and key project descriptions)
-  - Added RIT logo to Education section (`public/logos/rit.png`, inline with school name)
-  - Created comprehensive `README.md` (architecture, features, setup, customization, deployment, troubleshooting)
-  - Company logos on all 8 experience cards + RIT on education (6 logos total in `public/logos/`)
+  - Updated all experience entries with full verbatim resume content
+  - Added RIT logo to Education section, company logos on all 8 experience cards
+  - Created initial `README.md`
 - **FloatingNav** — always visible, links use `/#section` format for cross-page navigation. Links: Home, Experience, Collaboration, PDF.
 - **Portfolio page hidden** — `/portfolio` route still works but no links point to it. Files preserved for future v2.
 - Remaining: L03 — Vercel deployment + custom domain (dbenger.com)
