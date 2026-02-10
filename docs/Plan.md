@@ -423,6 +423,19 @@ T28 → T29, T30, T31 → T32
 
 ---
 
+## Phase 13: Deployment (committed at `78bb8f6`)
+
+### L03 - Vercel deployment + custom domain
+- Installed Vercel CLI, logged in via OAuth
+- `vercel --yes` created project + first production deployment
+- Build: 0 errors, all pages SSG, 159 kB first load
+- Added `dbenger.com` and `www.dbenger.com` custom domains
+- Domain registered via Vercel — nameservers already correct, no manual DNS
+- GitHub repo connection pending (needs Login Connection in Vercel account settings for auto-deploys)
+- **Status: Done**
+
+---
+
 ## Cut from v1 Scope
 - Shareable filter URLs (query parameter state)
 - Technology tag click-to-filter in experience cards
