@@ -18,6 +18,7 @@
 | `6863c84` README + docs sync | Comprehensive README rewrite (TOC, z-index docs, expanded troubleshooting), CLAUDE.md sync |
 | `e8f9cae` Doc sync | Synced CLAUDE.md, Plan.md, STATUS.md, tasks.md with latest commit history |
 | `78bb8f6` Deployment | Vercel project created, dbenger.com + www.dbenger.com live, L03 done |
+| `ec931fc` RIT logo update | Replaced RIT logo with new version, manual Vercel deploy |
 
 Key files: 30 TSX/TS source files across `src/`, 4 data files, 3 visualizations (Career Path, Skills & Tech Stack, Industries), Tailwind theme, global styles, favicon, OG image.
 

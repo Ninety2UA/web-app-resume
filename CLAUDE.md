@@ -154,7 +154,7 @@ The filter bar uses `top-[68px]` to sit below the FloatingNav (which is ~44px ta
 
 ## Repository
 - **GitHub:** https://github.com/Ninety2UA/web-app-resume
-- **Commits:** `fb6a036` (Phases 0–7), `34e5062` (Phase 8 + launch prep), `53bdd97` (post-launch UI fixes), `47ba309` (Skills & Tech Stack merge), `18a2ea5` (Collaboration page), `b5e26ea` (UI rework: chart, timeline, nav), `2d65169` (logos, full resume content, nav fix, RIT logo, README), `6863c84` (comprehensive README + CLAUDE.md sync), `e8f9cae` (doc sync), `78bb8f6` (deployment complete)
+- **Commits:** `fb6a036` (Phases 0–7), `34e5062` (Phase 8 + launch prep), `53bdd97` (post-launch UI fixes), `47ba309` (Skills & Tech Stack merge), `18a2ea5` (Collaboration page), `b5e26ea` (UI rework: chart, timeline, nav), `2d65169` (logos, full resume content, nav fix, RIT logo, README), `6863c84` (comprehensive README + CLAUDE.md sync), `e8f9cae` (doc sync), `78bb8f6` (deployment complete), `ec931fc` (RIT logo update)
 - **Branch:** `main`
 
 ## Project Documentation
@@ -166,8 +166,8 @@ The filter bar uses `top-[68px]` to sit below the FloatingNav (which is ~44px ta
 Always read these files before starting any work.
 
 ## Session Continuity
-- **All tasks complete** — Phases 0–12, L01–L05, U06–U13 done. Latest commit: `78bb8f6`.
-- **Deployed** — live at https://dbenger.com (Vercel, auto-deploys from `main`)
+- **All tasks complete** — Phases 0–13, L01–L05, U06–U13 done. Latest commit: `ec931fc`.
+- **Deployed** — live at https://dbenger.com (Vercel, manual deploy via `npx vercel --prod` when Git auto-deploy doesn't trigger)
 - **All tasks complete** — no remaining work items.
 - **FloatingNav** — always visible, links use `/#section` format for cross-page navigation. Links: Home, Experience, Collaboration, PDF.
 - **Portfolio page hidden** — `/portfolio` route still works but no links point to it. Files preserved for future v2.

@@ -432,6 +432,7 @@ T28 → T29, T30, T31 → T32
 - Added `dbenger.com` and `www.dbenger.com` custom domains
 - Domain registered via Vercel — nameservers already correct, no manual DNS
 - GitHub repo connection pending (needs Login Connection in Vercel account settings for auto-deploys)
+- Note: `npx vercel --prod` needed for manual deploys when Git auto-deploy doesn't trigger
 - **Status: Done**
 
 ---
