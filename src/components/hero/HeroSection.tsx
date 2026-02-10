@@ -125,7 +125,7 @@ export function HeroSection() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 1.2 }}
           aria-hidden="true"
-          className="flex flex-col items-center mt-8 text-warm-400"
+          className="flex flex-col items-center mt-12 text-warm-400"
         >
           <span className="text-xs font-medium tracking-wider uppercase mb-2">Scroll to explore</span>
           <motion.div
