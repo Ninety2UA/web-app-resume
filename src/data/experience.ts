@@ -226,8 +226,8 @@ export const experiences: ExperienceEntry[] = [
     logo: '/logos/google.png',
     role: 'Analytical Consultant Intern',
     location: 'Zagreb, Croatia',
-    startDate: '2017-08',
-    endDate: '2021-12',
+    startDate: '2017-01',
+    endDate: '2017-08',
     summary: 'Supported Google LCS across CEE markets, delivering quantitative market landscape work and presenting insights to Industry Managers.',
     sections: [
       {
