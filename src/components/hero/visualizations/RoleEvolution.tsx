@@ -70,8 +70,8 @@ export function RoleEvolution() {
   }, '')
 
   return (
-    <div className="w-full overflow-x-auto -mx-2 px-2 scrollbar-hide">
-      <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-auto min-w-[500px]" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Career progression chart showing role evolution from Marketing and BI Intern at Henkel in 2014 to AI and Technology Focus in 2025">
+    <div className="w-full">
+      <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-auto" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Career progression chart showing role evolution from Marketing and BI Intern at Henkel in 2014 to AI and Technology Focus in 2025">
         <title>Career role evolution from 2014 to 2025</title>
         {/* Grid lines */}
         {[0, 1, 2, 3, 4, 5, 6].map((level) => {
@@ -170,7 +170,7 @@ export function RoleEvolution() {
       </svg>
 
       {/* Timeline aligned with chart year positions */}
-      <div className="relative mt-3 min-w-[500px]" role="img" aria-label="Career timeline from 2014 to 2025+">
+      <div className="relative mt-3" role="img" aria-label="Career timeline from 2014 to 2025+">
         {/* Timeline line */}
         <div
           className="absolute top-[5px] sm:top-[6px] h-px bg-warm-200"
