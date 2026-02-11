@@ -77,7 +77,14 @@ function AssistantBubble({ text }: { text: string }) {
 }
 
 export default function ChatWidget() {
-  const [isOpen, setIsOpen] = useState(true)
+  const [isOpen, setIsOpen] = useState(false)
+
+  // Auto-open on desktop only (not mobile)
+  useEffect(() => {
+    if (window.innerWidth >= 640) {
+      setIsOpen(true)
+    }
+  }, [])
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState('')
   const [streamState, setStreamState] = useState<StreamState>('idle')

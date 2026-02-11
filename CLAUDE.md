@@ -163,7 +163,7 @@ The filter bar uses `top-[68px]` to sit below the FloatingNav (which is ~44px ta
 
 ## Repository
 - **GitHub:** https://github.com/Ninety2UA/web-app-resume
-- **Commits:** `fb6a036` (Phases 0–7), `34e5062` (Phase 8 + launch prep), `53bdd97` (post-launch UI fixes), `47ba309` (Skills & Tech Stack merge), `18a2ea5` (Collaboration page), `b5e26ea` (UI rework: chart, timeline, nav), `2d65169` (logos, full resume content, nav fix, RIT logo, README), `6863c84` (comprehensive README + CLAUDE.md sync), `e8f9cae` (doc sync), `78bb8f6` (deployment complete), `ec931fc` (RIT logo update), `1f47fd8` (mobile layout fixes), `648994d` (Google intern date fix), `d083605` (resume PDF V3 update), `fb4ece0` (mobile nav + chart spacing), `9ce59d3` (contact anchor scroll fix), `e2d7434` (experience anchor scroll fix)
+- **Commits:** `fb6a036` (Phases 0–7), `34e5062` (Phase 8 + launch prep), `53bdd97` (post-launch UI fixes), `47ba309` (Skills & Tech Stack merge), `18a2ea5` (Collaboration page), `b5e26ea` (UI rework: chart, timeline, nav), `2d65169` (logos, full resume content, nav fix, RIT logo, README), `6863c84` (comprehensive README + CLAUDE.md sync), `e8f9cae` (doc sync), `78bb8f6` (deployment complete), `ec931fc` (RIT logo update), `1f47fd8` (mobile layout fixes), `648994d` (Google intern date fix), `d083605` (resume PDF V3 update), `fb4ece0` (mobile nav + chart spacing), `9ce59d3` (contact anchor scroll fix), `e2d7434` (experience anchor scroll fix), `4095704` (ebook page), `6cfa572` (AI chatbot + ebook Gemini/plugin update), `a52b4a8` (README update)
 - **Branch:** `main`
 
 ## Project Documentation
@@ -175,9 +175,10 @@ The filter bar uses `top-[68px]` to sit below the FloatingNav (which is ~44px ta
 Always read these files before starting any work.
 
 ## Session Continuity
-- **Latest work** — Updated ebook source (`docs/ebook-building-dbenger-com.md`) and web page (`EbookContent.tsx`) to include T36 (AI chatbot) as Feature 8, updated stats/architecture/appendices. All T36 chatbot files still uncommitted, pending commit + deploy.
-- **Deployed** — live at https://dbenger.com (Vercel, manual deploy via `npx vercel --prod` when Git auto-deploy doesn't trigger)
-- **Chatbot** — FAB button (bottom-right, coral, z-[60]) opens chat panel (auto-open on first visit). Full-screen on mobile, 380x540 on desktop. Streams responses via SSE. Knowledge base in `src/data/chatbot-knowledge.ts`. Rate limited (100/day/IP, 20/session). Requires `GEMINI_API_KEY` env var. System prompt enforces plain text output; `stripMarkdown()` in ChatWidget strips any residual markdown.
-- **Ebook page** — `/how-i-built-this` route: full case study article, now updated with chatbot feature. Accessible via subtle pill button in HeroSection. Not in FloatingNav. 160 kB first load JS.
+- **Latest work** — U22: Chatbot auto-open disabled on mobile (only desktop >= 640px). Uncommitted change in `ChatWidget.tsx`. Previous: all features committed and deployed.
+- **Deployed** — live at https://dbenger.com (Vercel). Latest deploy includes chatbot + ebook. Manual deploy via `npx vercel --prod` when Git auto-deploy doesn't trigger.
+- **Chatbot** — FAB button (bottom-right, coral, z-[60]) opens chat panel (auto-open on desktop only, closed by default on mobile). Full-screen on mobile, 380x540 on desktop. Streams responses via SSE from Gemini 3 Flash Preview (Google AI Studio). Knowledge base in `src/data/chatbot-knowledge.ts`. Rate limited (100/day/IP, 20/session). Requires `GEMINI_API_KEY` env var. System prompt enforces plain text output; `stripMarkdown()` in ChatWidget strips any residual markdown.
+- **Ebook page** — `/how-i-built-this` route: full case study article with chatbot as Feature 8. Accessible via subtle pill button in HeroSection. Not in FloatingNav. 160 kB first load JS.
 - **FloatingNav** — always visible inline pill nav at all screen sizes (no hamburger menu). Links use `/#section` format for cross-page navigation. Links: Home, Experience, Collaboration, Contact, PDF.
 - **Portfolio page hidden** — `/portfolio` route still works but no links point to it. Files preserved for future v2.
+- **Untracked** — `chatbot/` scratch directory in repo root (not committed, not needed).

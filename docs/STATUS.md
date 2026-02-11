@@ -26,37 +26,22 @@
 | `fb4ece0` Mobile nav + chart spacing | Tightened FloatingNav link padding, reduced hero section + viz card padding on mobile for larger chart rendering |
 | `9ce59d3` Contact anchor scroll fix | Added `scroll-mt-[140px]` to `#contact` section so "Get in Touch" clears fixed nav + filter bar |
 | `e2d7434` Experience anchor scroll fix | Added `scroll-mt-[140px]` to `#experience` section so "Experience" heading clears fixed nav + filter bar |
+| `4095704` Ebook page | New `/how-i-built-this` case study article with 12 sections, code blocks, tables, callouts |
+| `6cfa572` AI chatbot + ebook update | T36 chatbot (Gemini 3 Flash Preview via Google AI Studio, SSE streaming, ChatWidget, rate limiting). Ebook updated with model name + compound-engineering-plugin. |
+| `a52b4a8` README update | Added chatbot, ebook page, API route, env vars, z-index, troubleshooting to README |
 
-Key files: 32 TSX/TS source files across `src/`, 4 data files, 3 visualizations (Career Path, Skills & Tech Stack, Industries), Tailwind theme, global styles, favicon, OG image.
+**Uncommitted:**
+- U22: ChatWidget auto-open disabled on mobile — only opens automatically on desktop (>= 640px)
 
-**All development tasks (T01–T36, U06–U21, L04) are complete.** T36 (AI chatbot) uncommitted, pending review + deploy.
+Key files: ~37 TSX/TS source files across `src/`, 5 data files, 3 visualizations (Career Path, Skills & Tech Stack, Industries), 1 API route (`/api/chat`), Tailwind theme, global styles, favicon, OG image.
 
-## Uncommitted changes (pending commit)
-
-### T36 — "Ask Dominik's AI" Chatbot
-- AI-powered chatbot using Gemini 3 Flash (`gemini-3-flash-preview`) via SSE streaming
-- New files: `src/data/chatbot-knowledge.ts` (knowledge base + system prompt), `src/app/api/chat/route.ts` (POST handler with rate limiting), `src/lib/sanitize.ts` (input sanitization + prompt injection guards), `src/components/chat/ChatWidget.tsx` (FAB + chat panel), `src/components/chat/TypingIndicator.tsx`
-- ChatWidget added to `layout.tsx` — available on all routes, auto-opens on page load
-- Features: streaming responses, suggested questions, error retry, session limit (20 messages), daily rate limit (100/IP), prompt injection protection, contact CTA
-- UI: coral FAB (bottom-right, z-[60]), full-screen on mobile, 380x540 panel on desktop, glassmorphism header
-- Dependency added: `@google/generative-ai`
-- Requires `GEMINI_API_KEY` env var (`.env.local` for dev, Vercel settings for prod)
-- Output formatting: system prompt enforces plain text (no markdown); client-side `stripMarkdown()` in ChatWidget strips residual bold/italic/headings/code/links
-- Build: 0 warnings, `/api/chat` = dynamic route
-
-### T35 — "How I Built This" ebook page
-- New `/how-i-built-this` route: full article rendering `docs/ebook-building-dbenger-com.md` content as styled JSX
-- New files: `src/app/how-i-built-this/page.tsx` (server component), `src/components/ebook/EbookContent.tsx` (client component, ~600 lines)
-- 12 sections with Table of Contents, code blocks, tables, callout blockquotes, color swatches, stats grid, footer CTA
-- Subtle "How I build this Web App" pill button added above "Dominik Benger" in HeroSection
-- Build: 0 warnings, `/how-i-built-this` = 160 kB first load JS, SSG
-- NOT added to FloatingNav — accessible only via hero button
-- **Updated**: Ebook source + web page now include T36 (AI chatbot) as Feature 8, with updated stats, architecture, phases table, and file inventory
+**All development tasks (T01–T36, U06–U21, L04) are complete and committed.** Site live at dbenger.com.
 
 ## Current state of the code
-- `npm run build` — passes clean (0 errors, 0 warnings, all pages SSG)
-- `npm run dev` — runs on localhost:3000, `/`, `/portfolio`, and `/collaboration` all render
+- `npm run build` — passes clean (0 errors, 0 warnings, all pages SSG except `/api/chat` dynamic)
+- `npm run dev` — runs on localhost:3000, all routes render (`/`, `/collaboration`, `/how-i-built-this`, `/portfolio`)
 - Contact form wired to Formspree endpoint `mojnqgnq` — live and functional
+- AI chatbot live — `GEMINI_API_KEY` set in Vercel env vars
 - Open Graph image at `src/app/opengraph-image.png` (1200×630, auto-served by Next.js)
 - No tests (no test framework installed)
 - GitHub: https://github.com/Ninety2UA/web-app-resume

@@ -288,12 +288,12 @@ Updated `toolCategories` in `offerings.ts`:
 - **Fix**: Added `scroll-mt-[140px]` to both `<section id="contact">` in `ContactSection.tsx` and `<section id="experience">` in `ExperienceSection.tsx`.
 - **Verified**: Tested on 375px mobile viewport via Playwright — "Get in Touch" and "Experience" headings now fully visible after nav click.
 
-## Phase 18: Ebook / Case Study Page (uncommitted)
+## Phase 18: Ebook / Case Study Page (committed at `4095704`, updated at `6cfa572`)
 | Task | Description | Status |
 |------|-------------|--------|
-| T35 | "How I Built This" ebook page (`/how-i-built-this`) + hero button | **Done** (uncommitted) |
+| T35 | "How I Built This" ebook page (`/how-i-built-this`) + hero button | **Done** |
 
-### T35 Detail — Ebook Page (Complete, uncommitted)
+### T35 Detail — Ebook Page (Complete)
 
 New `/how-i-built-this` route rendering the ebook case study (`docs/ebook-building-dbenger-com.md`):
 - **Page**: `src/app/how-i-built-this/page.tsx` — server component with metadata, FloatingNav, Footer (follows collaboration page pattern)
@@ -308,18 +308,18 @@ New `/how-i-built-this` route rendering the ebook case study (`docs/ebook-buildi
 - **Build**: 0 warnings, 17 kB component, 158 kB first load JS, SSG
 - **Content**: Article uses `max-w-3xl` for comfortable reading width; no markdown renderer dependency (all JSX)
 
-## Phase 19: AI Chatbot (uncommitted)
+## Phase 19: AI Chatbot (committed at `6cfa572`)
 | Task | Description | Status |
 |------|-------------|--------|
-| T36 | "Ask Dominik's AI" chatbot — Gemini Flash, SSE streaming, ChatWidget in layout | **Done** (uncommitted) |
+| T36 | "Ask Dominik's AI" chatbot — Gemini 3 Flash Preview (Google AI Studio), SSE streaming, ChatWidget in layout | **Done** |
 
-### T36 Detail — AI Chatbot (Complete, uncommitted)
+### T36 Detail — AI Chatbot (Complete)
 
 "Ask Dominik's AI" — an AI-powered chatbot available on all routes:
-- **API**: `src/app/api/chat/route.ts` — POST handler with Gemini 3 Flash (`gemini-3-flash-preview`), SSE streaming via ReadableStream, in-memory rate limiting (100/day/IP, 20 messages/session)
+- **API**: `src/app/api/chat/route.ts` — POST handler with Gemini 3 Flash Preview (`gemini-3-flash-preview`) via Google AI Studio, SSE streaming via ReadableStream, in-memory rate limiting (100/day/IP, 20 messages/session)
 - **Knowledge Base**: `src/data/chatbot-knowledge.ts` — structured text (~5K tokens) consolidating resume, experience, skills, offerings, and projects. System prompt with personality rules and guardrails. Explicit plain-text formatting rules (no markdown).
 - **Sanitization**: `src/lib/sanitize.ts` — input trimming/length enforcement, prompt injection detection (regex patterns for common injection attempts)
-- **Widget**: `src/components/chat/ChatWidget.tsx` — FAB button (coral, bottom-right, z-[60]) + sliding panel. Auto-opens on page load. Full-screen on mobile, 380x540 on desktop. Suggested questions, streaming bubbles, error retry, session limit message, contact CTA after 3+ exchanges. Client-side `stripMarkdown()` safety net strips residual bold/italic/headings/code/links.
+- **Widget**: `src/components/chat/ChatWidget.tsx` — FAB button (coral, bottom-right, z-[60]) + sliding panel. Auto-opens on desktop only (>= 640px); closed by default on mobile. Full-screen on mobile, 380x540 on desktop. Suggested questions, streaming bubbles, error retry, session limit message, contact CTA after 3+ exchanges. Client-side `stripMarkdown()` safety net strips residual bold/italic/headings/code/links.
 - **Typing Indicator**: `src/components/chat/TypingIndicator.tsx` — 3 bouncing dots with staggered Framer Motion animation
 - **Layout**: ChatWidget added to `src/app/layout.tsx` (after `{children}`, before `<Analytics />`)
 - **Dependency**: `@google/generative-ai` added to package.json

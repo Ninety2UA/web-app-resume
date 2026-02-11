@@ -510,20 +510,22 @@ T28 → T29, T30, T31 → T32
 
 ---
 
-## Phase 19: AI Chatbot (uncommitted)
+## Phase 19: AI Chatbot (committed at `6cfa572`)
 
 ### T36 - "Ask Dominik's AI" chatbot
 - AI-powered chatbot available on all routes via `ChatWidget` in `layout.tsx`
-- **API route**: `src/app/api/chat/route.ts` — POST handler with Gemini 3 Flash (`gemini-3-flash-preview`), SSE streaming via `ReadableStream`, in-memory rate limiting (100/day/IP, 20 messages/session)
+- **API route**: `src/app/api/chat/route.ts` — POST handler with Gemini 3 Flash Preview (`gemini-3-flash-preview`) via Google AI Studio, SSE streaming via `ReadableStream`, in-memory rate limiting (100/day/IP, 20 messages/session)
 - **Knowledge base**: `src/data/chatbot-knowledge.ts` — structured text (~5K tokens) consolidating resume, experience, skills, offerings, and projects. System prompt with personality rules, guardrails, and explicit plain-text formatting rules (no markdown).
 - **Sanitization**: `src/lib/sanitize.ts` — input trimming/length enforcement, prompt injection detection
-- **Widget**: `src/components/chat/ChatWidget.tsx` — FAB button (coral, bottom-right, z-[60]) + sliding panel. Auto-opens on page load. Full-screen on mobile, 380×540 on desktop. Suggested questions, streaming bubbles, error retry, session limit, contact CTA after 3+ exchanges. Client-side `stripMarkdown()` safety net.
+- **Widget**: `src/components/chat/ChatWidget.tsx` — FAB button (coral, bottom-right, z-[60]) + sliding panel. Auto-opens on desktop only (>= 640px); closed by default on mobile. Full-screen on mobile, 380×540 on desktop. Suggested questions, streaming bubbles, error retry, session limit, contact CTA after 3+ exchanges. Client-side `stripMarkdown()` safety net.
 - **Typing indicator**: `src/components/chat/TypingIndicator.tsx` — 3 bouncing dots with staggered Framer Motion animation
 - **Dependency**: `@google/generative-ai` added to `package.json`
 - **Env**: `GEMINI_API_KEY` required in `.env.local` (dev) and Vercel env vars (prod)
 - **Analytics**: Structured `console.log` for Vercel Logs (`_source: "chat"`)
 - Build: 0 warnings, `/api/chat` = dynamic route, all other pages remain SSG
-- **Status: Done** (uncommitted, pending commit + deploy)
+- Ebook updated at same commit: Gemini 3 Flash Preview model name + compound-engineering-plugin in tools table
+- README updated at `a52b4a8` with chatbot, ebook, env vars, z-index
+- **Status: Done** (committed + deployed)
 
 ---
 
