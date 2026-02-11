@@ -1,6 +1,6 @@
 # Dominik Benger — Interactive Resume
 
-An animated, interactive web app that replaces a static PDF resume with dynamic data visualizations, a filterable career timeline, and a contact form. Live at [dbenger.com](https://dbenger.com).
+An animated, interactive web app that replaces a static PDF resume with dynamic data visualizations, a filterable career timeline, an AI chatbot, and a contact form. Live at [dbenger.com](https://dbenger.com).
 
 ![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue?logo=typescript)
@@ -54,6 +54,8 @@ An animated, interactive web app that replaces a static PDF resume with dynamic 
 - **Filterable experience timeline** — toggle by industry or role type with pill chips (inclusive OR logic)
 - **Expandable experience cards** — sectioned bullet points, key projects with links, technology tags, company logos
 - **Collaboration page** — 10 service offerings with accordion deliverables, 3 packages (Audit / Build / Operate), add-ons, working style principles, tooling categories
+- **AI chatbot** — "Ask Dominik's AI" powered by Gemini 3 Flash Preview (via Google AI Studio) with SSE streaming, curated knowledge base, rate limiting, and input sanitization
+- **Case study page** — Full article documenting how the site was built with AI tools (`/how-i-built-this`)
 - **Contact form** — Formspree-powered with honeypot spam protection
 - **Scroll animations** — staggered fade-in entrances via Framer Motion `whileInView`; respects `prefers-reduced-motion`
 - **Fully responsive** — mobile-first, tested at 320px, 375px, 768px, and 1024px+
@@ -73,6 +75,7 @@ An animated, interactive web app that replaces a static PDF resume with dynamic 
 | Styling | [Tailwind CSS 3.4](https://tailwindcss.com/) |
 | Animations | [Framer Motion 11](https://www.framer.com/motion/) |
 | Visualizations | Custom SVG + Framer Motion (no charting library) |
+| AI Chatbot | [@google/generative-ai](https://www.npmjs.com/package/@google/generative-ai) — Gemini 3 Flash Preview via Google AI Studio |
 | Contact Form | [Formspree](https://formspree.io/) |
 | Analytics | [Vercel Analytics](https://vercel.com/analytics) |
 | Font | [Plus Jakarta Sans](https://fonts.google.com/specimen/Plus+Jakarta+Sans) via `next/font` |
@@ -107,12 +110,18 @@ Browser
   │     ├── PackageCards (3-tier comparison + add-ons)
   │     └── WorkingStyleSection (principles + tool pills)
   │
+  ├── /how-i-built-this
+  │     └── EbookContent (full case study article)
+  │
+  ├── /api/chat (POST — Gemini 3 Flash Preview, SSE streaming)
+  │
   └── /portfolio (hidden — preserved for v2)
         └── PortfolioGrid → ProjectCard
 
 Layout (all pages):
   ├── FloatingNav (fixed, always visible, z-50)
   ├── Skip-to-content link (z-[100])
+  ├── ChatWidget (FAB + chat panel, z-[60])
   └── Vercel Analytics
 ```
 
@@ -123,9 +132,11 @@ src/data/*.ts (static TypeScript) ──▶ React components ──▶ SSG HTML 
                                            │
                                       Framer Motion
                                       (client-side animations)
+
+User message ──▶ ChatWidget (client) ──▶ POST /api/chat ──▶ Gemini 3 Flash Preview ──▶ SSE stream
 ```
 
-All pages are statically generated (SSG). No server-side data fetching, no API routes, no CMS. Career data, skills, offerings, and portfolio entries are typed TypeScript objects in `src/data/`.
+All page routes are statically generated (SSG). The only dynamic route is `/api/chat`, which handles the AI chatbot's server-side streaming via Google AI Studio. Career data, skills, offerings, and portfolio entries are typed TypeScript objects in `src/data/`.
 
 ---
 
@@ -134,12 +145,14 @@ All pages are statically generated (SSG). No server-side data fetching, no API r
 ```
 src/
 ├── app/                            # Next.js App Router
-│   ├── layout.tsx                  # Root layout (fonts, metadata, analytics)
+│   ├── layout.tsx                  # Root layout (fonts, metadata, analytics, ChatWidget)
 │   ├── page.tsx                    # Home: Hero + Filters + Experience + Contact
 │   ├── globals.css                 # Global styles + Tailwind directives
 │   ├── icon.svg                    # Favicon (DB initials on terra cotta)
 │   ├── opengraph-image.png         # OG image (1200×630)
+│   ├── api/chat/route.ts           # POST /api/chat — Gemini 3 Flash Preview SSE streaming
 │   ├── collaboration/page.tsx      # /collaboration route (server component)
+│   ├── how-i-built-this/page.tsx   # /how-i-built-this route (case study)
 │   └── portfolio/page.tsx          # /portfolio route (hidden, v2)
 ├── components/
 │   ├── layout/                     # FloatingNav, Footer
@@ -149,16 +162,20 @@ src/
 │   ├── filters/                    # FilterPills
 │   ├── contact/                    # ContactSection
 │   ├── portfolio/                  # PortfolioGrid, ProjectCard
-│   └── collaboration/              # OfferingCard, OfferingsGrid, PackageCards, WorkingStyleSection
+│   ├── collaboration/              # OfferingCard, OfferingsGrid, PackageCards, WorkingStyleSection
+│   ├── ebook/                      # EbookContent (case study article)
+│   └── chat/                       # ChatWidget (FAB + panel), TypingIndicator
 ├── data/                           # Static TypeScript data (no CMS)
 │   ├── experience.ts               # Career entries, education, filter tags
 │   ├── skills.ts                   # Skill categories, industry data, role progression
 │   ├── offerings.ts                # Service offerings, packages, add-ons, tools
-│   └── portfolio.ts                # Project cards (placeholder)
+│   ├── portfolio.ts                # Project cards (placeholder)
+│   └── chatbot-knowledge.ts        # AI chatbot knowledge base + system prompt
 ├── hooks/
 │   └── useScrollAnimation.ts       # IntersectionObserver scroll-triggered animations
 └── lib/
-    └── utils.ts                    # Utility functions (cn classname merger)
+    ├── utils.ts                    # Utility functions (cn classname merger)
+    └── sanitize.ts                 # Input sanitization + prompt injection guards
 
 public/
 ├── logos/                          # Company & education logos (PNG)
@@ -169,6 +186,7 @@ public/
 docs/
 ├── Dominik_Benger_Resume_4Page.md  # Source resume content (reference)
 ├── Offering.md                     # Service offerings source (reference)
+├── ebook-building-dbenger-com.md   # Case study source (reference)
 ├── PRD.md                          # Product Requirements Document
 ├── Spec.md                         # Technical specification
 ├── Plan.md                         # Implementation plan (phases & tasks)
@@ -212,13 +230,15 @@ npm run build    # Type-check + lint + static generation
 npm run start    # Serve the production build locally
 ```
 
-All three routes are statically generated (SSG). Expected build output:
+All page routes are statically generated (SSG) except `/api/chat` (dynamic). Expected build output:
 
 ```
 Route (app)              Size     First Load JS
-┌ ○ /                    ~16 kB   ~158 kB
-├ ○ /collaboration       ~6 kB    ~148 kB
-└ ○ /portfolio           ~4 kB    ~146 kB
+┌ ○ /                    ~17 kB   ~158 kB
+├ ƒ /api/chat             123 B   ~102 kB
+├ ○ /collaboration       ~7 kB    ~148 kB
+├ ○ /how-i-built-this    ~19 kB   ~160 kB
+└ ○ /portfolio           ~3 kB    ~144 kB
 ```
 
 ---
@@ -235,7 +255,13 @@ Uses ESLint with `eslint-config-next`.
 
 ## Environment Variables
 
-No `.env` file is required. All configuration is inline:
+The AI chatbot requires a `GEMINI_API_KEY` environment variable:
+
+| Variable | Location | Description |
+|----------|----------|-------------|
+| `GEMINI_API_KEY` | `.env.local` (dev) / Vercel project settings (prod) | Google AI Studio API key for Gemini 3 Flash Preview. If missing, the chatbot API returns a graceful error. |
+
+Other configuration is inline:
 
 | Setting | Location | Description |
 |---------|----------|-------------|
@@ -257,6 +283,7 @@ All career content is defined as typed TypeScript in `src/data/`. There is no CM
 | [`src/data/skills.ts`](src/data/skills.ts) | 7 skill categories (77 skills), industry data, role progression | SkillsTechStack, IndustryVerticals, RoleEvolution |
 | [`src/data/offerings.ts`](src/data/offerings.ts) | 10 offerings, 3 packages, add-ons, working principles, tool categories | Collaboration page |
 | [`src/data/portfolio.ts`](src/data/portfolio.ts) | Project cards (placeholder) | Portfolio page (hidden) |
+| [`src/data/chatbot-knowledge.ts`](src/data/chatbot-knowledge.ts) | AI chatbot knowledge base, system prompt, personality rules (~5K tokens) | `/api/chat` route |
 
 Reference documents (not imported by the app — content is manually synced to the TS files above):
 
@@ -264,6 +291,7 @@ Reference documents (not imported by the app — content is manually synced to t
 |------|---------|
 | [`docs/Dominik_Benger_Resume_4Page.md`](docs/Dominik_Benger_Resume_4Page.md) | Source resume in Markdown |
 | [`docs/Offering.md`](docs/Offering.md) | Service offerings source |
+| [`docs/ebook-building-dbenger-com.md`](docs/ebook-building-dbenger-com.md) | Case study article source |
 
 ---
 
@@ -344,9 +372,10 @@ Replace `public/resume/Dominik_Benger_Resume.pdf`. The download path is referenc
 The project is configured for [Vercel](https://vercel.com/):
 
 1. Connect the GitHub repo to a new Vercel project
-2. Vercel auto-detects Next.js — no custom build settings or environment variables needed
-3. Add a custom domain (e.g., `dbenger.com`) in Vercel project settings → Domains
-4. Vercel handles SSL, CDN, and automatic deployments on push to `main`
+2. Vercel auto-detects Next.js — no custom build settings needed
+3. Add `GEMINI_API_KEY` in Vercel project settings → Environment Variables (required for the AI chatbot)
+4. Add a custom domain (e.g., `dbenger.com`) in Vercel project settings → Domains
+5. Vercel handles SSL, CDN, and automatic deployments on push to `main`
 
 Alternatively, any platform that supports Next.js SSG works. Run `npm run build` and serve the `.next/` output or `out/` (if configured for static export).
 
@@ -381,6 +410,7 @@ Any new fixed/sticky elements must respect this layering:
 |---------|---------|----------|------|
 | Sticky filter bar | `z-30` | `sticky top-[68px]` | `src/app/page.tsx` |
 | FloatingNav | `z-50` | `fixed top-4` | `src/components/layout/FloatingNav.tsx` |
+| Chat widget (FAB + panel) | `z-[60]` | `fixed bottom-4 right-4` | `src/components/chat/ChatWidget.tsx` |
 | Skip-to-content | `z-[100]` | absolute (on focus) | `src/app/layout.tsx` |
 
 The filter bar uses `top-[68px]` to clear the FloatingNav (which is ~44px tall at `top-4`).
@@ -400,6 +430,8 @@ The filter bar uses `top-[68px]` to clear the FloatingNav (which is ~44px tall a
 | Contact form not submitting | Wrong Formspree endpoint | Verify the ID in `ContactSection.tsx:17` (current: `mojnqgnq`) |
 | Anchor links don't work from `/collaboration` | `#section` href doesn't navigate cross-page in Next.js | Use `/#section` format (prefixed with `/`) — already set up in `FloatingNav.tsx` |
 | `eslint-disable` block not suppressing in JSX | `eslint-disable-next-line` inside conditional (`&&`) fails when target is on non-adjacent line | Use `eslint-disable` / `eslint-enable` block pair instead |
+| Chatbot returns error response | Missing `GEMINI_API_KEY` env var | Add the key to `.env.local` (dev) or Vercel project settings (prod) |
+| Chatbot rate limit hit | In-memory rate limiter (100/day/IP, 20/session) | Resets on serverless cold start; intentional for a portfolio site |
 
 ---
 
