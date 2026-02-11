@@ -307,3 +307,22 @@ New `/how-i-built-this` route rendering the ebook case study (`docs/ebook-buildi
 - **Navigation**: Page NOT in FloatingNav — accessible only via hero button
 - **Build**: 0 warnings, 17 kB component, 158 kB first load JS, SSG
 - **Content**: Article uses `max-w-3xl` for comfortable reading width; no markdown renderer dependency (all JSX)
+
+## Phase 19: AI Chatbot (uncommitted)
+| Task | Description | Status |
+|------|-------------|--------|
+| T36 | "Ask Dominik's AI" chatbot — Gemini Flash, SSE streaming, ChatWidget in layout | **Done** (uncommitted) |
+
+### T36 Detail — AI Chatbot (Complete, uncommitted)
+
+"Ask Dominik's AI" — an AI-powered chatbot available on all routes:
+- **API**: `src/app/api/chat/route.ts` — POST handler with Gemini 3 Flash (`gemini-3-flash-preview`), SSE streaming via ReadableStream, in-memory rate limiting (100/day/IP, 20 messages/session)
+- **Knowledge Base**: `src/data/chatbot-knowledge.ts` — structured text (~5K tokens) consolidating resume, experience, skills, offerings, and projects. System prompt with personality rules and guardrails. Explicit plain-text formatting rules (no markdown).
+- **Sanitization**: `src/lib/sanitize.ts` — input trimming/length enforcement, prompt injection detection (regex patterns for common injection attempts)
+- **Widget**: `src/components/chat/ChatWidget.tsx` — FAB button (coral, bottom-right, z-[60]) + sliding panel. Auto-opens on page load. Full-screen on mobile, 380x540 on desktop. Suggested questions, streaming bubbles, error retry, session limit message, contact CTA after 3+ exchanges. Client-side `stripMarkdown()` safety net strips residual bold/italic/headings/code/links.
+- **Typing Indicator**: `src/components/chat/TypingIndicator.tsx` — 3 bouncing dots with staggered Framer Motion animation
+- **Layout**: ChatWidget added to `src/app/layout.tsx` (after `{children}`, before `<Analytics />`)
+- **Dependency**: `@google/generative-ai` added to package.json
+- **Env**: `GEMINI_API_KEY` required in `.env.local` (dev) / Vercel settings (prod)
+- **Analytics**: Structured `console.log` for Vercel Logs (`_source: "chat"` — message, error, rate_limit, blocked events)
+- **Build**: 0 warnings, `/api/chat` = dynamic route, all other pages remain SSG

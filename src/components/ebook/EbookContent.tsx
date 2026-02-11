@@ -137,6 +137,8 @@ export function EbookContent() {
               <li><strong>3 interactive visualizations</strong> &mdash; Career Path (animated SVG with year-proportional node positioning), Skills &amp; Tech Stack (filterable tag grid with 77 skills), and Industry Verticals (proportional bar chart with detail cards)</li>
               <li><strong>Filterable experience timeline</strong> &mdash; 8 career entries with expandable sections, company logos, technology tags, and key projects</li>
               <li><strong>Collaboration page</strong> &mdash; 10 service offerings with accordion deliverables, 3 packages, and a tooling showcase</li>
+              <li><strong>AI chatbot</strong> &mdash; &ldquo;Ask Dominik&apos;s AI&rdquo; powered by Gemini 3 Flash Preview (via Google AI Studio) with SSE streaming, a curated knowledge base, and rate limiting</li>
+              <li><strong>Case study page</strong> &mdash; This very article, documenting how the site was built with AI tools</li>
               <li><strong>Contact form</strong> &mdash; Formspree-powered with honeypot spam protection</li>
               <li><strong>Full accessibility</strong> &mdash; skip-to-content, ARIA tablist/tabpanel, keyboard navigation, <code className="text-sm bg-warm-100 px-1.5 py-0.5 rounded">prefers-reduced-motion</code> support</li>
               <li><strong>Mobile-first responsive design</strong> &mdash; tested at 320px, 375px, 768px, and 1024px+</li>
@@ -167,6 +169,7 @@ export function EbookContent() {
                     ['Styling', 'Tailwind CSS 3.4', 'Utility-first CSS with custom design tokens'],
                     ['Animations', 'Framer Motion 11', 'Scroll animations, page transitions, SVG path drawing'],
                     ['Visualizations', 'Custom SVG', 'Hand-built, no charting library'],
+                    ['AI Chatbot', '@google/generative-ai', 'Gemini 3 Flash Preview integration via Google AI Studio'],
                     ['Analytics', 'Vercel Analytics', 'Page views and Web Vitals'],
                     ['Contact Form', 'Formspree', 'Serverless form handling'],
                     ['Font', 'Plus Jakarta Sans', 'Loaded via next/font/google'],
@@ -196,12 +199,17 @@ export function EbookContent() {
                     ['Codex', 'AI research assistant — helped refine PRD structure, user stories, and requirements'],
                     ['Cursor', 'AI-powered IDE — used in Plan Mode with Codex models for planning and development'],
                     ['Claude Code', 'AI pair-programming — wrote the vast majority of code, docs, and config'],
+                    ['compound-engineering-plugin', 'Claude Code plugin — multi-agent workflows, parallel task execution, and specialized skill agents'],
                     ['Git / GitHub', 'Version control, hosted at github.com/Ninety2UA/web-app-resume'],
                     ['Vercel', 'Hosting, CDN, SSL, custom domain management'],
                     ['ESLint', 'Code quality with eslint-config-next'],
                   ].map(([tool, purpose]) => (
                     <tr key={tool} className="border-b border-warm-200/50">
-                      <td className="p-2.5 font-medium">{tool}</td>
+                      <td className="p-2.5 font-medium">
+                        {tool === 'compound-engineering-plugin' ? (
+                          <a href="https://github.com/EveryInc/compound-engineering-plugin" target="_blank" rel="noopener noreferrer" className="text-coral hover:underline">{tool}</a>
+                        ) : tool}
+                      </td>
                       <td className="p-2.5 text-warm-600">{purpose}</td>
                     </tr>
                   ))}
@@ -214,7 +222,7 @@ export function EbookContent() {
               <li><strong>No charting library</strong> (Chart.js, Recharts, D3) &mdash; Custom SVG gave me full control over the Career Path visualization&apos;s aesthetics and animations without bundle bloat.</li>
               <li><strong>No CMS</strong> &mdash; Career data lives in TypeScript files under <code className="text-sm bg-warm-100 px-1.5 py-0.5 rounded">src/data/</code>. For a single-user site, a CMS adds complexity without value.</li>
               <li><strong>No test framework</strong> &mdash; The site is entirely presentational with no business logic. Visual QA via browser and Playwright snapshots was sufficient.</li>
-              <li><strong>No database</strong> &mdash; Everything is statically generated at build time. Zero runtime data fetching.</li>
+              <li><strong>No database</strong> &mdash; Everything is statically generated at build time. The AI chatbot is the one exception &mdash; it has a single API route (<code className="text-sm bg-warm-100 px-1.5 py-0.5 rounded">/api/chat</code>) that calls the Gemini API via Google AI Studio at runtime, but still no database.</li>
             </ul>
 
             <Callout>
@@ -238,10 +246,11 @@ export function EbookContent() {
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "framer-motion": "^11.15.0",
-    "@vercel/analytics": "^1.4.0"
+    "@vercel/analytics": "^1.4.0",
+    "@google/generative-ai": "^0.21.0"
   }
 }`}</CodeBlock>
-            <p className="text-warm-700 leading-relaxed mb-6">Five production dependencies. That&apos;s the entire runtime footprint.</p>
+            <p className="text-warm-700 leading-relaxed mb-6">Six production dependencies. That&apos;s the entire runtime footprint.</p>
 
             <SubTitle>Tailwind Configuration</SubTitle>
             <p className="text-warm-700 leading-relaxed mb-4">
@@ -303,15 +312,17 @@ export function EbookContent() {
             <CodeBlock>{`/                 → Hero + Visualizations + Filters + Experience + Contact + Footer
 /collaboration    → Service offerings, packages, working style
 /how-i-built-this → Case study: how the site was built with AI tools
-/portfolio        → Project cards (hidden from nav — preserved for v2)`}</CodeBlock>
+/portfolio        → Project cards (hidden from nav — preserved for v2)
+/api/chat         → POST endpoint for AI chatbot (Gemini 3 Flash Preview via Google AI Studio, SSE streaming)`}</CodeBlock>
             <p className="text-warm-700 leading-relaxed mb-6">
-              All four routes are <strong>statically generated</strong> (SSG) at build time. There are no API routes, no server-side data fetching, and no client-side data fetching. The entire site is served as pre-rendered HTML with hydrated React components for interactivity.
+              The four page routes are <strong>statically generated</strong> (SSG) at build time. The only dynamic route is <code className="text-sm bg-warm-100 px-1.5 py-0.5 rounded">/api/chat</code>, which handles the AI chatbot&apos;s server-side streaming. The entire site is served as pre-rendered HTML with hydrated React components for interactivity.
             </p>
 
             <SubTitle>Component Tree</SubTitle>
             <CodeBlock>{`Layout (all pages)
 ├── FloatingNav (fixed, always visible, z-50)
 ├── Skip-to-content link (z-[100])
+├── ChatWidget (FAB + chat panel, z-[60])
 └── Vercel Analytics
 
 / (Home)
@@ -351,6 +362,7 @@ export function EbookContent() {
                     ['skills.ts', 'Skill categories, industry data, role progression nodes', '7 categories, 77 skills, 7 role nodes'],
                     ['offerings.ts', 'Service offerings, packages, add-ons, tool categories', '10 offerings, 3 packages'],
                     ['portfolio.ts', 'Project cards (placeholder)', '6 projects'],
+                    ['chatbot-knowledge.ts', 'AI chatbot knowledge base, system prompt', '~5K tokens'],
                   ].map(([file, contents, records]) => (
                     <tr key={file} className="border-b border-warm-200/50">
                       <td className="p-2.5 font-mono text-sm">{file}</td>
@@ -427,6 +439,7 @@ export function EbookContent() {
                   {[
                     ['Sticky filter bar', 'z-30', 'sticky top-[68px]'],
                     ['FloatingNav', 'z-50', 'fixed top-4'],
+                    ['Chat widget', 'z-[60]', 'fixed bottom-4 right-4'],
                     ['Skip-to-content', 'z-[100]', 'Absolute on focus'],
                   ].map(([el, z, pos]) => (
                     <tr key={el} className="border-b border-warm-200/50">
@@ -513,6 +526,7 @@ export function EbookContent() {
                     ['16', 'Mobile spacing polish', 'U18–U19'],
                     ['17', 'Anchor scroll fixes', 'U20–U21'],
                     ['18', 'Ebook / case study page', 'T35'],
+                    ['19', 'AI chatbot ("Ask Dominik\'s AI")', 'T36'],
                   ].map(([phase, scope, tasks]) => (
                     <tr key={phase} className="border-b border-warm-200/50">
                       <td className="p-2.5 font-medium">{phase}</td>
@@ -664,6 +678,33 @@ export function EbookContent() {
             <p className="text-warm-700 leading-relaxed mb-6">
               The final version removed ~87 lines of code (scroll listener, useState, AnimatePresence, hamburger menu, dropdown). Simpler was better.
             </p>
+
+            <SubTitle>Feature 8: AI Chatbot (&ldquo;Ask Dominik&apos;s AI&rdquo;)</SubTitle>
+            <p className="text-warm-700 leading-relaxed mb-4">
+              The latest addition &mdash; an AI-powered chatbot that lets visitors ask questions about my experience, skills, and services. It uses a curated knowledge base (~5K tokens) that consolidates resume data into structured context for the LLM.
+            </p>
+            <p className="text-warm-700 leading-relaxed mb-4">
+              The API route uses manual <code className="text-sm bg-warm-100 px-1.5 py-0.5 rounded">ReadableStream</code> + <code className="text-sm bg-warm-100 px-1.5 py-0.5 rounded">TextEncoder</code> for SSE streaming &mdash; no need for the Vercel AI SDK. Rate limiting is handled in-memory (100 requests/day/IP, 20 messages/session).
+            </p>
+            <CodeBlock label="API Route (SSE streaming)">{`const stream = new ReadableStream({
+  async start(controller) {
+    const result = await model.generateContentStream({
+      contents: [{ role: 'user', parts: [{ text: prompt }] }],
+    })
+    for await (const chunk of result.stream) {
+      const text = chunk.text()
+      controller.enqueue(encoder.encode(\`data: \${JSON.stringify({ text })}\\n\\n\`))
+    }
+    controller.enqueue(encoder.encode('data: [DONE]\\n\\n'))
+    controller.close()
+  },
+})`}</CodeBlock>
+            <p className="text-warm-700 leading-relaxed mb-4">
+              The <code className="text-sm bg-warm-100 px-1.5 py-0.5 rounded">ChatWidget</code> is a floating action button (coral, bottom-right) that opens a chat panel &mdash; full-screen on mobile, 380&times;540 on desktop. It auto-opens on first visit with suggested questions for common visitor intents.
+            </p>
+            <Callout>
+              <strong>Lesson Learned:</strong> System prompt instructions like &ldquo;do not use markdown&rdquo; are unreliable with LLMs. Always add a client-side <code className="text-sm bg-warm-200 px-1.5 py-0.5 rounded">stripMarkdown()</code> function as a safety net. It costs nothing when the model behaves, and saves the UI when it doesn&apos;t.
+            </Callout>
           </motion.section>
 
           <hr className="border-warm-200/60 my-12" />
@@ -803,7 +844,7 @@ export function EbookContent() {
             <SubTitle>On Architecture</SubTitle>
             <div className="space-y-4 mb-8">
               <Callout>
-                <strong>&ldquo;Fewer dependencies, fewer problems.&rdquo;</strong> Five production dependencies. Zero API routes. Zero database. Every decision to not add something made the project simpler to build, debug, and deploy.
+                <strong>&ldquo;Fewer dependencies, fewer problems.&rdquo;</strong> Six production dependencies. One API route (the chatbot). Zero database. Every decision to not add something made the project simpler to build, debug, and deploy.
               </Callout>
               <Callout>
                 <strong>&ldquo;Custom SVG beats chart libraries for bespoke visualizations.&rdquo;</strong> The Career Path chart needed year-proportional positioning, custom bezier curves, per-node label placement, and Framer Motion integration. No charting library offers all of that without fighting the API.
@@ -847,13 +888,13 @@ export function EbookContent() {
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8">
               {[
                 { label: 'Development time', value: '~3 days' },
-                { label: 'Total commits', value: '29' },
-                { label: 'Source files', value: '~32' },
+                { label: 'Total commits', value: '30+' },
+                { label: 'Source files', value: '~37' },
                 { label: 'Lines (initial commit)', value: '10,581' },
-                { label: 'Dependencies', value: '5' },
+                { label: 'Dependencies', value: '6' },
                 { label: 'First Load JS', value: '158 kB' },
                 { label: 'CSS bundle', value: '25 kB' },
-                { label: 'Pages (SSG)', value: '4' },
+                { label: 'Pages (SSG + API)', value: '4 + 1' },
                 { label: 'Build warnings', value: '0' },
                 { label: 'Skills showcased', value: '77' },
                 { label: 'Experience entries', value: '8' },
@@ -886,6 +927,7 @@ export function EbookContent() {
             <ul className="list-disc pl-6 text-warm-700 leading-relaxed mb-8 space-y-1">
               <li><strong>Portfolio page v2</strong> &mdash; Real case studies and project showcases</li>
               <li><strong>Blog / writing section</strong> &mdash; Expanding from a resume into a personal brand platform</li>
+              <li><strong>Chatbot refinement</strong> &mdash; Conversation analytics, improved knowledge base updates, and potential multi-model support</li>
               <li><strong>Analytics refinement</strong> &mdash; Custom event tracking for visualization interactions</li>
               <li><strong>Performance optimization</strong> &mdash; Dynamic imports, font weight subsetting, lazy loading</li>
             </ul>
@@ -934,6 +976,7 @@ export function EbookContent() {
                     ['Feb 10', 'fb4ece0', 'Tighten mobile nav tabs and enlarge hero chart on mobile'],
                     ['Feb 10', '9ce59d3', 'Fix Contact anchor scroll on mobile'],
                     ['Feb 10', 'e2d7434', 'Fix Experience anchor scroll: heading hidden behind fixed nav'],
+                    ['Feb 11', '4095704', 'Add "How I Built This" ebook page with case study article'],
                   ].map(([date, hash, desc]) => (
                     <tr key={hash} className="border-b border-warm-200/50">
                       <td className="p-2.5 whitespace-nowrap">{date}</td>
@@ -954,11 +997,12 @@ export function EbookContent() {
 
             <SubTitle>Source Files (src/)</SubTitle>
             <CodeBlock>{`src/app/
-├── layout.tsx              Root layout (fonts, metadata, analytics)
+├── layout.tsx              Root layout (fonts, metadata, analytics, ChatWidget)
 ├── page.tsx                Home page (Hero + Filters + Experience + Contact)
 ├── globals.css             Global styles + Tailwind directives
 ├── icon.svg                Favicon (DB monogram)
 ├── opengraph-image.png     OG image (1200×630)
+├── api/chat/route.ts       POST /api/chat — Gemini 3 Flash Preview (Google AI Studio) SSE streaming
 ├── collaboration/page.tsx      /collaboration route
 ├── how-i-built-this/page.tsx  /how-i-built-this route (case study)
 └── portfolio/page.tsx         /portfolio route (hidden)
@@ -983,19 +1027,23 @@ src/components/
 ├── collaboration/OfferingsGrid.tsx     2-column offering grid
 ├── collaboration/PackageCards.tsx      3-tier package comparison
 ├── collaboration/WorkingStyleSection.tsx  Principles + tool pills
-└── ebook/EbookContent.tsx             Case study article (12 sections)
+├── ebook/EbookContent.tsx             Case study article (12 sections)
+├── chat/ChatWidget.tsx                FAB + chat panel (Gemini AI chatbot)
+└── chat/TypingIndicator.tsx           Bouncing dots typing animation
 
 src/data/
 ├── experience.ts    8 career entries + education + filter tags
 ├── skills.ts        7 skill categories + industry data + role nodes
 ├── offerings.ts     10 offerings + 3 packages + tools
-└── portfolio.ts     6 project cards (placeholder)
+├── portfolio.ts     6 project cards (placeholder)
+└── chatbot-knowledge.ts  AI chatbot knowledge base + system prompt
 
 src/hooks/
 └── useScrollAnimation.ts  IntersectionObserver scroll trigger
 
 src/lib/
-└── utils.ts  cn() classname merger + formatDateRange()`}</CodeBlock>
+├── utils.ts  cn() classname merger + formatDateRange()
+└── sanitize.ts  Input sanitization + prompt injection guards`}</CodeBlock>
 
             <SubTitle>Configuration Files</SubTitle>
             <CodeBlock>{`package.json          Dependencies and scripts

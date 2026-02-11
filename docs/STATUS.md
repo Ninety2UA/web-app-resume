@@ -29,17 +29,29 @@
 
 Key files: 32 TSX/TS source files across `src/`, 4 data files, 3 visualizations (Career Path, Skills & Tech Stack, Industries), Tailwind theme, global styles, favicon, OG image.
 
-**All development tasks (T01–T35, U06–U21, L04) are complete.** Ebook page (T35) uncommitted, pending review.
+**All development tasks (T01–T36, U06–U21, L04) are complete.** T36 (AI chatbot) uncommitted, pending review + deploy.
 
 ## Uncommitted changes (pending commit)
+
+### T36 — "Ask Dominik's AI" Chatbot
+- AI-powered chatbot using Gemini 3 Flash (`gemini-3-flash-preview`) via SSE streaming
+- New files: `src/data/chatbot-knowledge.ts` (knowledge base + system prompt), `src/app/api/chat/route.ts` (POST handler with rate limiting), `src/lib/sanitize.ts` (input sanitization + prompt injection guards), `src/components/chat/ChatWidget.tsx` (FAB + chat panel), `src/components/chat/TypingIndicator.tsx`
+- ChatWidget added to `layout.tsx` — available on all routes, auto-opens on page load
+- Features: streaming responses, suggested questions, error retry, session limit (20 messages), daily rate limit (100/IP), prompt injection protection, contact CTA
+- UI: coral FAB (bottom-right, z-[60]), full-screen on mobile, 380x540 panel on desktop, glassmorphism header
+- Dependency added: `@google/generative-ai`
+- Requires `GEMINI_API_KEY` env var (`.env.local` for dev, Vercel settings for prod)
+- Output formatting: system prompt enforces plain text (no markdown); client-side `stripMarkdown()` in ChatWidget strips residual bold/italic/headings/code/links
+- Build: 0 warnings, `/api/chat` = dynamic route
 
 ### T35 — "How I Built This" ebook page
 - New `/how-i-built-this` route: full article rendering `docs/ebook-building-dbenger-com.md` content as styled JSX
 - New files: `src/app/how-i-built-this/page.tsx` (server component), `src/components/ebook/EbookContent.tsx` (client component, ~600 lines)
 - 12 sections with Table of Contents, code blocks, tables, callout blockquotes, color swatches, stats grid, footer CTA
 - Subtle "How I build this Web App" pill button added above "Dominik Benger" in HeroSection
-- Build: 0 warnings, `/how-i-built-this` = 158 kB first load JS, SSG
+- Build: 0 warnings, `/how-i-built-this` = 160 kB first load JS, SSG
 - NOT added to FloatingNav — accessible only via hero button
+- **Updated**: Ebook source + web page now include T36 (AI chatbot) as Feature 8, with updated stats, architecture, phases table, and file inventory
 
 ## Current state of the code
 - `npm run build` — passes clean (0 errors, 0 warnings, all pages SSG)

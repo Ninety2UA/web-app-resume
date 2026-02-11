@@ -54,6 +54,8 @@ The final site features:
 - **3 interactive visualizations** — Career Path (animated SVG with year-proportional node positioning), Skills & Tech Stack (filterable tag grid with 77 skills), and Industry Verticals (proportional bar chart with detail cards)
 - **Filterable experience timeline** — 8 career entries with expandable sections, company logos, technology tags, and key projects
 - **Collaboration page** — 10 service offerings with accordion deliverables, 3 packages, and a tooling showcase
+- **AI chatbot** — "Ask Dominik's AI" powered by Gemini 3 Flash Preview (via Google AI Studio) with SSE streaming, a curated knowledge base, and rate limiting
+- **Case study page** — This very article, documenting how the site was built with AI tools
 - **Contact form** — Formspree-powered with honeypot spam protection
 - **Full accessibility** — skip-to-content, ARIA tablist/tabpanel, keyboard navigation, `prefers-reduced-motion` support
 - **Mobile-first responsive design** — tested at 320px, 375px, 768px, and 1024px+
@@ -72,6 +74,7 @@ The final site features:
 | Styling | Tailwind CSS | 3.4 | Utility-first CSS with custom design tokens |
 | Animations | Framer Motion | 11.x | Scroll animations, page transitions, SVG path drawing |
 | Visualizations | Custom SVG | — | Hand-built, no charting library |
+| AI Chatbot | @google/generative-ai | 0.21 | Gemini 3 Flash Preview integration via Google AI Studio |
 | Analytics | Vercel Analytics | 1.x | Page views and Web Vitals |
 | Contact Form | Formspree | — | Serverless form handling |
 | Font | Plus Jakarta Sans | — | Loaded via `next/font/google` |
@@ -87,6 +90,7 @@ The final site features:
 | **Git / GitHub** | Version control, hosted at github.com/Ninety2UA/web-app-resume |
 | **Vercel** | Hosting, CDN, SSL, custom domain management |
 | **npm** | Package management |
+| **compound-engineering-plugin** | Claude Code plugin — multi-agent workflows, parallel task execution, and specialized skill agents ([github.com/EveryInc/compound-engineering-plugin](https://github.com/EveryInc/compound-engineering-plugin)) |
 | **ESLint** | Code quality with `eslint-config-next` |
 
 ### What I Didn't Use (and Why)
@@ -94,7 +98,7 @@ The final site features:
 - **No charting library** (Chart.js, Recharts, D3) — Custom SVG gave me full control over the Career Path visualization's aesthetics and animations without bundle bloat.
 - **No CMS** — Career data lives in TypeScript files under `src/data/`. For a single-user site, a CMS adds complexity without value.
 - **No test framework** — The site is entirely presentational with no business logic. Visual QA via browser and Playwright snapshots was sufficient.
-- **No database** — Everything is statically generated at build time. Zero runtime data fetching.
+- **No database** — Everything is statically generated at build time. The AI chatbot is the one exception — it has a single API route (`/api/chat`) that calls the Gemini API via Google AI Studio at runtime, but still no database.
 
 > **Key Insight:** The "no charting library" decision saved significant bundle size and gave me pixel-perfect control over the Career Path visualization — including year-proportional node positioning, custom bezier curves, and per-node label placement. A charting library would have fought me on all of these.
 
@@ -113,12 +117,13 @@ The project started from a standard Next.js 15 scaffold with TypeScript, Tailwin
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "framer-motion": "^11.15.0",
-    "@vercel/analytics": "^1.4.0"
+    "@vercel/analytics": "^1.4.0",
+    "@google/generative-ai": "^0.21.0"
   }
 }
 ```
 
-Five production dependencies. That's the entire runtime footprint.
+Six production dependencies. That's the entire runtime footprint.
 
 ### Tailwind Configuration
 
@@ -191,9 +196,10 @@ The site is a single-page scrollable app with three additional routes:
 /collaboration       → Service offerings, packages, working style
 /how-i-built-this    → Case study: how the site was built with AI tools
 /portfolio           → Project cards (hidden from nav — preserved for v2)
+/api/chat            → POST endpoint for AI chatbot (Gemini 3 Flash Preview via Google AI Studio, SSE streaming)
 ```
 
-All four routes are **statically generated** (SSG) at build time. There are no API routes, no server-side data fetching, and no client-side data fetching. The entire site is served as pre-rendered HTML with hydrated React components for interactivity.
+The four page routes are **statically generated** (SSG) at build time. The only dynamic route is `/api/chat`, which handles the AI chatbot's server-side streaming. The entire site is served as pre-rendered HTML with hydrated React components for interactivity.
 
 ### Component Tree
 
@@ -201,6 +207,7 @@ All four routes are **statically generated** (SSG) at build time. There are no A
 Layout (all pages)
 ├── FloatingNav (fixed, always visible, z-50)
 ├── Skip-to-content link (z-[100])
+├── ChatWidget (FAB + chat panel, z-[60])
 └── Vercel Analytics
 
 / (Home)
@@ -237,6 +244,7 @@ All career data lives in `src/data/` as typed TypeScript objects:
 | `skills.ts` | Skill categories, industry data, role progression nodes | 7 categories, 77 skills, 7 role nodes |
 | `offerings.ts` | Service offerings, packages, add-ons, tool categories | 10 offerings, 3 packages |
 | `portfolio.ts` | Project cards (placeholder) | 6 projects |
+| `chatbot-knowledge.ts` | AI chatbot knowledge base, system prompt, personality rules | ~5K tokens of structured context |
 
 The `ExperienceEntry` interface captures the full structure:
 
@@ -287,6 +295,7 @@ A deliberate stacking order prevents overlap issues:
 |---------|---------|----------|
 | Sticky filter bar | `z-30` | `sticky top-[68px]` |
 | FloatingNav | `z-50` | `fixed top-4` |
+| Chat widget (FAB + panel) | `z-[60]` | `fixed bottom-4 right-4` |
 | Skip-to-content | `z-[100]` | Absolute on focus |
 
 The filter bar uses `top-[68px]` to sit below the FloatingNav (which is ~44px tall at `top-4`). This relationship required careful measurement — getting it wrong caused the filter bar to overlap the nav on initial scroll.
@@ -349,6 +358,7 @@ The project was organized into 19 phases:
 | 16 | Mobile spacing polish | U18–U19 |
 | 17 | Anchor scroll fixes | U20–U21 |
 | 18 | Ebook / case study page | T35 |
+| 19 | AI chatbot ("Ask Dominik's AI") | T36 |
 
 Phases 0–7 were completed in the **first commit** (`fb6a036`) — over 10,000 lines of code across 41 files. This was the "autonomous full build" phase where Claude Code worked through the plan end-to-end.
 
@@ -616,6 +626,52 @@ The final version removed ~87 lines of code (scroll listener, useState, AnimateP
 
 ---
 
+### Feature 8: AI Chatbot ("Ask Dominik's AI")
+
+The latest addition to the site — an AI-powered chatbot that lets visitors ask questions about my experience, skills, and services.
+
+**Architecture:**
+
+```
+User message → ChatWidget (client) → POST /api/chat → Gemini 3 Flash Preview (Google AI Studio) → SSE stream → ChatWidget
+```
+
+The chatbot uses a curated knowledge base (`chatbot-knowledge.ts`, ~5K tokens) that consolidates resume data, experience details, skills, offerings, and projects into structured context for the LLM. The system prompt enforces a professional-but-approachable personality, plain text output (no markdown), and guardrails against off-topic questions.
+
+**Server-side streaming:**
+
+```typescript
+const stream = new ReadableStream({
+  async start(controller) {
+    const result = await model.generateContentStream({
+      contents: [{ role: 'user', parts: [{ text: prompt }] }],
+    })
+    for await (const chunk of result.stream) {
+      const text = chunk.text()
+      controller.enqueue(encoder.encode(`data: ${JSON.stringify({ text })}\n\n`))
+    }
+    controller.enqueue(encoder.encode('data: [DONE]\n\n'))
+    controller.close()
+  },
+})
+```
+
+The API route uses manual `ReadableStream` + `TextEncoder` for SSE — no need for the Vercel AI SDK. Rate limiting is handled in-memory (100 requests/day/IP, 20 messages/session), which resets on serverless cold starts — intentional and acceptable for a portfolio site.
+
+**Client-side widget:**
+
+The `ChatWidget` is a floating action button (coral, bottom-right) that opens a chat panel. It auto-opens on first page visit. Key design decisions:
+
+- **Full-screen on mobile**, 380×540 panel on desktop
+- **Suggested questions** for common visitor intents (experience, skills, collaboration)
+- **Streaming response bubbles** with a typing indicator (3 bouncing dots)
+- **Contact CTA** surfaces after 3+ exchanges to convert engaged visitors
+- **`stripMarkdown()` safety net** — despite the system prompt enforcing plain text, a client-side function strips any residual markdown formatting (bold, italic, headings, code, links)
+
+> **Lesson Learned:** System prompt instructions like "do not use markdown" are unreliable with LLMs. Always add a client-side `stripMarkdown()` function as a safety net. It costs nothing when the model behaves, and saves the UI when it doesn't.
+
+---
+
 ## 7. Challenges & Solutions
 
 ### Challenge 1: SVG Label Overlap in Year-Proportional Chart
@@ -753,7 +809,7 @@ This created a chain of context that survived across sessions. The AI didn't nee
 
 ### On Architecture
 
-> **"Fewer dependencies, fewer problems."** Five production dependencies. Zero API routes. Zero database. Every decision to not add something made the project simpler to build, debug, and deploy.
+> **"Fewer dependencies, fewer problems."** Six production dependencies. One API route (the chatbot). Zero database. Every decision to not add something made the project simpler to build, debug, and deploy.
 
 > **"Custom SVG beats chart libraries for bespoke visualizations."** The Career Path chart needed year-proportional positioning, custom bezier curves, per-node label placement, and Framer Motion integration. No charting library offers all of that without fighting the API.
 
@@ -781,14 +837,14 @@ This created a chain of context that survived across sessions. The AI didn't nee
 
 | Metric | Value |
 |--------|-------|
-| **Development time** | ~3 days (Feb 8–10, 2026) |
-| **Total commits** | 29 |
-| **Source files** | ~32 TSX/TS files |
+| **Development time** | ~3 days (Feb 8–11, 2026) |
+| **Total commits** | 30+ |
+| **Source files** | ~37 TSX/TS files |
 | **Lines of code (initial commit)** | 10,581 |
-| **Production dependencies** | 5 |
+| **Production dependencies** | 6 |
 | **First Load JS (home)** | 158 kB (gzipped) |
 | **CSS bundle** | 25 kB (Tailwind purge) |
-| **Pages generated (SSG)** | 4 |
+| **Pages generated (SSG)** | 4 (+1 dynamic API route) |
 | **Build warnings** | 0 |
 | **Skills showcased** | 77 across 7 categories |
 | **Experience entries** | 8 (with education) |
@@ -818,6 +874,7 @@ This created a chain of context that survived across sessions. The AI didn't nee
 
 - **Portfolio page v2** — The `/portfolio` route exists with placeholder content. Real case studies and project showcases are planned.
 - **Blog / writing section** — Expanding the site from a resume into a personal brand platform.
+- **Chatbot refinement** — Conversation analytics, improved knowledge base updates, and potential multi-model support.
 - **Analytics refinement** — Custom event tracking for visualization interactions (which tabs are viewed most, how deep do visitors scroll).
 - **Performance optimization** — Dynamic imports for visualizations, font weight subsetting, lazy loading below-fold content.
 
@@ -851,6 +908,7 @@ The site is live at [dbenger.com](https://dbenger.com). The code is open at [git
 | Feb 10 | `fb4ece0` | Tighten mobile nav tabs and enlarge hero chart on mobile |
 | Feb 10 | `9ce59d3` | Fix Contact anchor scroll on mobile |
 | Feb 10 | `e2d7434` | Fix Experience anchor scroll: heading hidden behind fixed nav |
+| Feb 11 | `4095704` | Add "How I Built This" ebook page with case study article |
 
 ---
 
@@ -860,11 +918,12 @@ The site is live at [dbenger.com](https://dbenger.com). The code is open at [git
 
 ```
 src/app/
-├── layout.tsx                          Root layout (fonts, metadata, analytics)
+├── layout.tsx                          Root layout (fonts, metadata, analytics, ChatWidget)
 ├── page.tsx                            Home page (Hero + Filters + Experience + Contact)
 ├── globals.css                         Global styles + Tailwind directives
 ├── icon.svg                            Favicon (DB monogram)
 ├── opengraph-image.png                 OG image (1200×630)
+├── api/chat/route.ts                   POST /api/chat — Gemini 3 Flash Preview (Google AI Studio) SSE streaming
 ├── collaboration/page.tsx              /collaboration route
 ├── how-i-built-this/page.tsx           /how-i-built-this route (case study)
 └── portfolio/page.tsx                  /portfolio route (hidden)
@@ -888,19 +947,23 @@ src/components/
 ├── collaboration/OfferingsGrid.tsx     2-column offering grid
 ├── collaboration/PackageCards.tsx      3-tier package comparison
 ├── collaboration/WorkingStyleSection.tsx  Principles + tool pills
-└── ebook/EbookContent.tsx             Case study article (12 sections)
+├── ebook/EbookContent.tsx             Case study article (12 sections)
+├── chat/ChatWidget.tsx                FAB + chat panel (Gemini AI chatbot)
+└── chat/TypingIndicator.tsx           Bouncing dots typing animation
 
 src/data/
 ├── experience.ts                       8 career entries + education + filter tags
 ├── skills.ts                           7 skill categories + industry data + role nodes
 ├── offerings.ts                        10 offerings + 3 packages + tools
-└── portfolio.ts                        6 project cards (placeholder)
+├── portfolio.ts                        6 project cards (placeholder)
+└── chatbot-knowledge.ts                AI chatbot knowledge base + system prompt
 
 src/hooks/
 └── useScrollAnimation.ts               IntersectionObserver scroll trigger
 
 src/lib/
-└── utils.ts                            cn() classname merger + formatDateRange()
+├── utils.ts                            cn() classname merger + formatDateRange()
+└── sanitize.ts                         Input sanitization + prompt injection guards
 ```
 
 ### Configuration Files

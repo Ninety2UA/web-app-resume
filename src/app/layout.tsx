@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Plus_Jakarta_Sans } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
+import ChatWidget from '@/components/chat/ChatWidget'
 import './globals.css'
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -47,6 +48,7 @@ export default function RootLayout({
           Skip to main content
         </a>
         {children}
+        <ChatWidget />
         <Analytics />
       </body>
     </html>

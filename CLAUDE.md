@@ -43,7 +43,8 @@ src/
 │   ├── globals.css   # Global styles + Tailwind
 │   ├── portfolio/    # /portfolio route
 │   ├── collaboration/ # /collaboration route (service offerings)
-│   └── how-i-built-this/ # /how-i-built-this route (ebook case study)
+│   ├── how-i-built-this/ # /how-i-built-this route (ebook case study)
+│   └── api/chat/    # POST /api/chat — Gemini-powered chatbot API (SSE streaming)
 ├── components/       # React components by section
 │   ├── layout/       # FloatingNav, Footer
 │   ├── hero/         # HeroSection, viz toggle, 3 visualizations
@@ -52,10 +53,11 @@ src/
 │   ├── contact/      # ContactSection (Formspree)
 │   ├── portfolio/    # PortfolioGrid, ProjectCard
 │   ├── collaboration/ # OfferingCard, OfferingsGrid, PackageCards, WorkingStyleSection
-│   └── ebook/        # EbookContent (case study article)
-├── data/             # Static TypeScript data files
+│   ├── ebook/        # EbookContent (case study article)
+│   └── chat/         # ChatWidget (FAB + panel), TypingIndicator
+├── data/             # Static TypeScript data files (+ chatbot-knowledge.ts)
 ├── hooks/            # useScrollAnimation, etc.
-└── lib/              # Utility functions
+└── lib/              # Utility functions (+ sanitize.ts)
 public/
 ├── resume/           # PDF resume for download
 └── logos/            # Company logo assets
@@ -110,6 +112,7 @@ docs/
 |---------|---------|----------|------|
 | Sticky filter bar | z-30 | `sticky top-[68px]` | `src/app/page.tsx` |
 | FloatingNav | z-50 | `fixed top-4` | `src/components/layout/FloatingNav.tsx` |
+| Chat widget (FAB + panel) | z-[60] | `fixed bottom-4 right-4` | `src/components/chat/ChatWidget.tsx` |
 | Skip-to-content link | z-[100] | — | `src/app/layout.tsx` |
 
 The filter bar uses `top-[68px]` to sit below the FloatingNav (which is ~44px tall at `top-4`). Any new sticky/fixed elements must respect this stacking order.
@@ -125,6 +128,8 @@ The filter bar uses `top-[68px]` to sit below the FloatingNav (which is ~44px ta
 - **Company logos use `<img>` not `next/image`** — `next/image` produces dimension mismatch warnings when logos have varying aspect ratios. Plain `<img>` with `eslint-disable` block in `ExperienceCard.tsx`. Logos are small static PNGs (3–153KB) that don't benefit from the optimization pipeline.
 - **FloatingNav anchor links must use `/#section` format** — plain `#section` hrefs don't navigate between pages in Next.js. Must prefix with `/` (e.g., `/#top`, `/#experience`) for cross-page navigation to work.
 - **Anchor scroll offset** — Sections with `id` anchors need `scroll-mt-[140px]` to clear the fixed FloatingNav (~60px) + sticky filter bar (~80px) when navigating via nav links. Applied to `#contact` and `#experience`.
+- **`GEMINI_API_KEY` env var** — Required for chatbot. Set in `.env.local` (gitignored) for dev, in Vercel project settings for prod. If missing or placeholder, the API route returns a graceful error.
+- **In-memory rate limiter** — `src/app/api/chat/route.ts` uses an in-memory Map for rate limiting. Resets on serverless cold starts — intentional and acceptable for a portfolio site.
 
 ## Accessibility Patterns
 - **Skip-to-content**: `layout.tsx` — sr-only link targeting `#main-content`, visible on focus
@@ -150,8 +155,8 @@ The filter bar uses `top-[68px]` to sit below the FloatingNav (which is ~44px ta
 - Portfolio page uses placeholder project cards (real content TBD)
 
 ## Performance Profile
-- Build: 0 warnings, all pages statically generated (SSG)
-- `/` = 158 kB first load JS (gzipped), `/portfolio` = 144 kB, `/collaboration` = 148 kB, `/how-i-built-this` = 158 kB
+- Build: 0 warnings, all pages SSG except `/api/chat` (dynamic)
+- `/` = 158 kB first load JS (gzipped), `/portfolio` = 144 kB, `/collaboration` = 148 kB, `/how-i-built-this` = 160 kB
 - CSS bundle = 25 kB raw (Tailwind purge working correctly)
 - `next.config.ts`: `reactStrictMode: true`, `poweredByHeader: false`, AVIF+WebP image formats
 - Deferred optimizations: dynamic imports for vizs, lazy loading below-fold, font weight subsetting
@@ -170,8 +175,9 @@ The filter bar uses `top-[68px]` to sit below the FloatingNav (which is ~44px ta
 Always read these files before starting any work.
 
 ## Session Continuity
-- **Latest work** — Added `/how-i-built-this` ebook page (T35) + subtle hero button. Uncommitted, pending review.
+- **Latest work** — Updated ebook source (`docs/ebook-building-dbenger-com.md`) and web page (`EbookContent.tsx`) to include T36 (AI chatbot) as Feature 8, updated stats/architecture/appendices. All T36 chatbot files still uncommitted, pending commit + deploy.
 - **Deployed** — live at https://dbenger.com (Vercel, manual deploy via `npx vercel --prod` when Git auto-deploy doesn't trigger)
-- **Ebook page** — `/how-i-built-this` route: full case study article from `docs/ebook-building-dbenger-com.md`. Server page wrapping `EbookContent` client component. Accessible via subtle pill button above "Dominik Benger" in HeroSection. Not in FloatingNav.
+- **Chatbot** — FAB button (bottom-right, coral, z-[60]) opens chat panel (auto-open on first visit). Full-screen on mobile, 380x540 on desktop. Streams responses via SSE. Knowledge base in `src/data/chatbot-knowledge.ts`. Rate limited (100/day/IP, 20/session). Requires `GEMINI_API_KEY` env var. System prompt enforces plain text output; `stripMarkdown()` in ChatWidget strips any residual markdown.
+- **Ebook page** — `/how-i-built-this` route: full case study article, now updated with chatbot feature. Accessible via subtle pill button in HeroSection. Not in FloatingNav. 160 kB first load JS.
 - **FloatingNav** — always visible inline pill nav at all screen sizes (no hamburger menu). Links use `/#section` format for cross-page navigation. Links: Home, Experience, Collaboration, Contact, PDF.
 - **Portfolio page hidden** — `/portfolio` route still works but no links point to it. Files preserved for future v2.
