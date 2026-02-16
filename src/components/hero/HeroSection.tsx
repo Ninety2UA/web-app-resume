@@ -42,7 +42,7 @@ export function HeroSection() {
             <div className="mb-3">
               <Link
                 href="/how-i-built-this"
-                className="inline-flex items-center gap-1.5 text-xs font-medium text-warm-500 bg-warm-100 border border-warm-200 rounded-full px-3 py-1 hover:text-coral hover:border-coral/30 transition-all duration-200"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-coral bg-coral/10 border border-coral/25 rounded-full px-4 py-1.5 hover:bg-coral/20 hover:border-coral/40 transition-all duration-200"
               >
                 How I build this Web App
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

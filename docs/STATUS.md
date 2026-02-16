@@ -29,9 +29,7 @@
 | `4095704` Ebook page | New `/how-i-built-this` case study article with 12 sections, code blocks, tables, callouts |
 | `6cfa572` AI chatbot + ebook update | T36 chatbot (Gemini 3 Flash Preview via Google AI Studio, SSE streaming, ChatWidget, rate limiting). Ebook updated with model name + compound-engineering-plugin. |
 | `a52b4a8` README update | Added chatbot, ebook page, API route, env vars, z-index, troubleshooting to README |
-
-**Uncommitted:**
-- U22: ChatWidget auto-open disabled on mobile — only opens automatically on desktop (>= 640px)
+| `27e65c1` Chatbot mobile fix | Disabled chatbot auto-open on mobile — only auto-opens on desktop (>= 640px) |
 
 Key files: ~37 TSX/TS source files across `src/`, 5 data files, 3 visualizations (Career Path, Skills & Tech Stack, Industries), 1 API route (`/api/chat`), Tailwind theme, global styles, favicon, OG image.
 

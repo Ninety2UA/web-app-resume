@@ -73,7 +73,7 @@ export function EbookContent() {
               Building dbenger.com: An AI-Assisted Portfolio Case Study
             </h1>
             <p className="text-warm-600 max-w-2xl mx-auto text-lg leading-relaxed mb-2">
-              How I Built an Interactive Resume Web App in 3 Days with Claude Code
+              How I Built an Interactive Resume Web App in 1 Day with Claude Code
             </p>
             <p className="text-warm-400 text-sm">Dominik Benger &mdash; February 2026</p>
           </motion.div>
@@ -102,6 +102,20 @@ export function EbookContent() {
             </ol>
           </motion.nav>
 
+          {/* ── Summary ── */}
+          <motion.section {...sectionAnim} className="bg-warm-100/40 border border-warm-200/50 rounded-2xl p-5 sm:p-8 mb-16">
+            <h2 className="text-lg font-bold text-warm-900 mb-4">Summary</h2>
+            <p className="text-warm-700 leading-relaxed mb-4">
+              This case study documents how I built <a href="https://dbenger.com" className="text-coral hover:underline">dbenger.com</a> &mdash; a fully interactive resume web app &mdash; in approximately 1 day using Claude Code as my primary development partner. The site replaces a static 4-page PDF with animated SVG visualizations, a filterable career timeline, an AI chatbot, and a service offerings page.
+            </p>
+            <p className="text-warm-700 leading-relaxed mb-4">
+              The project was built with <strong>Next.js 15</strong>, <strong>Tailwind CSS</strong>, <strong>Framer Motion</strong>, and <strong>custom SVG visualizations</strong> (no charting library). The AI chatbot runs on <strong>Gemini 3 Flash Preview</strong> via Google AI Studio with SSE streaming. The entire site ships with just 6 production dependencies and 158 kB of first-load JavaScript.
+            </p>
+            <p className="text-warm-700 leading-relaxed">
+              Inside you&apos;ll find the full technical breakdown: architecture decisions, the document-first workflow that made AI-assisted development coherent, code samples from every major feature, the challenges encountered (and how they were solved), and lessons learned about building with AI tools at production quality.
+            </p>
+          </motion.section>
+
           {/* ── Section 1: Project Overview ── */}
           <motion.section {...sectionAnim}>
             <SectionTitle id="project-overview" number="1" title="Project Overview" />
@@ -129,7 +143,7 @@ export function EbookContent() {
 
             <SubTitle>The Constraint</SubTitle>
             <p className="text-warm-700 leading-relaxed mb-6">
-              I built the entire project in approximately <strong>3 days</strong> using Claude Code as my primary development partner. No design team, no Figma mockups, no prior React/Next.js project in this domain. Just a 4-page resume PDF, a product requirements document, and an AI coding assistant.
+              I built the entire project in approximately <strong>1 day</strong> using Claude Code as my primary development partner. No design team, no Figma mockups, no prior React/Next.js project in this domain. Just a 4-page resume PDF, a product requirements document, and an AI coding assistant.
             </p>
 
             <SubTitle>What It Became</SubTitle>
@@ -887,7 +901,7 @@ export function EbookContent() {
             <SubTitle>By the Numbers</SubTitle>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8">
               {[
-                { label: 'Development time', value: '~3 days' },
+                { label: 'Development time', value: '~1 day' },
                 { label: 'Total commits', value: '30+' },
                 { label: 'Source files', value: '~37' },
                 { label: 'Lines (initial commit)', value: '10,581' },
@@ -910,7 +924,7 @@ export function EbookContent() {
             <SubTitle>What Worked</SubTitle>
             <ol className="list-decimal pl-6 text-warm-700 leading-relaxed mb-8 space-y-2">
               <li><strong>The document-first approach</strong> &mdash; PRD &rarr; Spec &rarr; Plan &rarr; Build. The upfront investment in docs made the autonomous build phase possible.</li>
-              <li><strong>Claude Code for rapid prototyping</strong> &mdash; Going from zero to a deployed, responsive, accessible web app in 3 days would not have been feasible without AI assistance.</li>
+              <li><strong>Claude Code for rapid prototyping</strong> &mdash; Going from zero to a deployed, responsive, accessible web app in 1 day would not have been feasible without AI assistance.</li>
               <li><strong>Custom SVG visualizations</strong> &mdash; They&apos;re the differentiating feature. Visitors engage with the Career Path chart in a way they never would with a static timeline.</li>
               <li><strong>Progressive refinement</strong> &mdash; The &ldquo;ship, then iterate&rdquo; approach kept momentum high.</li>
               <li><strong>Persistent documentation</strong> &mdash; The docs survived across sessions and prevented context loss.</li>
