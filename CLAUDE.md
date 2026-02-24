@@ -39,6 +39,7 @@ src/
 ├── app/
 │   ├── route.ts           # GET / — serves public/site.html (force-static)
 │   └── api/ai/            # Server-side Gemini proxy routes
+│       ├── knowledge.ts               # Shared professional profile for all AI routes
 │       ├── solution-matcher/route.ts   # POST — 3-step action plan
 │       ├── experience-qa/route.ts      # POST — experience Q&A
 │       ├── outreach-drafter/route.ts   # POST — email/LinkedIn drafts
@@ -102,6 +103,9 @@ All stacking context is managed in `public/site.html` via inline Tailwind classe
 - **AI responses use innerHTML** — Solution Matcher and Agenda Builder return HTML from Gemini. Sanitized via DOMPurify with allowlisted tags (`p`, `ul`, `li`, `strong`, `ol`, `em`).
 - **route.ts at app root** — `src/app/route.ts` serves static HTML. Cannot coexist with `page.tsx` in same directory. No `layout.tsx` needed (Route Handlers don't use layouts).
 - **Gemini API field names** — API routes use `system_instruction` (snake_case) for the Gemini REST API v1beta endpoint.
+- **Gemini thinking tokens** — Gemini 3 Flash Preview uses thinking tokens that count against `maxOutputTokens`. Must set `thinkingConfig: { thinkingBudget: 128 }` (not 0) and `maxOutputTokens: 1024`. At `thinkingBudget: 0` with temperature > 0.3, the model outputs garbage text.
+- **AI knowledge base** — All 4 AI routes import `src/app/api/ai/knowledge.ts` which contains Dominik's full professional profile. Update this file when resume content changes.
+- **AI plain text outputs** — Experience Q&A and Outreach Drafter must include "Output PLAIN TEXT only" in system prompts to prevent markdown artifacts (`**bold**`) rendering as literal text.
 
 ## Accessibility & Responsive
 - All accessibility and responsive behavior is handled in `public/site.html` via Tailwind responsive classes and HTML attributes
@@ -117,7 +121,7 @@ All stacking context is managed in `public/site.html` via inline Tailwind classe
 
 ## Repository
 - **GitHub:** https://github.com/Ninety2UA/web-app-resume
-- **Commits:** `fb6a036` (Phases 0–7), `34e5062` (Phase 8 + launch prep), `53bdd97` (post-launch UI fixes), `47ba309` (Skills & Tech Stack merge), `18a2ea5` (Collaboration page), `b5e26ea` (UI rework: chart, timeline, nav), `2d65169` (logos, full resume content, nav fix, RIT logo, README), `6863c84` (comprehensive README + CLAUDE.md sync), `e8f9cae` (doc sync), `78bb8f6` (deployment complete), `ec931fc` (RIT logo update), `1f47fd8` (mobile layout fixes), `648994d` (Google intern date fix), `d083605` (resume PDF V3 update), `fb4ece0` (mobile nav + chart spacing), `9ce59d3` (contact anchor scroll fix), `e2d7434` (experience anchor scroll fix), `4095704` (ebook page), `6cfa572` (AI chatbot + ebook Gemini/plugin update), `a52b4a8` (README update), `27e65c1` (chatbot mobile auto-open fix), `0366d57` (ebook summary + hero button visibility)
+- **Commits:** `fb6a036` (Phases 0–7), `34e5062` (Phase 8 + launch prep), `53bdd97` (post-launch UI fixes), `47ba309` (Skills & Tech Stack merge), `18a2ea5` (Collaboration page), `b5e26ea` (UI rework: chart, timeline, nav), `2d65169` (logos, full resume content, nav fix, RIT logo, README), `6863c84` (comprehensive README + CLAUDE.md sync), `e8f9cae` (doc sync), `78bb8f6` (deployment complete), `ec931fc` (RIT logo update), `1f47fd8` (mobile layout fixes), `648994d` (Google intern date fix), `d083605` (resume PDF V3 update), `fb4ece0` (mobile nav + chart spacing), `9ce59d3` (contact anchor scroll fix), `e2d7434` (experience anchor scroll fix), `4095704` (ebook page), `6cfa572` (AI chatbot + ebook Gemini/plugin update), `a52b4a8` (README update), `27e65c1` (chatbot mobile auto-open fix), `0366d57` (ebook summary + hero button visibility), `8d7629c` (full redesign: static HTML SPA + AI knowledge base + Gemini thinking fix)
 - **Branch:** `main`
 
 ## Project Documentation
@@ -129,9 +133,8 @@ All stacking context is managed in `public/site.html` via inline Tailwind classe
 Always read these files before starting any work.
 
 ## Session Continuity
-- **Latest work** — Complete site redesign: replaced React component architecture with static HTML (`public/site.html`) from `docs/index.html`. Created 4 server-side AI API routes. Removed all old components, data, hooks, utilities (~4,914 lines deleted). NOT YET COMMITTED.
-- **Deployed** — Previous version live at https://dbenger.com (Vercel). Manual deploy via `npx vercel --prod` when Git auto-deploy doesn't trigger.
-- **AI features (new)** — 4 inline AI features in `site.html`, each calling server-side API routes: Solution Matcher, Experience Q&A, Outreach Drafter, Agenda Builder. All use Gemini 3 Flash Preview via `GEMINI_API_KEY`.
-- **Old chatbot removed** — FAB chatbot widget (`ChatWidget.tsx`) and `/api/chat` route deleted. Replaced by 4 inline AI features.
-- **Old pages removed** — `/portfolio`, `/collaboration`, `/how-i-built-this` Next.js routes deleted. All content now in `site.html` hash-based SPA.
+- **Latest work** — Committed and deployed full site redesign (`8d7629c`): static HTML SPA, 4 AI API routes with shared knowledge base, rich system prompts, Gemini thinking token fix, favicon update, Google Calendar booking links, career timeline updates, README rewrite.
+- **Deployed** — `8d7629c` live at https://dbenger.com (Vercel). Manual deploy via `npx vercel --prod` when Git auto-deploy doesn't trigger.
+- **AI features** — 4 inline AI features in `site.html`, each calling server-side API routes with shared knowledge base (`knowledge.ts`). All use Gemini 3 Flash Preview with `thinkingBudget: 128` and `maxOutputTokens: 1024`.
+- **Old code removed** — All React components, data files, hooks, utilities, old chatbot, old pages deleted. Everything is now in `public/site.html` + 4 API routes.
 - **Untracked** — `chatbot/` scratch directory in repo root (not committed, not needed).

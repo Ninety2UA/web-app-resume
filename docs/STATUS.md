@@ -32,12 +32,9 @@
 | `a52b4a8` README update | Added chatbot, ebook page, API route, env vars, z-index, troubleshooting to README |
 | `27e65c1` Chatbot mobile fix | Disabled chatbot auto-open on mobile — only auto-opens on desktop (>= 640px) |
 | `0366d57` Ebook summary + hero button | Added summary section below TOC on ebook page, made hero ebook button coral-tinted and larger, updated "3 days" → "1 day" throughout |
+| `8d7629c` Full site redesign + AI improvements | Static HTML SPA, 4 AI routes with shared `knowledge.ts`, rich system prompts, Gemini thinking budget fix, favicon, calendar links, timeline sub-entry, README rewrite |
 
-**Uncommitted: Full site redesign** — Replaced React component architecture with static HTML from `docs/index.html`. Created 4 server-side AI API routes. Removed ~4,914 lines of old code.
-
-Key files: `public/site.html` (full site), `src/app/route.ts` (serves HTML), 4 API routes under `src/app/api/ai/`, static assets in `public/`.
-
-**All prior tasks (T01–T36, U06–U23, L04) complete. Redesign (R01) in progress — not yet committed.**
+**All tasks complete through Phase 22. Redesign committed and deployed at `8d7629c`.**
 
 ## Current state of the code
 - `npm run build` — passes clean (0 errors, 0 warnings; `/` static, 4 API routes dynamic)
@@ -47,7 +44,7 @@ Key files: `public/site.html` (full site), `src/app/route.ts` (serves HTML), 4 A
 - OG image at `public/og-image.png` with meta tags in HTML head
 - No tests (no test framework installed)
 - GitHub: https://github.com/Ninety2UA/web-app-resume
-- **Uncommitted changes** — full redesign not yet committed
+- All changes committed and deployed at `8d7629c`
 
 ## Decisions made
 | Area | Decision |
@@ -57,7 +54,7 @@ Key files: `public/site.html` (full site), `src/app/route.ts` (serves HTML), 4 A
 | Brand | Teal palette (brand-500: #14b8a6), dark hero/footer sections, Plus Jakarta Sans |
 | AI features | 4 inline features (Solution Matcher, Experience Q&A, Outreach Drafter, Agenda Builder) via Gemini 3 Flash Preview |
 | Security | API key server-side only; DOMPurify for AI HTML response sanitization |
-| Contact | Formspree POST + cal.com booking links |
+| Contact | Formspree POST + Google Calendar booking links |
 | Design source | `docs/index.html` is the single source of truth for the design |
 | Deployment | Next.js on Vercel (API routes + static HTML serving) |
 
@@ -133,13 +130,12 @@ npm run lint     # ESLint only
 No test runner installed. Lighthouse can be run via Chrome DevTools or `npx lighthouse http://localhost:3000`.
 
 ## Pitfalls / don't forget
-- **Formspree ID** — `ContactSection.tsx:17` uses real endpoint `mojnqgnq`.
-- **PDF path must match** — download button points to `/resume/Dominik_Benger_Resume.pdf`; the source file in `docs/resume-file/` has spaces in the name but was copied with underscores to `public/resume/`.
-- **SVG text in RoleEvolution** uses Tailwind `fill-warm-*` classes inside `<text>` elements — these require the Tailwind theme to be loaded; won't render in raw SVG viewers.
-- **Sticky filter bar is z-30, FloatingNav is z-50** — any new sticky/fixed elements need to respect this stacking.
-- **`prefers-reduced-motion`** is handled globally in CSS (forces 0.01ms durations) — but Framer Motion `animate` props still fire; they just complete instantly. Don't rely on animation callbacks for logic.
-- **`.gitignore` has `*.png`** — OG image exception: `!src/app/opengraph-image.png`. Logos exception: `!public/logos/*.png`.
-- **Company logos use `<img>` not `next/image`** — `next/image` produces dimension mismatch warnings with varying aspect ratio logos. Plain `<img>` with `eslint-disable` block in `ExperienceCard.tsx`.
+- **Formspree ID** — `site.html` uses Formspree endpoint `mojnqgnq`.
+- **PDF path must match** — download button points to `/resume/Dominik_Benger_Resume.pdf`.
+- **`.gitignore` has `*.png`** — Exceptions: `!public/logos/*.png`, `!public/og-image.png`.
+- **Gemini thinking tokens** — `thinkingBudget: 0` causes garbage output at temperatures > 0.3. Use `thinkingBudget: 128` minimum with `maxOutputTokens: 1024`.
+- **AI knowledge base** — All 4 routes import `knowledge.ts` for consistent, rich context. Update this file when resume content changes.
+- **AI plain text outputs** — Experience Q&A and Outreach Drafter must include "Output PLAIN TEXT only" in system prompt to prevent markdown artifacts.
 
 ## Mobile layout fixes (committed at `1f47fd8`)
 - [x] **U14 — RoleEvolution chart fits viewport** — Removed `min-w-[500px]` from SVG and timeline, removed `overflow-x-auto scrollbar-hide` from wrapper. Chart now scales to fit any viewport via SVG `viewBox` + `preserveAspectRatio`.

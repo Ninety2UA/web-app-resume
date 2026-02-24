@@ -339,7 +339,7 @@ New `/how-i-built-this` route rendering the ebook case study (`docs/ebook-buildi
 - **Analytics**: Structured `console.log` for Vercel Logs (`_source: "chat"` — message, error, rate_limit, blocked events)
 - **Build**: 0 warnings, `/api/chat` = dynamic route, all other pages remain SSG
 
-## Phase 21: Full Site Redesign (uncommitted)
+## Phase 21: Full Site Redesign (committed at `8d7629c`)
 | Task | Description | Status |
 |------|-------------|--------|
 | R01 | Replace React architecture with static HTML from `docs/index.html` | **Done** |
@@ -348,18 +348,37 @@ New `/how-i-built-this` route rendering the ebook case study (`docs/ebook-buildi
 | R04 | Clean up old source files (~4,914 lines removed) | **Done** |
 | R05 | QA — build passes clean, all routes verified, static assets accessible | **Done** |
 
-### R01–R05 Detail — Full Redesign (Build Verified, Not Committed)
+### R01–R05 Detail — Full Redesign (Committed + Deployed)
 
 Complete site redesign replacing the React/Next.js component architecture with a static HTML SPA:
 - **Source**: `docs/index.html` (2,840 lines) → `public/site.html` (with fixed paths + API route JS)
 - **Serving**: `src/app/route.ts` reads `public/site.html` and serves at `/` (force-static)
 - **AI API routes**: 4 new routes under `src/app/api/ai/` proxy to Gemini 3 Flash Preview
-  - `/api/ai/solution-matcher` — 3-step action plan (temp 0.7, 350 tokens)
-  - `/api/ai/experience-qa` — Experience Q&A (temp 0.3, 200 tokens)
-  - `/api/ai/outreach-drafter` — Email/LinkedIn drafts (temp 0.6, 250 tokens)
-  - `/api/ai/agenda-builder` — Call agenda (temp 0.6, 250 tokens)
+  - `/api/ai/solution-matcher` — 3-step action plan (temp 0.7, 1024 tokens)
+  - `/api/ai/experience-qa` — Experience Q&A (temp 0.6, 1024 tokens)
+  - `/api/ai/outreach-drafter` — Email/LinkedIn drafts (temp 0.6, 1024 tokens)
+  - `/api/ai/agenda-builder` — Call agenda (temp 0.6, 1024 tokens)
+- **Shared knowledge base**: `src/app/api/ai/knowledge.ts` imported by all 4 routes
+- **Gemini config**: All routes use `thinkingBudget: 128`, `maxOutputTokens: 1024`
 - **HTML changes**: Image paths normalized to `/logos/`, API key removed from client, `fetchWithRetry` replaced with `fetch('/api/ai/...')`, DOMPurify added for HTML sanitization, OG meta tags + favicon link added
 - **Files removed**: All of `src/components/`, `src/data/`, `src/hooks/`, `src/lib/`, old pages, old chatbot route, layout.tsx, globals.css
-- **Files created**: `public/site.html`, `public/og-image.png`, `public/icon.svg`, `src/app/route.ts`, 4 API routes
+- **Files created**: `public/site.html`, `public/og-image.png`, `public/icon.svg`, `src/app/route.ts`, 4 API routes, `knowledge.ts`
 - **Build**: Clean (0 errors, 0 warnings). `/` = 101 kB first load JS. 4 dynamic API routes.
-- **Verified**: Root 200, all API routes respond, all static assets (logos, PDF, favicon, OG image) return 200
+- **Verified**: Root 200, all API routes respond, all static assets return 200
+
+## Phase 22: AI Improvements + Polish (committed at `8d7629c`)
+| Task | Description | Status |
+|------|-------------|--------|
+| A01 | Create shared AI knowledge base (`knowledge.ts`) with full professional profile | **Done** |
+| A02 | Fix Gemini thinking token starvation — set `thinkingBudget: 128`, `maxOutputTokens: 1024` | **Done** |
+| A03 | Rewrite all 4 AI system prompts for conversational, specific, grounded responses | **Done** |
+| A04 | Fix markdown artifacts in plain text AI outputs (Experience Q&A, Outreach Drafter) | **Done** |
+| A05 | Add email structure rules to Outreach Drafter (greeting, hook, body, CTA, sign-off) | **Done** |
+| U24 | Expand outreach drafter output textarea (`rows=5` → `rows=10`, resize-y) | **Done** |
+| U25 | Update all "Book a Call" links to Google Calendar URL | **Done** |
+| U26 | Fix contact page logo watermark (add missing bar chart bars) | **Done** |
+| U27 | Increase logo watermark opacity on home/experience/collaboration pages | **Done** |
+| U28 | Add Analytical Consultant Intern as sub-entry under Google Start in timeline | **Done** |
+| U29 | Add "Dubai, UAE" to Early Career location | **Done** |
+| U30 | Replace favicon with teal D-logo + bar chart SVG | **Done** |
+| D03 | Rewrite README for static HTML SPA architecture | **Done** |

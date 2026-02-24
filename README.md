@@ -1,6 +1,6 @@
 # Dominik Benger — Interactive Resume
 
-An interactive web app replacing a static PDF resume with dynamic career timelines, AI-powered features, and a full services page. Live at [dbenger.com](https://dbenger.com).
+An interactive web app replacing a static PDF resume with dynamic career timelines, 4 AI-powered features (Gemini 3 Flash Preview), and a full services page. Live at [dbenger.com](https://dbenger.com).
 
 ![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue?logo=typescript)

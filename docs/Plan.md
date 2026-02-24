@@ -541,7 +541,7 @@ T28 → T29, T30, T31 → T32
 
 ---
 
-## Phase 21: Full Site Redesign (in progress — uncommitted)
+## Phase 21: Full Site Redesign (committed at `8d7629c`)
 
 ### R01 - Redesign site from docs/index.html
 - Replaced entire React component architecture with static HTML SPA (`public/site.html`)
@@ -551,27 +551,57 @@ T28 → T29, T30, T31 → T32
 - Added OG meta tags, DOMPurify CDN, favicon link to HTML head
 - Moved OG image + favicon to `public/` (from `src/app/` convention files)
 - Updated `.gitignore` with `!public/og-image.png` exception
+- **Status: Done** (committed + deployed)
 
 ### R02 - Create 4 AI API routes
-- `src/app/api/ai/solution-matcher/route.ts` — 3-step action plan (temp 0.7, 350 tokens)
-- `src/app/api/ai/experience-qa/route.ts` — Experience Q&A (temp 0.3, 200 tokens)
-- `src/app/api/ai/outreach-drafter/route.ts` — Email/LinkedIn drafts (temp 0.6, 250 tokens)
-- `src/app/api/ai/agenda-builder/route.ts` — Call agenda (temp 0.6, 250 tokens)
+- All routes import shared `src/app/api/ai/knowledge.ts` with full professional profile
+- `src/app/api/ai/solution-matcher/route.ts` — 3-step action plan (temp 0.7, 1024 tokens, thinking 128)
+- `src/app/api/ai/experience-qa/route.ts` — Experience Q&A (temp 0.6, 1024 tokens, thinking 128)
+- `src/app/api/ai/outreach-drafter/route.ts` — Email/LinkedIn drafts (temp 0.6, 1024 tokens, thinking 128)
+- `src/app/api/ai/agenda-builder/route.ts` — Call agenda (temp 0.6, 1024 tokens, thinking 128)
 - All use `gemini-3-flash-preview` model via `GEMINI_API_KEY` env var
 - Input validation, error handling, code fence stripping where applicable
+- **Status: Done** (committed + deployed)
 
 ### R03 - Update HTML AI JavaScript
 - Replaced client-side Gemini API calls with `fetch('/api/ai/...')` to server-side proxy
 - Removed `apiKey` variable and `fetchWithRetry` function from HTML
 - Added DOMPurify sanitization for HTML AI responses (Solution Matcher, Agenda Builder)
 - Non-HTML responses (Experience Q&A, Outreach Drafter) use `innerText`/`.value`
+- **Status: Done** (committed + deployed)
 
 ### R04 - Clean up old files
 - Deleted: `src/components/` (14 files), `src/data/` (5 files), `src/hooks/` (1 file), `src/lib/` (2 files)
 - Deleted: `src/app/page.tsx`, `src/app/layout.tsx`, `src/app/globals.css`, `src/app/icon.svg`, `src/app/opengraph-image.png`
 - Deleted: `src/app/portfolio/`, `src/app/collaboration/`, `src/app/how-i-built-this/`, `src/app/api/chat/`
 - Net: ~4,914 lines removed
-- **Status: Done** (build passes clean, all routes verified)
+- **Status: Done** (committed + deployed)
+
+---
+
+## Phase 22: AI Improvements + Polish (committed at `8d7629c`)
+
+### A01 - Shared AI knowledge base
+- Created `src/app/api/ai/knowledge.ts` with comprehensive professional profile
+- Imported by all 4 AI routes for consistent, specific, grounded responses
+- **Status: Done**
+
+### A02 - Fix Gemini thinking token starvation
+- Diagnosed via raw API response logging: `thoughtsTokenCount: 382` consuming entire `maxOutputTokens: 400`
+- `thinkingBudget: 0` unreliable at temperatures > 0.3 (outputs garbage "thoughtful mini-step" text)
+- Fixed: `thinkingBudget: 128`, `maxOutputTokens: 1024` on all 4 routes
+- **Status: Done**
+
+### A03 - Rewrite AI system prompts
+- Solution Matcher: pitch-oriented, references specific projects/tools/results
+- Experience Q&A: conversational and engaging, leads with interesting details
+- Outreach Drafter: proper email structure (greeting, hook, body, CTA, sign-off), bans clichés
+- Agenda Builder: sharp, high-value, concrete deliverables
+- **Status: Done**
+
+### U24–U30 - UI polish
+- Outreach drafter textarea expansion, Google Calendar links, logo watermark fixes, timeline sub-entry, Dubai location, new favicon
+- **Status: Done**
 
 ---
 
