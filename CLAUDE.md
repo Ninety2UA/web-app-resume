@@ -26,50 +26,39 @@ Interactive, animated web app replacing static PDF resumes with dynamic data vis
 Do NOT skip this ritual. Do NOT start modifying files until you have read the above and presented the summary. This ensures continuity across sessions and prevents accidentally overwriting in-progress work.
 
 ## Tech Stack
-- **Framework:** Next.js 15 (App Router, TypeScript)
-- **Styling:** Tailwind CSS 3.4
-- **Animations:** Framer Motion 11
-- **Visualizations:** Custom SVG + Framer Motion (no charting library)
-- **Contact Form:** Formspree
-- **Analytics:** Vercel Analytics
-- **Fonts:** Plus Jakarta Sans (next/font/google)
+- **Framework:** Next.js 15 (App Router, TypeScript) — used for API routes + static HTML serving
+- **Frontend:** Self-contained HTML (`public/site.html`) with CDN Tailwind CSS, vanilla JS, hash-based SPA routing
+- **AI Features:** 4 server-side API routes proxying to Gemini 3 Flash Preview (Google AI Studio)
+- **Sanitization:** DOMPurify (CDN) for AI HTML responses
+- **Contact Form:** Formspree (in HTML)
+- **Fonts:** Plus Jakarta Sans (Google Fonts CDN)
 
 ## Project Structure
 ```
 src/
-├── app/              # Next.js App Router pages
-│   ├── layout.tsx    # Root layout (fonts, metadata)
-│   ├── page.tsx      # Home: Hero + Experience + Contact
-│   ├── globals.css   # Global styles + Tailwind
-│   ├── portfolio/    # /portfolio route
-│   ├── collaboration/ # /collaboration route (service offerings)
-│   ├── how-i-built-this/ # /how-i-built-this route (ebook case study)
-│   └── api/chat/    # POST /api/chat — Gemini-powered chatbot API (SSE streaming)
-├── components/       # React components by section
-│   ├── layout/       # FloatingNav, Footer
-│   ├── hero/         # HeroSection, viz toggle, 3 visualizations
-│   ├── experience/   # ExperienceSection, ExperienceCard
-│   ├── filters/      # FilterPills
-│   ├── contact/      # ContactSection (Formspree)
-│   ├── portfolio/    # PortfolioGrid, ProjectCard
-│   ├── collaboration/ # OfferingCard, OfferingsGrid, PackageCards, WorkingStyleSection
-│   ├── ebook/        # EbookContent (case study article)
-│   └── chat/         # ChatWidget (FAB + panel), TypingIndicator
-├── data/             # Static TypeScript data files (+ chatbot-knowledge.ts)
-├── hooks/            # useScrollAnimation, etc.
-└── lib/              # Utility functions (+ sanitize.ts)
+├── app/
+│   ├── route.ts           # GET / — serves public/site.html (force-static)
+│   └── api/ai/            # Server-side Gemini proxy routes
+│       ├── solution-matcher/route.ts   # POST — 3-step action plan
+│       ├── experience-qa/route.ts      # POST — experience Q&A
+│       ├── outreach-drafter/route.ts   # POST — email/LinkedIn drafts
+│       └── agenda-builder/route.ts     # POST — call agenda generator
 public/
-├── resume/           # PDF resume for download
-└── logos/            # Company logo assets
+├── site.html              # Full site (SPA, CDN Tailwind, hash routing)
+├── icon.svg               # Favicon
+├── og-image.png           # Open Graph image (1200×630)
+├── resume/                # PDF resume for download
+└── logos/                 # Company logo assets (6 PNGs)
 docs/
-├── PRD.md            # Product Requirements Document
-├── Spec.md           # Technical specification
-├── Plan.md           # Implementation plan (phases & tasks)
-├── STATUS.md         # High-level project status
-├── tasks.md          # Detailed task tracker (T01–T32 + launch)
-├── Offering.md       # Service offerings content source
+├── index.html             # Source design (single source of truth)
+├── PRD.md                 # Product Requirements Document
+├── Spec.md                # Technical specification
+├── Plan.md                # Implementation plan (phases & tasks)
+├── STATUS.md              # High-level project status
+├── tasks.md               # Detailed task tracker
+├── Offering.md            # Service offerings content source
 ├── Dominik_Benger_Resume_4Page.md  # Source resume content
-└── resume-file/      # Original PDF resume source
+└── resume-file/           # Original PDF resume source
 ```
 
 ## Commands
@@ -78,26 +67,20 @@ docs/
 - `npm run lint` — ESLint
 
 ## Design System
-- **Aesthetic:** Warm & approachable
-- **Font:** Plus Jakarta Sans (all weights)
-- **Background:** #FDFCFA (warm off-white)
-- **Surface:** #F5F0EB (warm cream)
-- **Text:** #1A1814 (warm near-black), #6B6560 (secondary)
-- **Accents (core 4):** Terra cotta #E07A5F, Sage teal #4A9B8E, Amber #E6B35A, Lavender #7C6FB0
-- **Accents (extended):** Sky #5B8DB8, Rose #D4697A, Emerald #4A9B6E (used in SkillsTechStack only)
-- **Animations:** 400-500ms, staggered entrances, respects prefers-reduced-motion
-- **Spacing:** 8px grid system
+- **Aesthetic:** Modern teal-accented with dark sections
+- **Font:** Plus Jakarta Sans (Google Fonts CDN, weights 300–700)
+- **Brand palette:** Teal scale — brand-50 `#f0fdfa` through brand-950 `#042f2e`, primary brand-500 `#14b8a6`
+- **Backgrounds:** White, zinc-50, zinc-900/950 (dark hero/footer sections)
+- **Animations:** CSS scroll-triggered via IntersectionObserver + `data-animate` attributes, hero canvas particle animation
+- **SPA routing:** Hash-based (#home, #experience, #collaboration, #contact, #ebook)
 
 ## Architecture Decisions
-- Single scrollable page (Hero → Experience → Contact/Footer) + `/portfolio` (hidden), `/collaboration`, and `/how-i-built-this` routes
-- Floating centered nav bar always visible at top (links: Home, Experience, Collaboration, Contact, PDF). Portfolio link removed (page preserved for v2). Ebook page accessible via subtle hero button only (not in nav).
-- 3 visualization tabs: Career Path (SVG + aligned HTML timeline), Skills & Tech Stack (interactive tag grid), Industries (stacked bar + cards)
-- Pill/chip filter toggles above experience section
-- RoleEvolution uses year-proportional X positioning (2014-2025) with HTML timeline below chart aligned via shared `yearToX()` percentages
-- Static PDF download (pre-built, not generated)
-- All career data in TypeScript files under `src/data/`
-- Client components marked with 'use client' for interactivity
-- Server components for pages where possible
+- **Static HTML + API routes**: Self-contained HTML (`public/site.html`) served via Next.js route handler. Next.js used only for API routes and Vercel deployment.
+- **SPA with hash routing**: 5 page views (#home, #experience, #collaboration, #contact, #ebook) in single HTML file, JS-based router
+- **Server-side AI proxy**: 4 API routes under `/api/ai/` proxy to Gemini 3 Flash Preview — keeps `GEMINI_API_KEY` server-side
+- **CDN dependencies**: Tailwind CSS, DOMPurify, Google Fonts all loaded via CDN in HTML
+- **No React on frontend**: All interactivity is vanilla JS (scroll animations, experience filters, AI feature forms, canvas particle animation)
+- **Design source of truth**: `docs/index.html` — any design changes should be made there first, then copied to `public/site.html`
 
 ## Content
 - **Owner:** Dominik Benger
@@ -108,62 +91,33 @@ docs/
 - **PDF download:** `docs/resume-file/Dominik Benger - Resume [V3].pdf`
 
 ## Z-Index Stacking
-| Element | Z-Index | Position | File |
-|---------|---------|----------|------|
-| Sticky filter bar | z-30 | `sticky top-[68px]` | `src/app/page.tsx` |
-| FloatingNav | z-50 | `fixed top-4` | `src/components/layout/FloatingNav.tsx` |
-| Chat widget (FAB + panel) | z-[60] | `fixed bottom-4 right-4` | `src/components/chat/ChatWidget.tsx` |
-| Skip-to-content link | z-[100] | — | `src/app/layout.tsx` |
-
-The filter bar uses `top-[68px]` to sit below the FloatingNav (which is ~44px tall at `top-4`). Any new sticky/fixed elements must respect this stacking order.
+All stacking context is managed in `public/site.html` via inline Tailwind classes. The sticky nav bar is at the top, experience filter pills are sticky below it.
 
 ## Pitfalls
-- **Formspree ID** — `ContactSection.tsx:17` uses `mojnqgnq`. Endpoint: `https://formspree.io/f/mojnqgnq`.
 - **PDF path must match** — download button points to `/resume/Dominik_Benger_Resume.pdf`; source file in `docs/resume-file/` has spaces but was copied with underscores to `public/resume/`.
-- **SVG text in RoleEvolution** uses Tailwind `fill-warm-*` classes inside `<text>` elements — requires Tailwind theme to be loaded; won't render in raw SVG viewers.
-- **RoleEvolution label placement** — Per-node `labelPlacements` array with custom `dx`, `titleDy`, `subtitleDy`, `anchor` per node. Bunched nodes (1-4) use diagonal placement (above-left or below-right) to avoid circles and curves. Nodes 5-6 use standard above. Node 1 must be below-right (not above-left) because it's too close to SVG left edge for `textAnchor="end"`.
-- **RoleEvolution year positioning** — Nodes positioned proportionally by year (2014-2025). Early career nodes (2014-2018) are bunched in left ~36% of chart. Timeline rendered as HTML below SVG, sharing same `yearToX()` percentages for alignment.
-- **`prefers-reduced-motion`** is handled globally in CSS (forces 0.01ms durations) — but Framer Motion `animate` props still fire; they just complete instantly. Don't rely on animation callbacks for logic.
-- **`.gitignore` has `*.png`** — OG image exception: `!src/app/opengraph-image.png`. Logos exception: `!public/logos/*.png`.
-- **Company logos use `<img>` not `next/image`** — `next/image` produces dimension mismatch warnings when logos have varying aspect ratios. Plain `<img>` with `eslint-disable` block in `ExperienceCard.tsx`. Logos are small static PNGs (3–153KB) that don't benefit from the optimization pipeline.
-- **FloatingNav anchor links must use `/#section` format** — plain `#section` hrefs don't navigate between pages in Next.js. Must prefix with `/` (e.g., `/#top`, `/#experience`) for cross-page navigation to work.
-- **Anchor scroll offset** — Sections with `id` anchors need `scroll-mt-[140px]` to clear the fixed FloatingNav (~60px) + sticky filter bar (~80px) when navigating via nav links. Applied to `#contact` and `#experience`.
-- **`GEMINI_API_KEY` env var** — Required for chatbot. Set in `.env.local` (gitignored) for dev, in Vercel project settings for prod. If missing or placeholder, the API route returns a graceful error.
-- **In-memory rate limiter** — `src/app/api/chat/route.ts` uses an in-memory Map for rate limiting. Resets on serverless cold starts — intentional and acceptable for a portfolio site.
+- **`.gitignore` has `*.png`** — Exceptions: `!public/logos/*.png`, `!public/og-image.png`.
+- **`GEMINI_API_KEY` env var** — Required for all 4 AI features. Set in `.env.local` (gitignored) for dev, in Vercel project settings for prod. If missing or placeholder, API routes return graceful error.
+- **Design source of truth** — `docs/index.html` is the master design. Changes should be made there first, then reflected in `public/site.html` (with image path fixes and API route updates).
+- **Image paths in site.html** — Must use absolute paths (`/logos/google.png` not `logos/google.png` or `../public/logos/google.png`). Fixed during copy from `docs/index.html`.
+- **AI responses use innerHTML** — Solution Matcher and Agenda Builder return HTML from Gemini. Sanitized via DOMPurify with allowlisted tags (`p`, `ul`, `li`, `strong`, `ol`, `em`).
+- **route.ts at app root** — `src/app/route.ts` serves static HTML. Cannot coexist with `page.tsx` in same directory. No `layout.tsx` needed (Route Handlers don't use layouts).
+- **Gemini API field names** — API routes use `system_instruction` (snake_case) for the Gemini REST API v1beta endpoint.
 
-## Accessibility Patterns
-- **Skip-to-content**: `layout.tsx` — sr-only link targeting `#main-content`, visible on focus
-- **Viz toggle**: `VisualizationToggle` uses `role="tablist"` / `role="tab"` + `aria-selected` + `aria-controls="viz-panel"`; `HeroSection` viz area has `role="tabpanel" id="viz-panel"`
-- **Filter pills**: `role="group"` + `aria-pressed` on each toggle button
-- **FloatingNav**: `aria-current="page"` via `usePathname`. Route detection: `/#` prefixed links check `pathname === '/'` for Home; `/path` links check `pathname === link.href`. No mobile hamburger — same inline pill nav at all sizes.
-- **Collaboration page**: Accordion `aria-expanded` on deliverables toggle buttons
-- **SVG visualizations**: All have `role="img"` + descriptive `aria-label`; decorative elements use `aria-hidden="true"`
-- **SkillsTechStack**: Interactive category filter buttons; clicking a category isolates it, clicking again (or "All") resets
-- **Contact form**: `aria-required` on fields, `role="alert"` on error, `role="status"` on success
-- **Filtered results**: `aria-live="polite"` on ExperienceSection results container
-
-## Responsive Breakpoints
-- Base (320px+) → `sm` (640px) → `md` (768px) → `lg` (1024px)
-- Mobile-first: all components use base styles stepping up
-- VisualizationToggle: icon-only below `sm`, labels shown at `sm`+
-- RoleEvolution SVG: scales to fit viewport via `viewBox` (no min-width, no horizontal scroll)
-- HeroSection padding: `px-4` base, `sm:px-6` on wider screens; viz card `p-2` base, `sm:p-6`, `md:p-8`
-- Section padding: `px-4` base, `md:px-6` on wider screens
-
-## Scope Notes
-- Cut from v1: Shareable filter URLs (query params), technology tag click-to-filter
-- Portfolio page uses placeholder project cards (real content TBD)
+## Accessibility & Responsive
+- All accessibility and responsive behavior is handled in `public/site.html` via Tailwind responsive classes and HTML attributes
+- Scroll animations use IntersectionObserver with `data-animate` attributes
+- Experience filter uses `data-tags` on cards for tag-based filtering
+- Mobile-first responsive design via Tailwind breakpoints (sm, md, lg, xl)
 
 ## Performance Profile
-- Build: 0 warnings, all pages SSG except `/api/chat` (dynamic)
-- `/` = 158 kB first load JS (gzipped), `/portfolio` = 144 kB, `/collaboration` = 148 kB, `/how-i-built-this` = 160 kB
-- CSS bundle = 25 kB raw (Tailwind purge working correctly)
-- `next.config.ts`: `reactStrictMode: true`, `poweredByHeader: false`, AVIF+WebP image formats
-- Deferred optimizations: dynamic imports for vizs, lazy loading below-fold, font weight subsetting
+- Build: 0 warnings, `/` is static (force-static), 4 API routes are dynamic
+- `/` = 101 kB first load JS (gzipped) — static HTML response
+- `site.html` = ~250 kB (self-contained with inline CSS/JS + CDN Tailwind)
+- `next.config.ts`: `reactStrictMode: true`, `poweredByHeader: false`
 
 ## Repository
 - **GitHub:** https://github.com/Ninety2UA/web-app-resume
-- **Commits:** `fb6a036` (Phases 0–7), `34e5062` (Phase 8 + launch prep), `53bdd97` (post-launch UI fixes), `47ba309` (Skills & Tech Stack merge), `18a2ea5` (Collaboration page), `b5e26ea` (UI rework: chart, timeline, nav), `2d65169` (logos, full resume content, nav fix, RIT logo, README), `6863c84` (comprehensive README + CLAUDE.md sync), `e8f9cae` (doc sync), `78bb8f6` (deployment complete), `ec931fc` (RIT logo update), `1f47fd8` (mobile layout fixes), `648994d` (Google intern date fix), `d083605` (resume PDF V3 update), `fb4ece0` (mobile nav + chart spacing), `9ce59d3` (contact anchor scroll fix), `e2d7434` (experience anchor scroll fix), `4095704` (ebook page), `6cfa572` (AI chatbot + ebook Gemini/plugin update), `a52b4a8` (README update), `27e65c1` (chatbot mobile auto-open fix)
+- **Commits:** `fb6a036` (Phases 0–7), `34e5062` (Phase 8 + launch prep), `53bdd97` (post-launch UI fixes), `47ba309` (Skills & Tech Stack merge), `18a2ea5` (Collaboration page), `b5e26ea` (UI rework: chart, timeline, nav), `2d65169` (logos, full resume content, nav fix, RIT logo, README), `6863c84` (comprehensive README + CLAUDE.md sync), `e8f9cae` (doc sync), `78bb8f6` (deployment complete), `ec931fc` (RIT logo update), `1f47fd8` (mobile layout fixes), `648994d` (Google intern date fix), `d083605` (resume PDF V3 update), `fb4ece0` (mobile nav + chart spacing), `9ce59d3` (contact anchor scroll fix), `e2d7434` (experience anchor scroll fix), `4095704` (ebook page), `6cfa572` (AI chatbot + ebook Gemini/plugin update), `a52b4a8` (README update), `27e65c1` (chatbot mobile auto-open fix), `0366d57` (ebook summary + hero button visibility)
 - **Branch:** `main`
 
 ## Project Documentation
@@ -175,10 +129,9 @@ The filter bar uses `top-[68px]` to sit below the FloatingNav (which is ~44px ta
 Always read these files before starting any work.
 
 ## Session Continuity
-- **Latest work** — U22: Chatbot auto-open disabled on mobile (only desktop >= 640px). Committed at `27e65c1`, pushed, deployed. All features live.
-- **Deployed** — live at https://dbenger.com (Vercel). Latest deploy includes chatbot + ebook. Manual deploy via `npx vercel --prod` when Git auto-deploy doesn't trigger.
-- **Chatbot** — FAB button (bottom-right, coral, z-[60]) opens chat panel (auto-open on desktop only, closed by default on mobile). Full-screen on mobile, 380x540 on desktop. Streams responses via SSE from Gemini 3 Flash Preview (Google AI Studio). Knowledge base in `src/data/chatbot-knowledge.ts`. Rate limited (100/day/IP, 20/session). Requires `GEMINI_API_KEY` env var. System prompt enforces plain text output; `stripMarkdown()` in ChatWidget strips any residual markdown.
-- **Ebook page** — `/how-i-built-this` route: full case study article with chatbot as Feature 8. Accessible via subtle pill button in HeroSection. Not in FloatingNav. 160 kB first load JS.
-- **FloatingNav** — always visible inline pill nav at all screen sizes (no hamburger menu). Links use `/#section` format for cross-page navigation. Links: Home, Experience, Collaboration, Contact, PDF.
-- **Portfolio page hidden** — `/portfolio` route still works but no links point to it. Files preserved for future v2.
+- **Latest work** — Complete site redesign: replaced React component architecture with static HTML (`public/site.html`) from `docs/index.html`. Created 4 server-side AI API routes. Removed all old components, data, hooks, utilities (~4,914 lines deleted). NOT YET COMMITTED.
+- **Deployed** — Previous version live at https://dbenger.com (Vercel). Manual deploy via `npx vercel --prod` when Git auto-deploy doesn't trigger.
+- **AI features (new)** — 4 inline AI features in `site.html`, each calling server-side API routes: Solution Matcher, Experience Q&A, Outreach Drafter, Agenda Builder. All use Gemini 3 Flash Preview via `GEMINI_API_KEY`.
+- **Old chatbot removed** — FAB chatbot widget (`ChatWidget.tsx`) and `/api/chat` route deleted. Replaced by 4 inline AI features.
+- **Old pages removed** — `/portfolio`, `/collaboration`, `/how-i-built-this` Next.js routes deleted. All content now in `site.html` hash-based SPA.
 - **Untracked** — `chatbot/` scratch directory in repo root (not committed, not needed).

@@ -1,9 +1,10 @@
 # Project Status
 
 ## What we're building
-- Interactive resume web app for Dominik Benger (dbenger.com) — replaces a static PDF with animated visualizations, a filterable career timeline, and a contact form
-- Single scrollable page (Hero → Experience → Contact) plus `/portfolio`, `/collaboration`, and `/how-i-built-this` routes
-- Deployed via Vercel; all career data lives in TypeScript files, no CMS
+- Interactive resume web app for Dominik Benger (dbenger.com) — single-page app with teal brand palette, hero canvas animation, filterable career timeline, 4 AI-powered features, and contact form
+- Static HTML (`public/site.html`) with hash-based SPA routing (#home, #experience, #collaboration, #contact, #ebook)
+- Next.js used for server-side API routes (Gemini AI proxy) and Vercel deployment
+- Deployed via Vercel; design source of truth is `docs/index.html`
 
 ## What's done
 | Commit | Scope |
@@ -30,33 +31,35 @@
 | `6cfa572` AI chatbot + ebook update | T36 chatbot (Gemini 3 Flash Preview via Google AI Studio, SSE streaming, ChatWidget, rate limiting). Ebook updated with model name + compound-engineering-plugin. |
 | `a52b4a8` README update | Added chatbot, ebook page, API route, env vars, z-index, troubleshooting to README |
 | `27e65c1` Chatbot mobile fix | Disabled chatbot auto-open on mobile — only auto-opens on desktop (>= 640px) |
+| `0366d57` Ebook summary + hero button | Added summary section below TOC on ebook page, made hero ebook button coral-tinted and larger, updated "3 days" → "1 day" throughout |
 
-Key files: ~37 TSX/TS source files across `src/`, 5 data files, 3 visualizations (Career Path, Skills & Tech Stack, Industries), 1 API route (`/api/chat`), Tailwind theme, global styles, favicon, OG image.
+**Uncommitted: Full site redesign** — Replaced React component architecture with static HTML from `docs/index.html`. Created 4 server-side AI API routes. Removed ~4,914 lines of old code.
 
-**All development tasks (T01–T36, U06–U21, L04) are complete and committed.** Site live at dbenger.com.
+Key files: `public/site.html` (full site), `src/app/route.ts` (serves HTML), 4 API routes under `src/app/api/ai/`, static assets in `public/`.
+
+**All prior tasks (T01–T36, U06–U23, L04) complete. Redesign (R01) in progress — not yet committed.**
 
 ## Current state of the code
-- `npm run build` — passes clean (0 errors, 0 warnings, all pages SSG except `/api/chat` dynamic)
-- `npm run dev` — runs on localhost:3000, all routes render (`/`, `/collaboration`, `/how-i-built-this`, `/portfolio`)
-- Contact form wired to Formspree endpoint `mojnqgnq` — live and functional
-- AI chatbot live — `GEMINI_API_KEY` set in Vercel env vars
-- Open Graph image at `src/app/opengraph-image.png` (1200×630, auto-served by Next.js)
+- `npm run build` — passes clean (0 errors, 0 warnings; `/` static, 4 API routes dynamic)
+- `npm run dev` — runs on localhost:3000, root serves `site.html`, all API routes respond
+- 4 AI features call server-side API routes → Gemini 3 Flash Preview via `GEMINI_API_KEY`
+- Contact form in HTML wired to Formspree endpoint `mojnqgnq`
+- OG image at `public/og-image.png` with meta tags in HTML head
 - No tests (no test framework installed)
 - GitHub: https://github.com/Ninety2UA/web-app-resume
+- **Uncommitted changes** — full redesign not yet committed
 
 ## Decisions made
 | Area | Decision |
 |------|----------|
-| Framework | Next.js 15 App Router, TypeScript, React 19 |
-| Styling | Tailwind CSS 3.4, custom warm palette (`#FDFCFA` bg, terra cotta/sage/amber/lavender accents) |
-| Animations | Framer Motion 11 — all scroll animations use `useScrollAnimation` hook with IntersectionObserver |
-| Visualizations | Custom SVG + Framer Motion (no charting library) — 3 views: RoleEvolution, SkillsTechStack, IndustryVerticals |
-| Font | Plus Jakarta Sans via `next/font/google` |
-| Contact | Formspree POST (client-side), honeypot spam field |
-| Analytics | Vercel Analytics |
-| Data model | Static TS files in `src/data/` — `experience.ts` (typed entries with sections, bullets, tags), `skills.ts` (7 skill categories + industry + role data), `portfolio.ts` (project cards), `offerings.ts` (10 offerings, 3 packages, add-ons, tools) |
-| UX | Floating pill nav (always visible), sticky filter pills, pill toggles are inclusive OR, scroll-triggered fade-in animations (once), `prefers-reduced-motion` respected |
-| Cut from v1 | Shareable filter URLs, tech tag click-to-filter, dynamic PDF gen, blog/CMS |
+| Architecture | Static HTML (`public/site.html`) served via Next.js route handler + 4 server-side API routes for AI |
+| Frontend | Self-contained HTML with CDN Tailwind CSS, vanilla JS, hash-based SPA routing |
+| Brand | Teal palette (brand-500: #14b8a6), dark hero/footer sections, Plus Jakarta Sans |
+| AI features | 4 inline features (Solution Matcher, Experience Q&A, Outreach Drafter, Agenda Builder) via Gemini 3 Flash Preview |
+| Security | API key server-side only; DOMPurify for AI HTML response sanitization |
+| Contact | Formspree POST + cal.com booking links |
+| Design source | `docs/index.html` is the single source of truth for the design |
+| Deployment | Next.js on Vercel (API routes + static HTML serving) |
 
 ## Completed tasks
 - [x] Add favicon (`src/app/icon.svg`)

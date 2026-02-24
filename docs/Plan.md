@@ -529,6 +529,52 @@ T28 → T29, T30, T31 → T32
 
 ---
 
+## Phase 20: Ebook Polish (committed at `0366d57`)
+
+### U23 - Ebook summary section + hero button visibility
+- Added summary section (`motion.section`) below Table of Contents on `/how-i-built-this` — 3-paragraph overview
+- Made hero ebook button more visible: coral-tinted (`text-coral bg-coral/10`) instead of muted gray, `text-sm font-semibold`, larger padding
+- Updated timeline references from "3 days" to "1 day" throughout ebook content
+- Fixed grammar: "~1 days" → "~1 day", "in 1 days" → "in 1 day"
+- Build: 0 warnings, 160 kB first load JS, SSG
+- **Status: Done** (committed + deployed)
+
+---
+
+## Phase 21: Full Site Redesign (in progress — uncommitted)
+
+### R01 - Redesign site from docs/index.html
+- Replaced entire React component architecture with static HTML SPA (`public/site.html`)
+- Source: `docs/index.html` (2,840 lines, teal brand palette, hash-based SPA routing)
+- Served via `src/app/route.ts` (Next.js route handler, force-static)
+- Fixed image paths (`../public/logos/` → `/logos/`)
+- Added OG meta tags, DOMPurify CDN, favicon link to HTML head
+- Moved OG image + favicon to `public/` (from `src/app/` convention files)
+- Updated `.gitignore` with `!public/og-image.png` exception
+
+### R02 - Create 4 AI API routes
+- `src/app/api/ai/solution-matcher/route.ts` — 3-step action plan (temp 0.7, 350 tokens)
+- `src/app/api/ai/experience-qa/route.ts` — Experience Q&A (temp 0.3, 200 tokens)
+- `src/app/api/ai/outreach-drafter/route.ts` — Email/LinkedIn drafts (temp 0.6, 250 tokens)
+- `src/app/api/ai/agenda-builder/route.ts` — Call agenda (temp 0.6, 250 tokens)
+- All use `gemini-3-flash-preview` model via `GEMINI_API_KEY` env var
+- Input validation, error handling, code fence stripping where applicable
+
+### R03 - Update HTML AI JavaScript
+- Replaced client-side Gemini API calls with `fetch('/api/ai/...')` to server-side proxy
+- Removed `apiKey` variable and `fetchWithRetry` function from HTML
+- Added DOMPurify sanitization for HTML AI responses (Solution Matcher, Agenda Builder)
+- Non-HTML responses (Experience Q&A, Outreach Drafter) use `innerText`/`.value`
+
+### R04 - Clean up old files
+- Deleted: `src/components/` (14 files), `src/data/` (5 files), `src/hooks/` (1 file), `src/lib/` (2 files)
+- Deleted: `src/app/page.tsx`, `src/app/layout.tsx`, `src/app/globals.css`, `src/app/icon.svg`, `src/app/opengraph-image.png`
+- Deleted: `src/app/portfolio/`, `src/app/collaboration/`, `src/app/how-i-built-this/`, `src/app/api/chat/`
+- Net: ~4,914 lines removed
+- **Status: Done** (build passes clean, all routes verified)
+
+---
+
 ## Cut from v1 Scope
 - Shareable filter URLs (query parameter state)
 - Technology tag click-to-filter in experience cards

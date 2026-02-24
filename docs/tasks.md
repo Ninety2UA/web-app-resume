@@ -313,6 +313,18 @@ New `/how-i-built-this` route rendering the ebook case study (`docs/ebook-buildi
 |------|-------------|--------|
 | T36 | "Ask Dominik's AI" chatbot — Gemini 3 Flash Preview (Google AI Studio), SSE streaming, ChatWidget in layout | **Done** |
 
+## Phase 20: Ebook Polish (committed at `0366d57`)
+| Task | Description | Status |
+|------|-------------|--------|
+| U23 | Add summary section to ebook page + make hero button more visible + update "3 days" → "1 day" | **Done** |
+
+### U23 Detail — Ebook Summary + Hero Button (Complete)
+
+- **Summary section**: Added `motion.section` below Table of Contents on `/how-i-built-this` — 3-paragraph overview (what was built, tech used, what's inside). Uses `bg-warm-100/40 border border-warm-200/50 rounded-2xl` card styling matching TOC.
+- **Hero button visibility**: Changed ebook pill link from muted gray (`text-xs text-warm-500 bg-warm-100 border-warm-200`) to coral-tinted (`text-sm font-semibold text-coral bg-coral/10 border-coral/25`) with coral hover states. Larger padding (`px-4 py-1.5`).
+- **Timeline update**: User changed "3 days" → "1 day" in subtitle, constraint section, and results stats. Fixed grammar: "~1 days" → "~1 day", "in 1 days" → "in 1 day".
+- **Build**: 0 warnings, 160 kB first load JS for `/how-i-built-this`, all pages SSG
+
 ### T36 Detail — AI Chatbot (Complete)
 
 "Ask Dominik's AI" — an AI-powered chatbot available on all routes:
@@ -326,3 +338,28 @@ New `/how-i-built-this` route rendering the ebook case study (`docs/ebook-buildi
 - **Env**: `GEMINI_API_KEY` required in `.env.local` (dev) / Vercel settings (prod)
 - **Analytics**: Structured `console.log` for Vercel Logs (`_source: "chat"` — message, error, rate_limit, blocked events)
 - **Build**: 0 warnings, `/api/chat` = dynamic route, all other pages remain SSG
+
+## Phase 21: Full Site Redesign (uncommitted)
+| Task | Description | Status |
+|------|-------------|--------|
+| R01 | Replace React architecture with static HTML from `docs/index.html` | **Done** |
+| R02 | Create 4 server-side AI API routes (Gemini 3 Flash Preview) | **Done** |
+| R03 | Update HTML AI JavaScript to call server-side proxy routes | **Done** |
+| R04 | Clean up old source files (~4,914 lines removed) | **Done** |
+| R05 | QA — build passes clean, all routes verified, static assets accessible | **Done** |
+
+### R01–R05 Detail — Full Redesign (Build Verified, Not Committed)
+
+Complete site redesign replacing the React/Next.js component architecture with a static HTML SPA:
+- **Source**: `docs/index.html` (2,840 lines) → `public/site.html` (with fixed paths + API route JS)
+- **Serving**: `src/app/route.ts` reads `public/site.html` and serves at `/` (force-static)
+- **AI API routes**: 4 new routes under `src/app/api/ai/` proxy to Gemini 3 Flash Preview
+  - `/api/ai/solution-matcher` — 3-step action plan (temp 0.7, 350 tokens)
+  - `/api/ai/experience-qa` — Experience Q&A (temp 0.3, 200 tokens)
+  - `/api/ai/outreach-drafter` — Email/LinkedIn drafts (temp 0.6, 250 tokens)
+  - `/api/ai/agenda-builder` — Call agenda (temp 0.6, 250 tokens)
+- **HTML changes**: Image paths normalized to `/logos/`, API key removed from client, `fetchWithRetry` replaced with `fetch('/api/ai/...')`, DOMPurify added for HTML sanitization, OG meta tags + favicon link added
+- **Files removed**: All of `src/components/`, `src/data/`, `src/hooks/`, `src/lib/`, old pages, old chatbot route, layout.tsx, globals.css
+- **Files created**: `public/site.html`, `public/og-image.png`, `public/icon.svg`, `src/app/route.ts`, 4 API routes
+- **Build**: Clean (0 errors, 0 warnings). `/` = 101 kB first load JS. 4 dynamic API routes.
+- **Verified**: Root 200, all API routes respond, all static assets (logos, PDF, favicon, OG image) return 200
