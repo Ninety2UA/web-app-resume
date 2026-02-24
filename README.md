@@ -48,7 +48,7 @@ An interactive web app replacing a static PDF resume with dynamic career timelin
 - **Contact section** — Formspree-powered form, Google Calendar booking, LinkedIn link
 - **Canvas particle animation** — Interactive hero background with skill word labels and mouse interaction
 - **Scroll animations** — CSS-based via IntersectionObserver + `data-animate` attributes
-- **Fully responsive** — Mobile-first design via Tailwind breakpoints; mobile nav shows all key sections + "How I Built This Web App" hero pill
+- **Fully responsive** — Mobile-first design via Tailwind breakpoints; mobile nav shows Experience, Collaboration, Contact + PDF Resume; "How I Built This Web App" hero pill on mobile links to ebook
 - **Static PDF download** — Resume available via nav button
 - **SEO optimized** — Open Graph image, meta tags, semantic HTML
 
