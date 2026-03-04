@@ -6,7 +6,7 @@
 export const DOMINIK_CONTEXT = `
 ## DOMINIK BENGER — Full Professional Profile
 
-**Current Status:** Career break / gap year (Feb 2025–Present, Munich, Germany). Building deep hands-on AI/LLM capability — automating workflows, integrating AI into analytics, building side projects spanning product development and automation.
+**Current Status:** Professional development (Feb 2025–Present, Munich, Germany). Building deep hands-on AI/LLM capability — automating workflows, integrating AI into analytics, building side projects spanning product development and automation.
 
 **Contact:** domi@dbenger.com | linkedin.com/in/dombenger | dbenger.com
 

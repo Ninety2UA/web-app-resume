@@ -382,3 +382,35 @@ Complete site redesign replacing the React/Next.js component architecture with a
 | U29 | Add "Dubai, UAE" to Early Career location | **Done** |
 | U30 | Replace favicon with teal D-logo + bar chart SVG | **Done** |
 | D03 | Rewrite README for static HTML SPA architecture | **Done** |
+
+## Phase 23: OG Image + Mobile Fixes (committed at `d9bb422`, `5befda8`)
+| Task | Description | Status |
+|------|-------------|--------|
+| U31 | Update OG image to reflect new site design (1200x630 screenshot) | **Done** |
+| U32 | Update OG/Twitter meta descriptions: "portfolio showcase" → "AI-powered features" | **Done** |
+| U33 | Show nav links on mobile (Home, Experience, Contact + PDF Resume) | **Done** |
+| U34 | Status badge one-line on mobile (text-xs + whitespace-nowrap) | **Done** |
+| U35 | Hero canvas particles visible on mobile (opacity 0.6, 25% skill word frequency) | **Done** |
+
+### U33 Detail — Mobile Nav Rework
+- Removed "How I build this Web App" pill link from nav top-left
+- Changed nav links from `hidden md:flex` to always-visible `flex` with responsive sizing (`text-xs md:text-sm`, `gap-2 md:gap-8`)
+- "Collaboration" and "Ebook" links hidden below `sm` (640px) to fit narrow screens
+- PDF Resume button always visible with smaller padding on mobile (`px-3 py-1.5 md:px-4 md:py-2`)
+- Ebook accessible via nav link at `sm`+ breakpoint (id `nav-ebook`, works with existing hash router highlighting)
+
+## Phase 24: Mobile Nav Refinement (committed at `1571bc9`, `6884d22`, `cf3137f`)
+| Task | Description | Status |
+|------|-------------|--------|
+| U36 | Show Collaboration link on mobile (remove `hidden sm:inline`) | **Done** |
+| U37 | Add "How I Built This Web App" teal pill in hero (mobile only, `sm:hidden`) | **Done** |
+| U38 | Fix mobile nav overflow: hide "Home" (logo is home link), restore "PDF Resume" button text | **Done** |
+
+### U36–U38 Detail — Mobile Nav Refinement
+- **Collaboration visible on mobile**: Removed `hidden sm:inline` from Collaboration nav link
+- **Ebook hero pill**: Added mobile-only (`sm:hidden`) teal pill with book icon in hero, between status badge and h1, linking to `#ebook`
+- **"Home" hidden on mobile**: Added `hidden sm:inline` to Home nav link — the logo already links to `#home`, saving space
+- **"PDF Resume" button**: Removed responsive text split (`Resume`/`PDF Resume`), shows "PDF Resume" at all sizes
+- **Nav gap**: Tightened to `gap-1 sm:gap-2 md:gap-8` to fit 3 links + button on mobile
+- **Mobile nav**: [logo] Experience Collaboration Contact [PDF Resume]
+- **Desktop nav**: [logo] Home Experience Collaboration Contact Ebook [PDF Resume]

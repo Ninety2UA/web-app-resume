@@ -33,8 +33,13 @@
 | `27e65c1` Chatbot mobile fix | Disabled chatbot auto-open on mobile — only auto-opens on desktop (>= 640px) |
 | `0366d57` Ebook summary + hero button | Added summary section below TOC on ebook page, made hero ebook button coral-tinted and larger, updated "3 days" → "1 day" throughout |
 | `8d7629c` Full site redesign + AI improvements | Static HTML SPA, 4 AI routes with shared `knowledge.ts`, rich system prompts, Gemini thinking budget fix, favicon, calendar links, timeline sub-entry, README rewrite |
+| `d9bb422` OG image + meta descriptions | Replaced og-image.png with screenshot of current design, updated OG/Twitter descriptions: "portfolio showcase" → "AI-powered features", updated README |
+| `5befda8` Mobile nav + hero particles | Nav links visible on mobile (Home, Experience, Contact + PDF Resume), status badge text-xs + whitespace-nowrap, canvas particles higher opacity (0.6) + more skill words (25%) on mobile |
+| `1571bc9` Collaboration in mobile nav | Show Collaboration link on mobile, add "How I Built This Web App" teal pill in hero (mobile only), tighten nav gap |
+| `6884d22` Mobile nav overflow fix | Hide "Home" on mobile (logo is home link), restore "PDF Resume" button text at all sizes |
+| `cf3137f` README update | Updated README with current mobile nav layout |
 
-**All tasks complete through Phase 22. Redesign committed and deployed at `8d7629c`.**
+**All tasks complete through Phase 24. Latest deployed at `cf3137f`.**
 
 ## Current state of the code
 - `npm run build` — passes clean (0 errors, 0 warnings; `/` static, 4 API routes dynamic)
@@ -44,7 +49,7 @@
 - OG image at `public/og-image.png` with meta tags in HTML head
 - No tests (no test framework installed)
 - GitHub: https://github.com/Ninety2UA/web-app-resume
-- All changes committed and deployed at `8d7629c`
+- All changes committed and deployed at `cf3137f`
 
 ## Decisions made
 | Area | Decision |

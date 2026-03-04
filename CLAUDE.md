@@ -121,7 +121,7 @@ All stacking context is managed in `public/site.html` via inline Tailwind classe
 
 ## Repository
 - **GitHub:** https://github.com/Ninety2UA/web-app-resume
-- **Commits:** `fb6a036` (Phases 0–7), `34e5062` (Phase 8 + launch prep), `53bdd97` (post-launch UI fixes), `47ba309` (Skills & Tech Stack merge), `18a2ea5` (Collaboration page), `b5e26ea` (UI rework: chart, timeline, nav), `2d65169` (logos, full resume content, nav fix, RIT logo, README), `6863c84` (comprehensive README + CLAUDE.md sync), `e8f9cae` (doc sync), `78bb8f6` (deployment complete), `ec931fc` (RIT logo update), `1f47fd8` (mobile layout fixes), `648994d` (Google intern date fix), `d083605` (resume PDF V3 update), `fb4ece0` (mobile nav + chart spacing), `9ce59d3` (contact anchor scroll fix), `e2d7434` (experience anchor scroll fix), `4095704` (ebook page), `6cfa572` (AI chatbot + ebook Gemini/plugin update), `a52b4a8` (README update), `27e65c1` (chatbot mobile auto-open fix), `0366d57` (ebook summary + hero button visibility), `8d7629c` (full redesign: static HTML SPA + AI knowledge base + Gemini thinking fix)
+- **Commits:** `fb6a036` (Phases 0–7), `34e5062` (Phase 8 + launch prep), `53bdd97` (post-launch UI fixes), `47ba309` (Skills & Tech Stack merge), `18a2ea5` (Collaboration page), `b5e26ea` (UI rework: chart, timeline, nav), `2d65169` (logos, full resume content, nav fix, RIT logo, README), `6863c84` (comprehensive README + CLAUDE.md sync), `e8f9cae` (doc sync), `78bb8f6` (deployment complete), `ec931fc` (RIT logo update), `1f47fd8` (mobile layout fixes), `648994d` (Google intern date fix), `d083605` (resume PDF V3 update), `fb4ece0` (mobile nav + chart spacing), `9ce59d3` (contact anchor scroll fix), `e2d7434` (experience anchor scroll fix), `4095704` (ebook page), `6cfa572` (AI chatbot + ebook Gemini/plugin update), `a52b4a8` (README update), `27e65c1` (chatbot mobile auto-open fix), `0366d57` (ebook summary + hero button visibility), `8d7629c` (full redesign: static HTML SPA + AI knowledge base + Gemini thinking fix), `d9bb422` (OG image + meta description update), `5befda8` (mobile nav, status badge, hero particles fix), `1571bc9` (Collaboration in mobile nav + ebook hero pill), `6884d22` (mobile nav overflow fix), `cf3137f` (README update), `0018dcc` (ebook pill to nav bar desktop), `fc5a793` (remove Ebook nav link), `0f6743d` (Android mobile nav overflow fix), `45f49de` (README update)
 - **Branch:** `main`
 
 ## Project Documentation
@@ -133,8 +133,9 @@ All stacking context is managed in `public/site.html` via inline Tailwind classe
 Always read these files before starting any work.
 
 ## Session Continuity
-- **Latest work** — Committed and deployed full site redesign (`8d7629c`): static HTML SPA, 4 AI API routes with shared knowledge base, rich system prompts, Gemini thinking token fix, favicon update, Google Calendar booking links, career timeline updates, README rewrite.
-- **Deployed** — `8d7629c` live at https://dbenger.com (Vercel). Manual deploy via `npx vercel --prod` when Git auto-deploy doesn't trigger.
-- **AI features** — 4 inline AI features in `site.html`, each calling server-side API routes with shared knowledge base (`knowledge.ts`). All use Gemini 3 Flash Preview with `thinkingBudget: 128` and `maxOutputTokens: 1024`.
-- **Old code removed** — All React components, data files, hooks, utilities, old chatbot, old pages deleted. Everything is now in `public/site.html` + 4 API routes.
+- **Latest work** — Nav layout rework: "How I Built This Web App" pill moved to nav bar next to logo (desktop only, `hidden sm:inline-flex`), kept in hero on mobile (`sm:hidden`). "Ebook" text link removed from nav. Android mobile nav overflow fixed with smaller text/padding at smallest breakpoint. Committed at `45f49de`, pushed, deployed.
+- **Deployed** — `45f49de` live at https://dbenger.com (Vercel). Manual deploy via `npx vercel --prod` when Git auto-deploy doesn't trigger.
+- **Mobile nav** — [logo] Experience Collaboration Contact [PDF Resume]. "Home" hidden on mobile (`hidden sm:inline`). Ebook accessible via hero pill. Text `11px` and padding `px-3` at base for small Android screens.
+- **Desktop nav** — [logo + "How I Built This Web App" pill] Home Experience Collaboration Contact [PDF Resume]. No "Ebook" text link — pill replaces it.
+- **Hero ebook pill** — Mobile-only (`sm:hidden`) teal pill above status badge, links to `#ebook`.
 - **Untracked** — `chatbot/` scratch directory in repo root (not committed, not needed).

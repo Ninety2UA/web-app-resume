@@ -605,6 +605,55 @@ T28 → T29, T30, T31 → T32
 
 ---
 
+## Phase 23: OG Image + Mobile Fixes (committed at `d9bb422`, `5befda8`)
+
+### U31 - Update OG image
+- Replaced `public/og-image.png` with 1200x630 screenshot of current site via Playwright
+- Updated OG and Twitter meta descriptions: "portfolio showcase" → "AI-powered features"
+- Updated README description
+- **Status: Done**
+
+### U33 - Mobile nav rework
+- Removed ebook pill link from nav top-left, replaced with inline nav links always visible on mobile
+- Nav shows: Home, Experience, Contact + PDF Resume on all breakpoints
+- Collaboration and Ebook links hidden below `sm` (640px) to fit
+- **Status: Done**
+
+### U34 - Status badge one-line
+- Changed from `text-sm` to `text-xs sm:text-sm` with `whitespace-nowrap`
+- "Exploring new opportunities | Open to collaboration" now fits single row on mobile
+- **Status: Done**
+
+### U35 - Hero canvas particles on mobile
+- Increased canvas opacity from 0.4 to 0.6 on mobile (`opacity-60 sm:opacity-40`)
+- Increased skill word particle probability from 10% to 25% on mobile
+- Floating keywords now visible on small screens
+- **Status: Done**
+
+---
+
+## Phase 24: Mobile Nav Refinement (committed at `1571bc9`, `6884d22`, `cf3137f`)
+
+### U36 - Show Collaboration on mobile
+- Removed `hidden sm:inline` from Collaboration nav link
+- Tightened nav gap to `gap-1 sm:gap-2 md:gap-8`
+- **Status: Done**
+
+### U37 - Add ebook hero pill (mobile only)
+- Teal pill "How I Built This Web App" with book icon in hero section
+- `sm:hidden` — only visible on mobile, links to `#ebook`
+- Positioned between status badge and h1
+- **Status: Done**
+
+### U38 - Fix mobile nav overflow
+- Hide "Home" link on mobile (`hidden sm:inline`) — logo already links to #home
+- Restore "PDF Resume" button text at all sizes (was "Resume" on mobile)
+- Final mobile nav: [logo] Experience Collaboration Contact [PDF Resume]
+- Final desktop nav: [logo] Home Experience Collaboration Contact Ebook [PDF Resume]
+- **Status: Done**
+
+---
+
 ## Cut from v1 Scope
 - Shareable filter URLs (query parameter state)
 - Technology tag click-to-filter in experience cards
