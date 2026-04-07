@@ -164,6 +164,7 @@
             <div class="hidden md:flex gap-8 text-sm font-medium">
                 <a href="#home" id="nav-home" class="text-zinc-900 font-semibold hover:text-brand-600 transition-colors duration-300">Home</a>
                 <a href="#experience" id="nav-experience" class="text-zinc-600 hover:text-brand-600 transition-colors duration-300">Experience</a>
+                <a href="#projects" id="nav-projects" class="text-zinc-600 hover:text-brand-600 transition-colors duration-300">Projects</a>
                 <a href="#collaboration" id="nav-collaboration" class="text-zinc-600 hover:text-brand-600 transition-colors duration-300">Collaboration</a>
                 <a href="#contact" id="nav-contact" class="text-zinc-600 hover:text-brand-600 transition-colors duration-300">Contact</a>
             </div>
@@ -967,6 +968,323 @@
                         <a href="#contact" class="inline-flex items-center gap-2 px-8 py-3.5 bg-zinc-900 text-white rounded-full text-base font-semibold hover:bg-zinc-800 transition-colors shadow-sm">
                             Get in Touch
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+        <!-- ==========================================
+             PAGE 2B: PROJECTS (PORTFOLIO)
+             ========================================== -->
+        <div id="page-projects" class="page-view hidden">
+            <!-- Hero Section -->
+            <section class="relative pt-32 pb-16 md:pt-48 md:pb-24 px-6 bg-white border-b border-zinc-200 overflow-hidden">
+                <!-- Decorative Logo Watermark -->
+                <svg viewBox="0 0 32 32" class="absolute -top-24 -right-24 w-96 h-96 md:-top-48 md:-right-32 md:w-[800px] md:h-[800px] opacity-[0.03] pointer-events-none transform -rotate-12 z-0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="32" height="32" rx="8" class="fill-zinc-900"/>
+                    <path d="M10 8H16C20.4183 8 24 11.5817 24 16C24 20.4183 20.4183 24 16 24H10V8Z" class="fill-brand-500"/>
+                    <rect x="12" y="17" width="2.5" height="4.5" rx="0.5" class="fill-zinc-50"/>
+                    <rect x="15.5" y="14" width="2.5" height="7.5" rx="0.5" class="fill-zinc-50"/>
+                    <rect x="19" y="11" width="2.5" height="10.5" rx="0.5" class="fill-zinc-50"/>
+                </svg>
+
+                <div class="relative z-10 max-w-4xl mx-auto">
+                    <div class="inline-block px-3 py-1 bg-brand-50 text-brand-600 rounded-full text-sm font-medium mb-6">
+                        Portfolio
+                    </div>
+                    <h1 data-animate class="text-5xl md:text-7xl font-bold tracking-tighter mb-6 text-zinc-900">
+                        Projects
+                    </h1>
+                    <p data-animate data-delay="1" class="text-xl md:text-2xl text-zinc-500 max-w-3xl leading-relaxed">
+                        Tools, products & systems I've built — from AI-powered plugins and SaaS products to full-stack apps and automation pipelines.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Project Cards -->
+            <section class="py-16 md:py-20 px-6 bg-zinc-50">
+                <div class="max-w-4xl mx-auto space-y-8">
+
+                    <!-- Project 1: Concept Sandbox -->
+                    <article data-animate class="p-6 md:p-8 border border-zinc-200 rounded-3xl bg-white hover:border-brand-500 hover:shadow-lg hover:shadow-brand-500/10 transition-all duration-300 group">
+                        <div class="flex flex-wrap items-center gap-3 mb-4">
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold border border-emerald-200">
+                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zM8.5 7.5a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM10 18a8 8 0 01-6.32-3.098A5 5 0 0110 12.5a5 5 0 016.32 2.402A8 8 0 0110 18z"/></svg>
+                                SaaS Product
+                            </span>
+                            <span class="text-xs text-zinc-400">2,400+ users</span>
+                        </div>
+                        <h3 class="text-xl md:text-2xl font-bold text-zinc-900 group-hover:text-brand-600 transition-colors mb-2">Concept Sandbox</h3>
+                        <p class="text-zinc-500 text-sm mb-4">From brain dump to shipped product</p>
+                        <p class="text-zinc-600 leading-relaxed mb-5">An AI-powered workbench for solo creators to transform unstructured ideas into structured product requirements and interactive prototypes. Consolidates the journey from initial concept to shipped product.</p>
+                        <ul class="space-y-2 mb-6">
+                            <li class="flex items-start gap-2 text-sm text-zinc-600">
+                                <svg class="w-4 h-4 text-brand-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                AI Brain Dump that auto-extracts titles, summaries, and tags from messy notes
+                            </li>
+                            <li class="flex items-start gap-2 text-sm text-zinc-600">
+                                <svg class="w-4 h-4 text-brand-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                Multi-AI support with Claude, GPT, Gemini, and 13+ other models
+                            </li>
+                            <li class="flex items-start gap-2 text-sm text-zinc-600">
+                                <svg class="w-4 h-4 text-brand-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                One-click PRD generation with user stories, requirements, and acceptance criteria
+                            </li>
+                            <li class="flex items-start gap-2 text-sm text-zinc-600">
+                                <svg class="w-4 h-4 text-brand-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                Pipeline dashboard tracking concepts from idea through shipment
+                            </li>
+                        </ul>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-2.5 py-1 bg-zinc-100 text-zinc-600 text-xs rounded-full font-medium">Claude</span>
+                            <span class="px-2.5 py-1 bg-zinc-100 text-zinc-600 text-xs rounded-full font-medium">GPT</span>
+                            <span class="px-2.5 py-1 bg-zinc-100 text-zinc-600 text-xs rounded-full font-medium">Gemini</span>
+                            <span class="px-2.5 py-1 bg-zinc-100 text-zinc-600 text-xs rounded-full font-medium">Vercel</span>
+                            <span class="px-2.5 py-1 bg-zinc-100 text-zinc-600 text-xs rounded-full font-medium">Netlify</span>
+                        </div>
+                        <a href="https://concept-sandbox.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-brand-600 font-semibold text-sm hover:text-brand-700 transition-colors group/link">
+                            Visit concept-sandbox.com
+                            <svg class="w-4 h-4 group-hover/link:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                        </a>
+                    </article>
+
+                    <!-- Project 2: Agent Triforge -->
+                    <article data-animate class="p-6 md:p-8 border border-zinc-200 rounded-3xl bg-white hover:border-brand-500 hover:shadow-lg hover:shadow-brand-500/10 transition-all duration-300 group">
+                        <div class="flex flex-wrap items-center gap-3 mb-4">
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-violet-50 text-violet-700 text-xs font-semibold border border-violet-200">
+                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+                                Claude Code Plugin
+                            </span>
+                        </div>
+                        <h3 class="text-xl md:text-2xl font-bold text-zinc-900 group-hover:text-brand-600 transition-colors mb-2">Agent Triforge</h3>
+                        <p class="text-zinc-500 text-sm mb-4">Three AI models, one orchestrated workflow</p>
+                        <p class="text-zinc-600 leading-relaxed mb-5">A multi-agent development system that orchestrates Claude, Gemini, and Codex to collaboratively create production-grade code through structured workflows with rigorous quality gates.</p>
+                        <ul class="space-y-2 mb-6">
+                            <li class="flex items-start gap-2 text-sm text-zinc-600">
+                                <svg class="w-4 h-4 text-brand-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                Three-model orchestration with heuristic-based task assignment
+                            </li>
+                            <li class="flex items-start gap-2 text-sm text-zinc-600">
+                                <svg class="w-4 h-4 text-brand-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                19 specialized subagents including security sentinel and performance oracle
+                            </li>
+                            <li class="flex items-start gap-2 text-sm text-zinc-600">
+                                <svg class="w-4 h-4 text-brand-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                Parallel review swarm with 7 reviewers and confidence tiering
+                            </li>
+                            <li class="flex items-start gap-2 text-sm text-zinc-600">
+                                <svg class="w-4 h-4 text-brand-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                Seven-phase sprint pipeline with 6 non-negotiable quality gates
+                            </li>
+                        </ul>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-2.5 py-1 bg-zinc-100 text-zinc-600 text-xs rounded-full font-medium">Claude Code</span>
+                            <span class="px-2.5 py-1 bg-zinc-100 text-zinc-600 text-xs rounded-full font-medium">Gemini CLI</span>
+                            <span class="px-2.5 py-1 bg-zinc-100 text-zinc-600 text-xs rounded-full font-medium">Codex CLI</span>
+                            <span class="px-2.5 py-1 bg-zinc-100 text-zinc-600 text-xs rounded-full font-medium">Python</span>
+                            <span class="px-2.5 py-1 bg-zinc-100 text-zinc-600 text-xs rounded-full font-medium">Git</span>
+                        </div>
+                        <a href="https://ninety2ua.github.io/agent-triforge/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-brand-600 font-semibold text-sm hover:text-brand-700 transition-colors group/link">
+                            View Project
+                            <svg class="w-4 h-4 group-hover/link:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                        </a>
+                    </article>
+
+                    <!-- Project 3: Knowledge Hub -->
+                    <article data-animate class="p-6 md:p-8 border border-zinc-200 rounded-3xl bg-white hover:border-brand-500 hover:shadow-lg hover:shadow-brand-500/10 transition-all duration-300 group">
+                        <div class="flex flex-wrap items-center gap-3 mb-4">
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 text-amber-700 text-xs font-semibold border border-amber-200">
+                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/></svg>
+                                Automation Pipeline
+                            </span>
+                            <span class="text-xs text-zinc-400">237 passing tests</span>
+                        </div>
+                        <h3 class="text-xl md:text-2xl font-bold text-zinc-900 group-hover:text-brand-600 transition-colors mb-2">Knowledge Hub</h3>
+                        <p class="text-zinc-500 text-sm mb-4">Turn shared links into structured knowledge</p>
+                        <p class="text-zinc-600 leading-relaxed mb-5">An intelligent Slack-to-Notion automation pipeline that transforms shared URLs into structured knowledge base entries. Automatically extracts content, processes it through AI, and creates organized Notion pages.</p>
+                        <ul class="space-y-2 mb-6">
+                            <li class="flex items-start gap-2 text-sm text-zinc-600">
+                                <svg class="w-4 h-4 text-brand-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                Multi-format extraction: articles, YouTube videos, and PDFs
+                            </li>
+                            <li class="flex items-start gap-2 text-sm text-zinc-600">
+                                <svg class="w-4 h-4 text-brand-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                AI processing via Gemini with structured JSON output
+                            </li>
+                            <li class="flex items-start gap-2 text-sm text-zinc-600">
+                                <svg class="w-4 h-4 text-brand-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                10-property Notion pages with 5-section body structure
+                            </li>
+                            <li class="flex items-start gap-2 text-sm text-zinc-600">
+                                <svg class="w-4 h-4 text-brand-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                Weekly digests, duplicate detection, and daily cost alerts
+                            </li>
+                        </ul>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-2.5 py-1 bg-zinc-100 text-zinc-600 text-xs rounded-full font-medium">Python</span>
+                            <span class="px-2.5 py-1 bg-zinc-100 text-zinc-600 text-xs rounded-full font-medium">FastAPI</span>
+                            <span class="px-2.5 py-1 bg-zinc-100 text-zinc-600 text-xs rounded-full font-medium">Gemini</span>
+                            <span class="px-2.5 py-1 bg-zinc-100 text-zinc-600 text-xs rounded-full font-medium">Slack SDK</span>
+                            <span class="px-2.5 py-1 bg-zinc-100 text-zinc-600 text-xs rounded-full font-medium">Notion API</span>
+                            <span class="px-2.5 py-1 bg-zinc-100 text-zinc-600 text-xs rounded-full font-medium">Google Cloud</span>
+                        </div>
+                        <a href="https://github.com/Ninety2UA/knowledge-hub" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-brand-600 font-semibold text-sm hover:text-brand-700 transition-colors group/link">
+                            View on GitHub
+                            <svg class="w-4 h-4 group-hover/link:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                        </a>
+                    </article>
+
+                    <!-- Project 4: Claude Code Blueprint -->
+                    <article data-animate class="p-6 md:p-8 border border-zinc-200 rounded-3xl bg-white hover:border-brand-500 hover:shadow-lg hover:shadow-brand-500/10 transition-all duration-300 group">
+                        <div class="flex flex-wrap items-center gap-3 mb-4">
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-violet-50 text-violet-700 text-xs font-semibold border border-violet-200">
+                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+                                Claude Code Plugin
+                            </span>
+                        </div>
+                        <h3 class="text-xl md:text-2xl font-bold text-zinc-900 group-hover:text-brand-600 transition-colors mb-2">Claude Code Blueprint</h3>
+                        <p class="text-zinc-500 text-sm mb-4">An operating system for AI-assisted development</p>
+                        <p class="text-zinc-600 leading-relaxed mb-5">A production-grade Claude Code plugin providing a structured "operating system" for AI-assisted software development, enabling consistent workflows, quality gates, and multi-agent orchestration across sessions.</p>
+                        <ul class="space-y-2 mb-6">
+                            <li class="flex items-start gap-2 text-sm text-zinc-600">
+                                <svg class="w-4 h-4 text-brand-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                34 skills from TDD and debugging to brainstorming and wave orchestration
+                            </li>
+                            <li class="flex items-start gap-2 text-sm text-zinc-600">
+                                <svg class="w-4 h-4 text-brand-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                26 specialized agents for security, performance, architecture, and code review
+                            </li>
+                            <li class="flex items-start gap-2 text-sm text-zinc-600">
+                                <svg class="w-4 h-4 text-brand-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                25 slash commands from /plan to /ship to /review-swarm
+                            </li>
+                            <li class="flex items-start gap-2 text-sm text-zinc-600">
+                                <svg class="w-4 h-4 text-brand-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                5 automated quality gates enforcing design, TDD, and verification
+                            </li>
+                        </ul>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-2.5 py-1 bg-zinc-100 text-zinc-600 text-xs rounded-full font-medium">Claude Code</span>
+                            <span class="px-2.5 py-1 bg-zinc-100 text-zinc-600 text-xs rounded-full font-medium">JavaScript</span>
+                            <span class="px-2.5 py-1 bg-zinc-100 text-zinc-600 text-xs rounded-full font-medium">Bash</span>
+                        </div>
+                        <a href="https://ninety2ua.github.io/claude-code-blueprint/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-brand-600 font-semibold text-sm hover:text-brand-700 transition-colors group/link">
+                            View Project
+                            <svg class="w-4 h-4 group-hover/link:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                        </a>
+                    </article>
+
+                    <!-- Project 5: Job Application Example -->
+                    <article data-animate class="p-6 md:p-8 border border-zinc-200 rounded-3xl bg-white hover:border-brand-500 hover:shadow-lg hover:shadow-brand-500/10 transition-all duration-300 group">
+                        <div class="flex flex-wrap items-center gap-3 mb-4">
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-50 text-sky-700 text-xs font-semibold border border-sky-200">
+                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 5a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2h-2.22l.123.489.804.804A1 1 0 0113 18H7a1 1 0 01-.707-1.707l.804-.804L7.22 15H5a2 2 0 01-2-2V5zm5.771 7H5V5h10v7H8.771z" clip-rule="evenodd"/></svg>
+                                Full-Stack App
+                            </span>
+                            <span class="text-xs text-zinc-400">Built in 3 days</span>
+                        </div>
+                        <h3 class="text-xl md:text-2xl font-bold text-zinc-900 group-hover:text-brand-600 transition-colors mb-2">Job Application Example</h3>
+                        <p class="text-zinc-500 text-sm mb-4">I didn't write a cover letter. I built this instead.</p>
+                        <p class="text-zinc-600 leading-relaxed mb-5">An interactive full-stack web application built as an alternative to a traditional cover letter. Features business analysis, interactive prototypes, and an AI chatbot — demonstrating product thinking through action rather than words.</p>
+                        <ul class="space-y-2 mb-6">
+                            <li class="flex items-start gap-2 text-sm text-zinc-600">
+                                <svg class="w-4 h-4 text-brand-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                5 business analysis sections covering company strategy and market positioning
+                            </li>
+                            <li class="flex items-start gap-2 text-sm text-zinc-600">
+                                <svg class="w-4 h-4 text-brand-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                10 interactive MVP prototypes with charts, tables, and user controls
+                            </li>
+                            <li class="flex items-start gap-2 text-sm text-zinc-600">
+                                <svg class="w-4 h-4 text-brand-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                Embedded AI chatbot powered by Google Gemini Flash
+                            </li>
+                            <li class="flex items-start gap-2 text-sm text-zinc-600">
+                                <svg class="w-4 h-4 text-brand-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                ~8,000 lines across 38 files, built entirely with Claude Code
+                            </li>
+                        </ul>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-2.5 py-1 bg-zinc-100 text-zinc-600 text-xs rounded-full font-medium">Next.js</span>
+                            <span class="px-2.5 py-1 bg-zinc-100 text-zinc-600 text-xs rounded-full font-medium">TypeScript</span>
+                            <span class="px-2.5 py-1 bg-zinc-100 text-zinc-600 text-xs rounded-full font-medium">Tailwind CSS</span>
+                            <span class="px-2.5 py-1 bg-zinc-100 text-zinc-600 text-xs rounded-full font-medium">Recharts</span>
+                            <span class="px-2.5 py-1 bg-zinc-100 text-zinc-600 text-xs rounded-full font-medium">Gemini Flash</span>
+                        </div>
+                        <a href="https://github.com/Ninety2UA/job-application-example" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-brand-600 font-semibold text-sm hover:text-brand-700 transition-colors group/link">
+                            View on GitHub
+                            <svg class="w-4 h-4 group-hover/link:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                        </a>
+                    </article>
+
+                    <!-- Project 6: PM Operating System -->
+                    <article data-animate class="p-6 md:p-8 border border-zinc-200 rounded-3xl bg-white hover:border-brand-500 hover:shadow-lg hover:shadow-brand-500/10 transition-all duration-300 group">
+                        <div class="flex flex-wrap items-center gap-3 mb-4">
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-violet-50 text-violet-700 text-xs font-semibold border border-violet-200">
+                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+                                Claude Code Plugin
+                            </span>
+                        </div>
+                        <h3 class="text-xl md:text-2xl font-bold text-zinc-900 group-hover:text-brand-600 transition-colors mb-2">PM Operating System</h3>
+                        <p class="text-zinc-500 text-sm mb-4">An operating system for goals, tasks, and projects</p>
+                        <p class="text-zinc-600 leading-relaxed mb-5">An AI-powered productivity plugin for Claude Code that manages goals, tasks, and projects through structured markdown workflows. Inspired by the concept of LLMs as operating system kernels for personal productivity.</p>
+                        <ul class="space-y-2 mb-6">
+                            <li class="flex items-start gap-2 text-sm text-zinc-600">
+                                <svg class="w-4 h-4 text-brand-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                19 skills including market validation, competitive analysis, and sprint planning
+                            </li>
+                            <li class="flex items-start gap-2 text-sm text-zinc-600">
+                                <svg class="w-4 h-4 text-brand-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                10 MCP tools with programmatic access and fuzzy deduplication
+                            </li>
+                            <li class="flex items-start gap-2 text-sm text-zinc-600">
+                                <svg class="w-4 h-4 text-brand-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                6-stage project pipeline with Go/No-Go gates
+                            </li>
+                            <li class="flex items-start gap-2 text-sm text-zinc-600">
+                                <svg class="w-4 h-4 text-brand-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                Knowledge compounding via daily journals, weekly patterns, and quarterly OKR scoring
+                            </li>
+                        </ul>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-2.5 py-1 bg-zinc-100 text-zinc-600 text-xs rounded-full font-medium">Claude Code</span>
+                            <span class="px-2.5 py-1 bg-zinc-100 text-zinc-600 text-xs rounded-full font-medium">Python</span>
+                            <span class="px-2.5 py-1 bg-zinc-100 text-zinc-600 text-xs rounded-full font-medium">MCP Server</span>
+                            <span class="px-2.5 py-1 bg-zinc-100 text-zinc-600 text-xs rounded-full font-medium">Markdown/YAML</span>
+                        </div>
+                        <a href="https://ninety2ua.github.io/pm-operating-system/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-brand-600 font-semibold text-sm hover:text-brand-700 transition-colors group/link">
+                            View Project
+                            <svg class="w-4 h-4 group-hover/link:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                        </a>
+                    </article>
+
+                </div>
+            </section>
+
+            <!-- More Projects CTA -->
+            <section class="py-20 px-6 bg-white border-b border-zinc-200">
+                <div class="max-w-4xl mx-auto text-center">
+                    <h2 data-animate class="text-3xl md:text-4xl font-bold text-zinc-900 mb-4">Explore More Projects</h2>
+                    <p data-animate data-delay="1" class="text-lg text-zinc-500 max-w-2xl mx-auto mb-8">
+                        Browse 100+ project ideas and completed work — each with a full Product Requirements Document.
+                    </p>
+                    <a data-animate data-delay="2" href="https://projects.dbenger.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-brand-600 text-white font-semibold hover:bg-brand-700 transition-colors shadow-lg shadow-brand-500/25">
+                        Visit projects.dbenger.com
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Next: Collaboration CTA -->
+            <section class="py-20 px-6 bg-zinc-50">
+                <div class="max-w-4xl mx-auto">
+                    <div class="text-center pt-10 border-t border-zinc-200">
+                        <p data-animate class="text-zinc-500 mb-4">Interested in working together?</p>
+                        <a data-animate data-delay="1" href="#collaboration" class="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-zinc-900 text-white font-semibold hover:bg-zinc-800 transition-colors">
+                            View Collaboration Services
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                         </a>
                     </div>
                 </div>
@@ -2359,6 +2677,7 @@
                 <div class="flex gap-4">
                     <a href="#home" class="hover:text-white transition-colors">Home</a>
                     <a href="#experience" class="hover:text-white transition-colors">Experience</a>
+                    <a href="#projects" class="hover:text-white transition-colors">Projects</a>
                     <a href="#collaboration" class="hover:text-white transition-colors">Collaboration</a>
                     <a href="#contact" class="hover:text-white transition-colors">Contact</a>
                 </div>
@@ -2392,7 +2711,7 @@
             function handleRoute() {
                 let hash = window.location.hash || '#home';
                 
-                const pages = ['home', 'experience', 'collaboration', 'contact', 'ebook'];
+                const pages = ['home', 'experience', 'projects', 'collaboration', 'contact', 'ebook'];
                 let targetPage = hash.replace('#', '');
                 if (!pages.includes(targetPage)) targetPage = 'home';
 
