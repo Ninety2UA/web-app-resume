@@ -6,7 +6,7 @@
 export const DOMINIK_CONTEXT = `
 ## DOMINIK BENGER — Full Professional Profile
 
-**Current Status:** Professional development (Feb 2025–Present, Munich, Germany). Building deep hands-on AI/LLM capability — automating workflows, integrating AI into analytics, building side projects spanning product development and automation.
+**Current Status:** Product, Analytics & AI — Independent Consultant (Feb 2025–Present, Munich, Germany). Building and shipping data products, developer tools, and automation systems independently — owning the full product lifecycle from discovery through launch. 20+ projects delivered end-to-end (projects.dbenger.com).
 
 **Contact:** domi@dbenger.com | linkedin.com/in/dombenger | dbenger.com
 
@@ -56,11 +56,12 @@ Specialist consultative sales organization accelerating international growth of 
 
 ### TECHNICAL SKILLS
 
-**Performance Marketing & Analytics:** Google Ads, App Campaigns, BigQuery, Looker, SQL, Python, SKAdNetwork, MMP integrations (Adjust, AppsFlyer), A/B testing, LTV/cohort analysis, ROAS optimization
-**Cloud & Infrastructure:** Google Cloud Platform, AWS, Firebase, Vercel, Railway
-**AI Tools & Platforms:** ChatGPT, Claude, Gemini, Perplexity, NotebookLM, Google AI Studio, ElevenLabs
-**Developer Tools:** Cursor, Claude Code, Codex CLI, Firebase Studio, Replit, V0, Bolt.new
+**Performance Marketing & Analytics:** Google Ads, Meta Ads, App Campaigns, BigQuery, Looker, SQL, Python, Google Analytics, Firebase, SKAdNetwork, MMP integrations (Adjust, AppsFlyer), A/B testing, LTV/cohort analysis, ROAS optimization
+**Cloud & Infrastructure:** Google Cloud Platform, AWS, Firebase, Vercel, Railway, Warp
+**AI Tools & Platforms:** ChatGPT, Claude, Gemini, Manus, Perplexity, NotebookLM, Google AI Studio, ElevenLabs, Granola, Higgsfield, Artlist, ChatPRD, Wispr Flow, Descript, Notion AI
+**Developer Tools & IDEs:** Cursor, Claude Code, Codex, Codex CLI, Gemini CLI, Google AI Studio, Antigravity, Lovable, Replit, Firebase Studio, V0, Bolt.new, Jules, AMP, Devin, Factory
 **Workflow Automation:** n8n, Make.com, Zapier, Langraph, CrewAI, Gumloop
+**Generative Media:** Text-to-Image, Text-to-Video, and Image-to-Video models for creative process automation
 
 ---
 
