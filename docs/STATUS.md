@@ -2,7 +2,7 @@
 
 ## What we're building
 - Interactive resume web app for Dominik Benger (dbenger.com) — single-page app with teal brand palette, hero canvas animation, filterable career timeline, 4 AI-powered features, and contact form
-- Static HTML (`public/site.html`) with hash-based SPA routing (#home, #experience, #collaboration, #contact, #ebook)
+- Static HTML (`public/site.html`) with hash-based SPA routing (#home, #experience, #projects, #collaboration, #contact, #ebook)
 - Next.js used for server-side API routes (Gemini AI proxy) and Vercel deployment
 - Deployed via Vercel; design source of truth is `docs/index.html`
 
@@ -38,8 +38,16 @@
 | `1571bc9` Collaboration in mobile nav | Show Collaboration link on mobile, add "How I Built This Web App" teal pill in hero (mobile only), tighten nav gap |
 | `6884d22` Mobile nav overflow fix | Hide "Home" on mobile (logo is home link), restore "PDF Resume" button text at all sizes |
 | `cf3137f` README update | Updated README with current mobile nav layout |
+| `0018dcc` Ebook pill to nav bar | "How I Built This Web App" pill moved to desktop nav bar next to logo |
+| `fc5a793` Remove Ebook nav link | Removed "Ebook" text link from nav — pill replaces it |
+| `0f6743d` Android mobile nav fix | Smaller text/padding at smallest breakpoint for Android screens |
+| `45f49de` README update | Updated README with Android mobile nav fix details |
+| `7fd89f5` Resume PDF + role rename | Updated resume PDF to latest V3; renamed "Career Break" → "Professional Development" in site, design source, and AI knowledge base |
+| `24300d6` Projects page | New #projects page with 6 portfolio entries (Concept Sandbox, Agent Triforge, Knowledge Hub, Claude Code Blueprint, Job Application Example, PM Operating System), type badges, "Explore More Projects" CTA to projects.dbenger.com, nav/footer/router updated |
+| `db6a3d8` Resume V4 content update | Repositioned to "Product & Analytics Leader", renamed role to "Product, Analytics & AI" (independent consultant at dbenger.com), expanded tools/competencies, updated knowledge.ts, copied V4 PDF |
+| `fda3203` Restore V4 PDF + refinements | Restored original V4 PDF after PyMuPDF font mismatch attempts; iterative copy refinements (UA/perf marketing in hero, timeline, experience card, Projects page hero expansion) |
 
-**All tasks complete through Phase 24. Latest deployed at `cf3137f`.**
+**All tasks complete through Phase 27. Latest deployed at `fda3203`.**
 
 ## Current state of the code
 - `npm run build` — passes clean (0 errors, 0 warnings; `/` static, 4 API routes dynamic)
@@ -49,7 +57,7 @@
 - OG image at `public/og-image.png` with meta tags in HTML head
 - No tests (no test framework installed)
 - GitHub: https://github.com/Ninety2UA/web-app-resume
-- All changes committed and deployed at `cf3137f`
+- All changes committed and deployed at `7fd89f5`
 
 ## Decisions made
 | Area | Decision |

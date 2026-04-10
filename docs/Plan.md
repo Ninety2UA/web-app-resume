@@ -654,10 +654,54 @@ T28 → T29, T30, T31 → T32
 
 ---
 
+## Phase 25: Resume Content Update (committed at `7fd89f5`)
+
+### U39 - Update resume PDF to latest V3
+- Copied latest PDF from `~/Documents/Resume & Jobs/Dominik Benger - Resume [V3].pdf` to `public/resume/Dominik_Benger_Resume.pdf`
+- **Status: Done**
+
+### U40 - Rename "Career Break" to "Professional Development"
+- Updated in `public/site.html` (home timeline label + experience card badge)
+- Updated in `docs/index.html` (design source of truth, same 2 locations)
+- Updated in `src/app/api/ai/knowledge.ts` (AI knowledge base current status)
+- Updated README.md with V3 reference
+- **Status: Done**
+
+---
+
+## Phase 26: Projects Page (committed at `24300d6`)
+
+### P01 - Add Projects page with 6 portfolio entries
+- New `#projects` hash route with page-projects div, nav/footer/router integration
+- Hero section: watermark SVG, "Portfolio" pill, heading, subtitle, descriptive paragraph
+- 6 project cards with type badges (Claude Code Plugin/violet, SaaS Product/emerald, Full-Stack App/sky, Automation Pipeline/amber)
+- Projects: Concept Sandbox, Agent Triforge, Knowledge Hub, Claude Code Blueprint, Job Application Example, PM Operating System
+- Each card: name, tagline, description, 4 feature bullets, tech tags, external link
+- "Explore More Projects" CTA linking to projects.dbenger.com (100+ project ideas)
+- "View Collaboration Services" bridge CTA
+- Mobile nav: "Collaboration" abbreviated to "Collab" on mobile to fit 5 links
+- Requirements doc: `docs/brainstorms/projects-page-requirements.md`
+- **Status: Done**
+
+---
+
+## Phase 27: Resume V4 Content Update (committed at `db6a3d8`–`fda3203`)
+
+### V01 - Reposition to "Product & Analytics Leader"
+- Page title, meta tags, OG tags, hero subtitle all updated
+- "Professional Development" → "Product, Analytics & AI" (independent consultant at dbenger.com)
+- D-logo SVG replaces AI icon on experience card; "dbenger.com" added as company line
+- Hero/timeline/card descriptions expanded with UA, performance marketing, data-driven growth
+- Tools list expanded: Manus, Codex, Gemini CLI, Lovable, Jules, AMP, Devin, Factory, Generative Media section
+- knowledge.ts AI knowledge base updated
+- Resume PDF updated to V4 (original restored after PyMuPDF font mismatch attempts)
+- **Status: Done**
+
+---
+
 ## Cut from v1 Scope
 - Shareable filter URLs (query parameter state)
 - Technology tag click-to-filter in experience cards
 - Dynamic PDF generation (using static file)
 - Blog/CMS capabilities
 - Google Analytics (using Vercel Analytics instead)
-- Portfolio page (hidden, preserved for v2)

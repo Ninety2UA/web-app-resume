@@ -414,3 +414,28 @@ Complete site redesign replacing the React/Next.js component architecture with a
 - **Nav gap**: Tightened to `gap-1 sm:gap-2 md:gap-8` to fit 3 links + button on mobile
 - **Mobile nav**: [logo] Experience Collaboration Contact [PDF Resume]
 - **Desktop nav**: [logo] Home Experience Collaboration Contact Ebook [PDF Resume]
+
+## Phase 25: Resume Content Update (committed at `7fd89f5`)
+| Task | Description | Status |
+|------|-------------|--------|
+| U39 | Update resume PDF to latest V3 (copied from ~/Documents) | **Done** |
+| U40 | Rename "Career Break" → "Professional Development" in site.html, docs/index.html, knowledge.ts | **Done** |
+
+## Phase 26: Projects Page (committed at `24300d6`)
+| Task | Description | Status |
+|------|-------------|--------|
+| P01 | Add `#projects` page with 6 portfolio entries, type badges, hero, CTA to projects.dbenger.com | **Done** |
+| P02 | Update nav (between Experience and Collaboration), footer, SPA router | **Done** |
+| P03 | Mobile nav: abbreviate "Collaboration" to "Collab" for 5-link fit at 320px | **Done** |
+
+## Phase 27: Resume V4 Content Update (committed at `db6a3d8`–`fda3203`)
+| Task | Description | Status |
+|------|-------------|--------|
+| V01 | Reposition to "Product & Analytics Leader" (title, meta, OG, hero) | **Done** |
+| V02 | Rename role to "Product, Analytics & AI" — independent consultant at dbenger.com | **Done** |
+| V03 | Replace AI icon with D-logo SVG, add "dbenger.com" company line | **Done** |
+| V04 | Expand descriptions with UA, performance marketing, data-driven growth | **Done** |
+| V05 | Expand tools list (Manus, Codex, Gemini CLI, Lovable, + Generative Media) | **Done** |
+| V06 | Update knowledge.ts AI knowledge base | **Done** |
+| V07 | Copy V4 resume PDF to public/resume/ | **Done** |
+| V08 | Expand Projects page hero with descriptive paragraph | **Done** |

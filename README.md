@@ -35,7 +35,7 @@ An interactive web app replacing a static PDF resume with dynamic career timelin
 
 ## Features
 
-- **Single-page app** — Hash-based SPA with 5 views (#home, #experience, #collaboration, #contact, #ebook)
+- **Single-page app** — Hash-based SPA with 6 views (#home, #experience, #projects, #collaboration, #contact, #ebook)
 - **Interactive career timeline** — Animated career path with company logos, hover effects, and staggered scroll animations
 - **Filterable experience cards** — Toggle by industry/role type with pill chips and `data-tags` filtering
 - **4 AI-powered features** — All proxied server-side through Gemini 3 Flash Preview:
@@ -43,13 +43,14 @@ An interactive web app replacing a static PDF resume with dynamic career timelin
   - **Experience Q&A** — Conversational AI assistant answering questions about Dominik's background
   - **Outreach Drafter** — Drafts tailored email/LinkedIn messages with proper structure
   - **Agenda Builder** — Creates focused 30-minute discovery call agendas
+- **Projects page** — 6 portfolio entries with color-coded type badges (Claude Code Plugin, SaaS Product, Full-Stack App, Automation Pipeline) and CTA to projects.dbenger.com
 - **Collaboration page** — Service offerings, packages, and working style principles
 - **Ebook / case study** — Full article documenting how the site was built
 - **Contact section** — Formspree-powered form, Google Calendar booking, LinkedIn link
 - **Canvas particle animation** — Interactive hero background with skill word labels and mouse interaction
 - **Scroll animations** — CSS-based via IntersectionObserver + `data-animate` attributes
-- **Fully responsive** — Mobile-first design via Tailwind breakpoints; desktop nav has "How I Built This Web App" pill next to logo; mobile nav fits small Android screens with compact text/padding, shows Experience, Collaboration, Contact + PDF Resume with ebook pill in hero
-- **Static PDF download** — Latest resume (V3) available via nav button
+- **Fully responsive** — Mobile-first design via Tailwind breakpoints; desktop nav has "How I Built This Web App" pill next to logo; mobile nav fits small Android screens with compact text/padding, shows Experience, Projects, Collab, Contact + PDF Resume with ebook pill in hero
+- **Static PDF download** — Latest resume (V4) available via nav button
 - **SEO optimized** — Open Graph image, meta tags, semantic HTML
 
 ---
@@ -80,11 +81,12 @@ An interactive web app replacing a static PDF resume with dynamic career timelin
 Browser ──▶ GET / ──▶ Next.js route.ts ──▶ serves public/site.html (static)
 
 site.html (SPA):
-  ├── #home         — Hero + career timeline + AI Experience Q&A + AI Solution Matcher
-  ├── #experience   — Filterable experience cards with detailed sections
+  ├── #home          — Hero + career timeline + AI Experience Q&A + AI Solution Matcher
+  ├── #experience    — Filterable experience cards with detailed sections
+  ├── #projects      — 6 portfolio entries with type badges + CTA to projects.dbenger.com
   ├── #collaboration — Services, AI Outreach Drafter + AI Agenda Builder
-  ├── #contact      — Contact form, booking link, LinkedIn
-  └── #ebook        — Case study article
+  ├── #contact       — Contact form, booking link, LinkedIn
+  └── #ebook         — Case study article
 ```
 
 ### Data Flow
