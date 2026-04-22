@@ -190,7 +190,7 @@
                     <rect x="15.5" y="14" width="2.5" height="7.5" rx="0.5" class="fill-zinc-50"/>
                     <rect x="19" y="11" width="2.5" height="10.5" rx="0.5" class="fill-zinc-50"/>
                 </svg>
-                <canvas id="hero-canvas" class="absolute inset-0 w-full h-full z-0 opacity-40"></canvas>
+                <canvas id="hero-canvas" class="absolute inset-0 w-full h-full z-0 opacity-40" aria-hidden="true" role="presentation"></canvas>
                 
                 <div class="relative z-10 max-w-6xl mx-auto pointer-events-none">
                     <div data-animate data-delay="1" class="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-white/80 backdrop-blur-sm border border-zinc-200 text-sm font-medium text-zinc-700 mb-6 pointer-events-auto shadow-sm">
@@ -3052,118 +3052,369 @@
                 });
             }
 
-            // FEATURE 5: HERO CANVAS
+            // FEATURE 5: HERO CANVAS — v2 (label constellation + ambient particles)
             const canvas = document.getElementById('hero-canvas');
             if (canvas) {
                 const ctx = canvas.getContext('2d');
-                let width, height;
-                let particles = [];
-                
+                let width = 0, height = 0, dpr = 1;
+                let particles = [], labels = [], running = true;
+                const startTime = performance.now();
+
                 const skills = [
-                    'BigQuery', 'Python', 'AI/LLMs', 'Google Ads', 'SQL', 'GCP', 
-                    'Growth', 'n8n', 'Performance', 'Looker', 'Cursor', 'Claude', 
-                    'Gemini', 'SKAdNetwork', 'Firebase', 'Vercel', 'Make.com', 
-                    'Zapier', 'CrewAI', 'LTV Analysis', 'A/B Testing', 'App Campaigns', 
+                    'BigQuery', 'Python', 'AI/LLMs', 'Google Ads', 'SQL', 'GCP',
+                    'Growth', 'n8n', 'Performance', 'Looker', 'Cursor', 'Claude',
+                    'Gemini', 'SKAdNetwork', 'Firebase', 'Vercel', 'Make.com',
+                    'Zapier', 'CrewAI', 'LTV Analysis', 'A/B Testing', 'App Campaigns',
                     'Meta Ads', 'Google Analytics', 'ROAS', 'LangGraph', 'Replit'
                 ];
 
-                function resize() {
-                    width = canvas.width = canvas.offsetWidth;
-                    height = canvas.height = canvas.offsetHeight;
+                function mulberry32(a) {
+                    return function () {
+                        a |= 0; a = a + 0x6D2B79F5 | 0;
+                        let t = a;
+                        t = Math.imul(t ^ t >>> 15, t | 1);
+                        t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+                        return ((t ^ t >>> 14) >>> 0) / 4294967296;
+                    };
                 }
-                window.addEventListener('resize', resize);
-                resize();
 
-                let mouse = { x: null, y: null, radius: 150 };
+                const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+                const isTouch = matchMedia('(hover: none)').matches;
+
+                let mouse = { x: null, y: null };
                 canvas.parentElement.addEventListener('mousemove', (e) => {
                     const rect = canvas.getBoundingClientRect();
                     mouse.x = e.clientX - rect.left;
                     mouse.y = e.clientY - rect.top;
                 });
                 canvas.parentElement.addEventListener('mouseleave', () => {
-                    mouse.x = null;
-                    mouse.y = null;
+                    mouse.x = null; mouse.y = null;
                 });
 
                 class Particle {
-                    constructor() {
-                        this.x = Math.random() * width;
-                        this.y = Math.random() * height;
-                        this.vx = (Math.random() - 0.5) * 0.8;
-                        this.vy = (Math.random() - 0.5) * 0.8;
-                        this.radius = Math.random() * 2 + 1;
-                        this.isSkill = Math.random() > 0.90;
-                        this.text = skills[Math.floor(Math.random() * skills.length)];
+                    constructor(rng) {
+                        this.x = rng() * width;
+                        this.y = rng() * height;
+                        this.vx = (rng() - 0.5) * 0.35;
+                        this.vy = (rng() - 0.5) * 0.35;
+                        this.r = 0.8 + rng() * 1.0;
                     }
                     update() {
-                        this.x += this.vx;
-                        this.y += this.vy;
-                        
-                        if (this.x < 0 || this.x > width) this.vx = -this.vx;
-                        if (this.y < 0 || this.y > height) this.vy = -this.vy;
-
+                        if (reduceMotion) return;
+                        this.x += this.vx; this.y += this.vy;
+                        if (this.x < 0 || this.x > width) this.vx *= -1;
+                        if (this.y < 0 || this.y > height) this.vy *= -1;
                         if (mouse.x != null) {
-                            let dx = mouse.x - this.x;
-                            let dy = mouse.y - this.y;
-                            let distance = Math.sqrt(dx * dx + dy * dy);
-                            if (distance < mouse.radius) {
-                                const force = (mouse.radius - distance) / mouse.radius;
-                                this.x -= dx * force * 0.03;
-                                this.y -= dy * force * 0.03;
+                            const dx = mouse.x - this.x, dy = mouse.y - this.y;
+                            const d2 = dx * dx + dy * dy;
+                            if (d2 < 140 * 140) {
+                                const d = Math.sqrt(d2) || 1;
+                                const f = (140 - d) / 140;
+                                this.x -= (dx / d) * f * 3;
+                                this.y -= (dy / d) * f * 3;
                             }
                         }
                     }
                     draw() {
                         ctx.beginPath();
-                        if (this.isSkill) {
-                            ctx.fillStyle = 'rgba(20, 184, 166, 0.7)';
-                            ctx.font = '600 13px "Plus Jakarta Sans", sans-serif';
-                            ctx.fillText(this.text, this.x, this.y);
-                        } else {
-                            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                            ctx.fillStyle = 'rgba(20, 184, 166, 0.5)';
-                            ctx.fill();
+                        ctx.fillStyle = 'rgba(20, 184, 166, 0.28)';
+                        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                }
+
+                class WordLabel {
+                    constructor(text, hx, hy, i, rng, fontPx) {
+                        this.text = text;
+                        this.hx = hx; this.hy = hy;
+                        this.x = hx; this.y = hy;
+                        this.fontPx = fontPx;
+                        this.phaseX = rng() * Math.PI * 2;
+                        this.phaseY = rng() * Math.PI * 2;
+                        this.freqX = 0.0010 + rng() * 0.0008;
+                        this.freqY = 0.0012 + rng() * 0.0008;
+                        this.ampX = reduceMotion ? 0 : (10 + rng() * 10);
+                        this.ampY = reduceMotion ? 0 : (7 + rng() * 8);
+                        this.mx = 0; this.my = 0;
+                        this.highlight = 0; this.pulse = 0;
+                        this.appearDelay = reduceMotion ? 0 : (i * 35 + rng() * 40);
+                        this.appearDur = 520;
+                        this.baseAlpha = 0.82;
+                        ctx.font = `600 ${fontPx}px "Plus Jakarta Sans", sans-serif`;
+                        this.textW = ctx.measureText(text).width;
+                    }
+                    update(now) {
+                        const t = now - startTime;
+                        const ox = Math.sin(t * this.freqX + this.phaseX) * this.ampX;
+                        const oy = Math.cos(t * this.freqY + this.phaseY) * this.ampY;
+                        let tmx = 0, tmy = 0, hTarget = 0;
+                        if (mouse.x != null) {
+                            const dx = mouse.x - this.hx, dy = mouse.y - this.hy;
+                            const d = Math.hypot(dx, dy) || 1;
+                            if (d < 210 && !reduceMotion) {
+                                const s = 1 - d / 210;
+                                const ease = s * s * (3 - 2 * s);
+                                tmx = -(dx / d) * 210 * 0.22 * ease;
+                                tmy = -(dy / d) * 210 * 0.22 * ease;
+                            }
+                            if (d < 120) {
+                                const p = 1 - d / 120;
+                                hTarget = p * p;
+                            }
                         }
+                        this.mx += (tmx - this.mx) * 0.12;
+                        this.my += (tmy - this.my) * 0.12;
+                        this.highlight += (Math.max(hTarget, this.pulse) - this.highlight) * 0.18;
+                        this.pulse *= 0.985;
+                        this.x = this.hx + ox + this.mx;
+                        this.y = this.hy + oy + this.my;
+                    }
+                    draw(now) {
+                        const elapsed = now - startTime;
+                        const e = Math.max(0, Math.min(1, (elapsed - this.appearDelay) / this.appearDur));
+                        const k = 1 - Math.pow(2, -10 * e);
+                        const alpha = k * (this.baseAlpha + 0.18 * this.highlight);
+                        const scale = (0.92 + 0.08 * k) * (1 + 0.32 * this.highlight);
+                        const dy = (1 - k) * 8;
+                        ctx.save();
+                        ctx.translate(this.x, this.y + dy);
+                        ctx.scale(scale, scale);
+                        ctx.font = `600 ${this.fontPx}px "Plus Jakarta Sans", sans-serif`;
+                        ctx.textBaseline = 'middle';
+                        ctx.fillStyle = this.highlight > 0.05
+                            ? `rgba(13, 148, 136, ${alpha})`
+                            : `rgba(20, 184, 166, ${alpha})`;
+                        ctx.fillText(this.text, -this.textW / 2, 0);
+                        ctx.restore();
                     }
                 }
 
-                function initCanvas() {
+                function desktopLayout(w, h, rng) {
+                    const PAD_X = 24, PAD_Y = 24;
+                    const count = 27;
+                    const usable = Math.max(1, (w - 2 * PAD_X) * (h - 2 * PAD_Y));
+                    const minDist = Math.max(70, Math.sqrt(usable / count) * 0.95);
+                    const cell = minDist / Math.SQRT2;
+                    const cols = Math.max(1, Math.ceil((w - 2 * PAD_X) / cell));
+                    const rows = Math.max(1, Math.ceil((h - 2 * PAD_Y) / cell));
+                    const grid = new Array(cols * rows).fill(null);
+                    const active = [], points = [];
+
+                    function fits(x, y) {
+                        if (x < PAD_X || x > w - PAD_X || y < PAD_Y || y > h - PAD_Y) return false;
+                        const gx = Math.floor((x - PAD_X) / cell);
+                        const gy = Math.floor((y - PAD_Y) / cell);
+                        for (let iy = Math.max(0, gy - 2); iy <= Math.min(rows - 1, gy + 2); iy++) {
+                            for (let ix = Math.max(0, gx - 2); ix <= Math.min(cols - 1, gx + 2); ix++) {
+                                const p = grid[iy * cols + ix];
+                                if (p) {
+                                    const dx = p.x - x, dy = p.y - y;
+                                    if (dx * dx + dy * dy < minDist * minDist) return false;
+                                }
+                            }
+                        }
+                        return true;
+                    }
+                    function add(x, y) {
+                        const gx = Math.floor((x - PAD_X) / cell);
+                        const gy = Math.floor((y - PAD_Y) / cell);
+                        const p = { x, y };
+                        grid[gy * cols + gx] = p;
+                        active.push(p); points.push(p);
+                    }
+
+                    for (let i = 0; i < 50 && points.length === 0; i++) {
+                        const x = PAD_X + rng() * (w - 2 * PAD_X);
+                        const y = PAD_Y + rng() * (h - 2 * PAD_Y);
+                        if (fits(x, y)) add(x, y);
+                    }
+
+                    const K = 30;
+                    while (active.length && points.length < count) {
+                        const idx = Math.floor(rng() * active.length);
+                        const base = active[idx];
+                        let placed = false;
+                        for (let k = 0; k < K; k++) {
+                            const theta = rng() * Math.PI * 2;
+                            const r = minDist * (1 + rng());
+                            const x = base.x + Math.cos(theta) * r;
+                            const y = base.y + Math.sin(theta) * r;
+                            if (fits(x, y)) { add(x, y); placed = true; break; }
+                        }
+                        if (!placed) active.splice(idx, 1);
+                    }
+
+                    // Jittered-grid fallback to guarantee 27 points
+                    let guard = 0;
+                    while (points.length < count && guard++ < 400) {
+                        const gx = Math.floor(rng() * cols);
+                        const gy = Math.floor(rng() * rows);
+                        const x = PAD_X + (gx + 0.5) * cell + (rng() - 0.5) * cell * 0.6;
+                        const y = PAD_Y + (gy + 0.5) * cell + (rng() - 0.5) * cell * 0.6;
+                        if (fits(x, y)) add(x, y);
+                    }
+                    while (points.length < count) {
+                        points.push({
+                            x: PAD_X + rng() * (w - 2 * PAD_X),
+                            y: PAD_Y + rng() * (h - 2 * PAD_Y)
+                        });
+                    }
+                    return points;
+                }
+
+                function mobileLayout(w, h, rng) {
+                    const points = [];
+                    const total = 27;
+                    const cols = 2;
+                    const marginX = 0.18;
+                    const colXs = [w * marginX, w * (1 - marginX)];
+                    const rowCount = Math.ceil(total / cols);
+                    const yStart = h * 0.06;
+                    const yEnd = h * 0.94;
+                    const rowH = (yEnd - yStart) / rowCount;
+                    for (let i = 0; i < total; i++) {
+                        const colIdx = i % cols;
+                        const rowIdx = Math.floor(i / cols);
+                        const y = yStart + (rowIdx + 0.5) * rowH;
+                        const jitterX = (rng() - 0.5) * w * 0.08;
+                        const jitterY = (rng() - 0.5) * rowH * 0.3;
+                        points.push({ x: colXs[colIdx] + jitterX, y: y + jitterY });
+                    }
+                    return points;
+                }
+
+                function initLabels() {
+                    labels = [];
+                    const rng = mulberry32(0x5EED0FA);
+                    const narrow = width < 640;
+                    const fontPx = width >= 1024 ? 14 : (narrow ? 11 : 13);
+                    const homes = narrow ? mobileLayout(width, height, rng) : desktopLayout(width, height, rng);
+                    const order = skills.slice();
+                    for (let i = order.length - 1; i > 0; i--) {
+                        const j = Math.floor(rng() * (i + 1));
+                        const tmp = order[i]; order[i] = order[j]; order[j] = tmp;
+                    }
+                    for (let i = 0; i < order.length; i++) {
+                        const p = homes[i] || { x: width / 2, y: height / 2 };
+                        labels.push(new WordLabel(order[i], p.x, p.y, i, rng, fontPx));
+                    }
+                }
+
+                function initParticles() {
                     particles = [];
-                    let numberOfParticles = (width * height) / 12000; 
-                    if (window.innerWidth < 768) numberOfParticles = (width * height) / 8000;
-                    
-                    for (let i = 0; i < numberOfParticles; i++) {
-                        particles.push(new Particle());
-                    }
+                    const rng = mulberry32(0xDEAD5);
+                    let n = (width * height) / 18000;
+                    if (width < 768) n = (width * height) / 14000;
+                    n = Math.max(0, Math.floor(n));
+                    for (let i = 0; i < n; i++) particles.push(new Particle(rng));
                 }
 
-                function animateCanvas() {
-                    ctx.clearRect(0, 0, width, height);
-                    
+                function drawParticleNet() {
                     for (let i = 0; i < particles.length; i++) {
-                        particles[i].update();
-                        particles[i].draw();
-                        
-                        for (let j = i; j < particles.length; j++) {
-                            let dx = particles[i].x - particles[j].x;
-                            let dy = particles[i].y - particles[j].y;
-                            let distance = Math.sqrt(dx * dx + dy * dy);
-                            
-                            if (distance < 110) {
+                        const a = particles[i];
+                        for (let j = i + 1; j < particles.length; j++) {
+                            const b = particles[j];
+                            const dx = a.x - b.x, dy = a.y - b.y;
+                            const d2 = dx * dx + dy * dy;
+                            if (d2 < 90 * 90) {
+                                const d = Math.sqrt(d2);
+                                ctx.strokeStyle = `rgba(20, 184, 166, ${0.10 * (1 - d / 90)})`;
+                                ctx.lineWidth = 0.5;
                                 ctx.beginPath();
-                                ctx.strokeStyle = `rgba(20, 184, 166, ${0.2 - distance/550})`;
-                                ctx.lineWidth = 0.6;
-                                ctx.moveTo(particles[i].x, particles[i].y);
-                                ctx.lineTo(particles[j].x, particles[j].y);
+                                ctx.moveTo(a.x, a.y);
+                                ctx.lineTo(b.x, b.y);
                                 ctx.stroke();
                             }
                         }
                     }
-                    requestAnimationFrame(animateCanvas);
                 }
 
-                initCanvas();
-                animateCanvas();
+                function drawLabelConnections() {
+                    // Always-on ambient constellation net between nearby labels
+                    for (let i = 0; i < labels.length; i++) {
+                        const a = labels[i];
+                        for (let j = i + 1; j < labels.length; j++) {
+                            const b = labels[j];
+                            const dx = a.x - b.x, dy = a.y - b.y;
+                            const d2 = dx * dx + dy * dy;
+                            if (d2 < 170 * 170) {
+                                const d = Math.sqrt(d2);
+                                const hi = (a.highlight + b.highlight) * 0.5;
+                                const base = 0.06 * (1 - d / 170);
+                                const emphasis = hi * 0.55 * (1 - d / 170);
+                                const alpha = base + emphasis;
+                                if (alpha < 0.015) continue;
+                                ctx.strokeStyle = `rgba(20, 184, 166, ${alpha})`;
+                                ctx.lineWidth = hi > 0.15 ? 1.2 : 0.6;
+                                ctx.beginPath();
+                                ctx.moveTo(a.x, a.y);
+                                ctx.lineTo(b.x, b.y);
+                                ctx.stroke();
+                            }
+                        }
+                    }
+                    if (mouse.x != null) {
+                        let top = null;
+                        for (const l of labels) if (!top || l.highlight > top.highlight) top = l;
+                        if (top && top.highlight > 0.35) {
+                            ctx.strokeStyle = `rgba(20, 184, 166, ${0.18 * top.highlight})`;
+                            ctx.lineWidth = 1;
+                            ctx.beginPath();
+                            ctx.moveTo(mouse.x, mouse.y);
+                            ctx.lineTo(top.x, top.y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+
+                function resize() {
+                    dpr = Math.min(window.devicePixelRatio || 1, 2);
+                    const rect = canvas.getBoundingClientRect();
+                    width = rect.width;
+                    height = rect.height;
+                    canvas.width = Math.round(width * dpr);
+                    canvas.height = Math.round(height * dpr);
+                    canvas.style.width = width + 'px';
+                    canvas.style.height = height + 'px';
+                    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                    initLabels();
+                    initParticles();
+                }
+
+                let resizeT;
+                window.addEventListener('resize', () => {
+                    clearTimeout(resizeT);
+                    resizeT = setTimeout(resize, 120);
+                });
+
+                const io = new IntersectionObserver(([entry]) => {
+                    running = entry.isIntersecting;
+                }, { threshold: 0 });
+                io.observe(canvas);
+
+                // Ambient life: periodically pulse a random label so the field
+                // feels alive even without cursor interaction. Faster cadence on
+                // touch devices (no hover to drive the eye).
+                setInterval(() => {
+                    if (labels.length) labels[Math.floor(Math.random() * labels.length)].pulse = 1;
+                }, isTouch ? 3500 : 4200);
+
+                function frame(now) {
+                    if (running) {
+                        ctx.clearRect(0, 0, width, height);
+                        for (const p of particles) { p.update(); p.draw(); }
+                        drawParticleNet();
+                        for (const l of labels) l.update(now);
+                        drawLabelConnections();
+                        for (const l of labels) l.draw(now);
+                    }
+                    if (!reduceMotion || now - startTime < 1500) {
+                        requestAnimationFrame(frame);
+                    }
+                }
+
+                resize();
+                requestAnimationFrame(frame);
             }
         });
     </script>
