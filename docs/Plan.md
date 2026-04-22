@@ -719,6 +719,25 @@ Replace the random-particle-with-label model (only ~6 of 27 labels visible on de
 
 ---
 
+## Phase 29: Scroll Performance Polish
+
+### S01 - Trim entrance animations and compositing cost
+
+Diagnosed via Chrome DevTools performance traces (load trace: LCP 453 ms, CLS 0; scripted 3.5 s scroll: avg 8.31 ms/frame, 0 long frames on 120 Hz display) that the "slow-motion / sluggish" feel was perception-driven, not frame-drop-driven — 118 `[data-animate]` elements using `transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1)` with `transition-delay` up to 0.6 s produced a 1.2 s fade-in wave trailing behind each scroll. Additionally, fixed-nav `backdrop-blur-md`, 6 × `filter blur-3xl` decorative circles (4 with `mix-blend-multiply`), and 2 × `animate-pulse` on those circles imposed invisible-on-fast-hardware compositing cost that would bite mid-range devices.
+
+Applied seven coordinated changes in both `public/site.html` and `docs/index.html`:
+- **Transitions**: `opacity/transform 0.6s cubic-bezier(0.16,1,0.3,1)` → `0.35s cubic-bezier(0.22,1,0.36,1)` (ease-out-quart; shorter "coasting" tail). Scale variant `0.5s` → `0.3s`.
+- **Stagger**: `[data-delay="N"]` step `0.1s × n` → `0.04s × n`. Max group stagger 0.6 s → 0.24 s; end-to-end (delay + duration) 1.2 s → 0.59 s.
+- **Blur circles**: removed `mix-blend-multiply` (which blocked GPU layer promotion) and `animate-pulse` (continuous 2 s keyframe) from four `blur-3xl` decoratives in AI feature cards; bumped `opacity-50` → `opacity-40` to compensate visually (now reads as teal glow rather than darken-multiply).
+- **Nav**: `fixed ... bg-white/80 backdrop-blur-md` → `bg-white/95`. Eliminates per-scroll-frame backdrop sample + Gaussian blur of the strip behind the nav.
+- **Below-fold sections**: added `.page-view > section:nth-of-type(n+2) { content-visibility: auto; contain-intrinsic-size: auto 1200px; }` — hero stays `visible`, rest skip layout/paint until near viewport.
+
+Verified live: `transition-duration: 0.35s`, `backdrop-filter: none`, `rgba(255,255,255,0.95)` nav bg, zero remaining `mix-blend` / `animate-pulse` on blur circles, three below-fold sections on page-home resolve to `cv:auto` with stable heights across scroll positions. `npm run build` clean. FEATURE 5 hero canvas block still byte-identical.
+
+- **Status: Done**
+
+---
+
 ## Cut from v1 Scope
 - Shareable filter URLs (query parameter state)
 - Technology tag click-to-filter in experience cards

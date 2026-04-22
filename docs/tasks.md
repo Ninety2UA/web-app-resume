@@ -454,3 +454,15 @@ Complete site redesign replacing the React/Next.js component architecture with a
 | H09 | IntersectionObserver pauses rAF when hero is off-screen | **Done** |
 | H10 | `prefers-reduced-motion` zeroes amp + skips entrance; `aria-hidden="true" role="presentation"` on canvas | **Done** |
 | H11 | Keep FEATURE 5 block byte-identical between `public/site.html` and `docs/index.html` | **Done** |
+
+## Phase 29: Scroll Performance Polish
+| Task | Description | Status |
+|------|-------------|--------|
+| S01 | Cut `[data-animate]` transition duration 0.6s → 0.35s (and 0.5s scale variant → 0.3s) | **Done** |
+| S02 | Cut delay scale from 0.1s step to 0.04s step — max stagger 0.6s → 0.24s | **Done** |
+| S03 | Switch easing from `cubic-bezier(0.16, 1, 0.3, 1)` (ease-out-quint) to `cubic-bezier(0.22, 1, 0.36, 1)` (ease-out-quart) — shorter trailing coast | **Done** |
+| S04 | Remove `mix-blend-multiply` from 4 decorative `blur-3xl` circles in AI feature cards — GPU can composite instead of CPU paint | **Done** |
+| S05 | Remove `animate-pulse` from 2 blur-3xl circles — stop continuous repaint of 256×256 64px-blur layers | **Done** |
+| S06 | Replace `bg-white/80 backdrop-blur-md` on fixed nav with `bg-white/95` — drop per-scroll-frame backdrop blur | **Done** |
+| S07 | Add `content-visibility: auto; contain-intrinsic-size: auto 1200px` to `.page-view > section:nth-of-type(n+2)` — defer below-fold rendering | **Done** |
+| S08 | Keep edits mirrored in `public/site.html` + `docs/index.html`; verify FEATURE 5 still byte-identical | **Done** |

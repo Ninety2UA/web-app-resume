@@ -112,37 +112,43 @@
         [data-animate] {
             opacity: 0;
             transform: translateY(24px);
-            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-                        transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                        transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
         }
         [data-animate="fade"] {
             transform: translateY(0);
         }
         [data-animate="slide-left"] {
             transform: translateX(-24px) translateY(0);
-            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-                        transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                        transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
         }
         [data-animate="slide-right"] {
             transform: translateX(24px) translateY(0);
-            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-                        transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                        transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
         }
         [data-animate="scale"] {
             transform: scale(0.95) translateY(0);
-            transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                        transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+                        transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
         }
         [data-animate].is-visible {
             opacity: 1;
             transform: translateY(0) translateX(0) scale(1);
         }
-        [data-delay="1"] { transition-delay: 0.1s; }
-        [data-delay="2"] { transition-delay: 0.2s; }
-        [data-delay="3"] { transition-delay: 0.3s; }
-        [data-delay="4"] { transition-delay: 0.4s; }
-        [data-delay="5"] { transition-delay: 0.5s; }
-        [data-delay="6"] { transition-delay: 0.6s; }
+        [data-delay="1"] { transition-delay: 0.04s; }
+        [data-delay="2"] { transition-delay: 0.08s; }
+        [data-delay="3"] { transition-delay: 0.12s; }
+        [data-delay="4"] { transition-delay: 0.16s; }
+        [data-delay="5"] { transition-delay: 0.20s; }
+        [data-delay="6"] { transition-delay: 0.24s; }
+
+        /* Defer rendering of below-fold sections to reduce paint/layout cost */
+        .page-view > section:nth-of-type(n+2) {
+            content-visibility: auto;
+            contain-intrinsic-size: auto 1200px;
+        }
 
         @media (prefers-reduced-motion: reduce) {
             [data-animate] {
@@ -156,7 +162,7 @@
 <body class="bg-zinc-50 text-zinc-900 font-sans antialiased selection:bg-brand-500 selection:text-white">
 
     <!-- Navigation -->
-    <nav class="fixed w-full top-0 z-50 bg-white/80 backdrop-blur-md border-b border-zinc-200">
+    <nav class="fixed w-full top-0 z-50 bg-white/95 border-b border-zinc-200">
         <div class="max-w-6xl mx-auto px-3 sm:px-6 h-16 flex items-center justify-between">
             <div class="flex items-center gap-3 shrink-0">
                 <a href="#home" class="group shrink-0" aria-label="Home">
@@ -400,8 +406,8 @@
 
                     <div data-animate class="mb-8 p-8 rounded-3xl bg-brand-900 text-white shadow-xl relative overflow-hidden">
                         <!-- Decorative background elements -->
-                        <div class="absolute -top-10 -right-10 w-64 h-64 bg-brand-500 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-pulse z-0"></div>
-                        <div class="absolute -bottom-10 -left-10 w-64 h-64 bg-brand-600 rounded-full mix-blend-multiply filter blur-3xl opacity-50 z-0"></div>
+                        <div class="absolute -top-10 -right-10 w-64 h-64 bg-brand-500 rounded-full filter blur-3xl opacity-40 z-0"></div>
+                        <div class="absolute -bottom-10 -left-10 w-64 h-64 bg-brand-600 rounded-full filter blur-3xl opacity-40 z-0"></div>
                         
                         <div class="relative z-10">
                             <h4 class="font-bold text-xl mb-2 flex items-center gap-2 text-white">✨ Ask my AI Assistant</h4>
@@ -455,8 +461,8 @@
                     </div>
 
                     <div data-animate class="mb-10 p-8 rounded-3xl bg-brand-900 text-white shadow-xl relative overflow-hidden">
-                        <div class="absolute -top-10 -right-10 w-64 h-64 bg-brand-500 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-pulse"></div>
-                        <div class="absolute -bottom-10 -left-10 w-64 h-64 bg-brand-600 rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
+                        <div class="absolute -top-10 -right-10 w-64 h-64 bg-brand-500 rounded-full filter blur-3xl opacity-40"></div>
+                        <div class="absolute -bottom-10 -left-10 w-64 h-64 bg-brand-600 rounded-full filter blur-3xl opacity-40"></div>
                         
                         <div class="relative z-10">
                             <h4 class="font-bold text-2xl mb-2 flex items-center gap-2">✨ AI Solution Matcher</h4>
