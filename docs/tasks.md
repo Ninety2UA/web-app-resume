@@ -439,3 +439,18 @@ Complete site redesign replacing the React/Next.js component architecture with a
 | V06 | Update knowledge.ts AI knowledge base | **Done** |
 | V07 | Copy V4 resume PDF to public/resume/ | **Done** |
 | V08 | Expand Projects page hero with descriptive paragraph | **Done** |
+
+## Phase 28: Hero Canvas Rework (committed at `396c47a`)
+| Task | Description | Status |
+|------|-------------|--------|
+| H01 | Split canvas into `Particle` (background dots) + `WordLabel` (all 27 skill labels at deterministic home positions) | **Done** |
+| H02 | Desktop Poisson-disk layout with jittered-grid fallback; mobile 2-col stagger | **Done** |
+| H03 | Per-label Lissajous oscillation (amp 10–20/7–15px, period 5–8s) with phase offsets | **Done** |
+| H04 | Staggered fade-in entrance (~1.2s, easeOutExpo, opacity 0→0.82, scale 0.92→1) | **Done** |
+| H05 | Cursor proximity highlight (brand-500→brand-600, scale 1.32×) + smoothstep push field (210px, 0.22) | **Done** |
+| H06 | Always-on ambient constellation lines between labels within 170px | **Done** |
+| H07 | Periodic pulse every 4.2s (desktop) / 3.5s (touch) brightens a random label | **Done** |
+| H08 | DPR-scaled canvas (cap 2) + debounced resize | **Done** |
+| H09 | IntersectionObserver pauses rAF when hero is off-screen | **Done** |
+| H10 | `prefers-reduced-motion` zeroes amp + skips entrance; `aria-hidden="true" role="presentation"` on canvas | **Done** |
+| H11 | Keep FEATURE 5 block byte-identical between `public/site.html` and `docs/index.html` | **Done** |

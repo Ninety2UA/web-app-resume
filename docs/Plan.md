@@ -699,6 +699,26 @@ T28 → T29, T30, T31 → T32
 
 ---
 
+## Phase 28: Hero Canvas Rework (committed at `396c47a`)
+
+### H01 - Interactive skill constellation
+
+Replace the random-particle-with-label model (only ~6 of 27 labels visible on desktop; labels drifted chaotically with bouncing particles; no entrance) with a premium interactive constellation:
+
+- **Split systems**: `Particle` (background dots only, 40/15 on desktop/mobile) vs. `WordLabel` (all 27 skill strings at deterministic home positions).
+- **Layout**: Poisson-disk sampling on desktop (minDist ≈ 95px, seeded mulberry32 PRNG) with jittered-grid fallback to guarantee 27 points; 2-column staggered layout on mobile. Responsive font size: 11px (<640), 13px (640–1023), 14px (≥1024).
+- **Motion**: per-label Lissajous oscillation around home position (amp 10–20px / 7–15px, period 5–8s after tuning), phase-offset so no two labels move in lockstep.
+- **Entrance**: staggered fade-in with `appearDelay = i*35 + jitter`, easeOutExpo, opacity 0→0.82, scale 0.92→1, y 8→0 over 520ms. Full reveal in ~1.2s.
+- **Hover**: smoothstep-eased mouse field (210px radius, 0.22 push), proximity highlight (120px radius) drives color brand-500→brand-600, opacity +0.18, scale +0.32×, cross-label connection lines (up to 170px), cursor ghost line to most-highlighted label.
+- **Ambient**: always-on soft constellation net between labels within 170px at base alpha `0.06 * (1 − d/170)`; periodic pulse every 4.2s (desktop) / 3.5s (touch) brightens a random label.
+- **DPR**: canvas sized to `rect * devicePixelRatio` (capped at 2), `ctx.setTransform(dpr,0,0,dpr,0,0)` so all math stays in CSS px; crisp text on retina.
+- **Performance**: IntersectionObserver pauses rAF when hero is off-screen; `ctx.measureText` cached once per label; no shadows/gradients; debounced 120ms resize.
+- **Accessibility**: `prefers-reduced-motion: reduce` zeroes oscillation amp + skips entrance stagger + disables mouse displacement (hover still shifts color/scale); canvas gets `aria-hidden="true" role="presentation"`.
+- **Lives in**: FEATURE 5 block of `public/site.html` (~3026–3360) and `docs/index.html` (~3055–3389), kept byte-identical.
+- **Status: Done** (committed + deployed at `396c47a`)
+
+---
+
 ## Cut from v1 Scope
 - Shareable filter URLs (query parameter state)
 - Technology tag click-to-filter in experience cards

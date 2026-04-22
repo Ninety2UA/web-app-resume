@@ -46,8 +46,10 @@
 | `24300d6` Projects page | New #projects page with 6 portfolio entries (Concept Sandbox, Agent Triforge, Knowledge Hub, Claude Code Blueprint, Job Application Example, PM Operating System), type badges, "Explore More Projects" CTA to projects.dbenger.com, nav/footer/router updated |
 | `db6a3d8` Resume V4 content update | Repositioned to "Product & Analytics Leader", renamed role to "Product, Analytics & AI" (independent consultant at dbenger.com), expanded tools/competencies, updated knowledge.ts, copied V4 PDF |
 | `fda3203` Restore V4 PDF + refinements | Restored original V4 PDF after PyMuPDF font mismatch attempts; iterative copy refinements (UA/perf marketing in hero, timeline, experience card, Projects page hero expansion) |
+| `9fdc90e` OG image + README | New OG image screenshot for Projects page + Resume V4, docs synced |
+| `396c47a` Hero canvas rework | All 27 skill words now render (was ~6 of 27). Poisson-disk layout on desktop / 2-col stagger on mobile, per-label Lissajous oscillation, staggered fade-in entrance, cursor proximity highlight + repulsion, always-on ambient constellation lines, periodic pulses, DPR-scaled canvas, IntersectionObserver pause, `prefers-reduced-motion` support, `aria-hidden` on canvas |
 
-**All tasks complete through Phase 27. Latest deployed at `fda3203`.**
+**All tasks complete through Phase 28. Latest deployed at `396c47a`.**
 
 ## Current state of the code
 - `npm run build` — passes clean (0 errors, 0 warnings; `/` static, 4 API routes dynamic)
@@ -57,7 +59,7 @@
 - OG image at `public/og-image.png` with meta tags in HTML head
 - No tests (no test framework installed)
 - GitHub: https://github.com/Ninety2UA/web-app-resume
-- All changes committed and deployed at `7fd89f5`
+- All changes committed and deployed at `396c47a`
 
 ## Decisions made
 | Area | Decision |
