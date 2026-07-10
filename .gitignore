@@ -35,6 +35,12 @@ yarn-error.log*
 # claude code
 .claude/
 
+# agent scratch / local tooling
+.agents/
+.playwright-cli/
+chatbot/
+skills-lock.json
+
 # playwright mcp
 .playwright-mcp/
 
