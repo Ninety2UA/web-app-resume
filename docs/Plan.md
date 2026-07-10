@@ -719,7 +719,7 @@ Replace the random-particle-with-label model (only ~6 of 27 labels visible on de
 
 ---
 
-## Phase 29: Scroll Performance Polish
+## Phase 29: Scroll Performance Polish (committed at `2d553ad`)
 
 ### S01 - Trim entrance animations and compositing cost
 
@@ -734,7 +734,7 @@ Applied seven coordinated changes in both `public/site.html` and `docs/index.htm
 
 Verified live: `transition-duration: 0.35s`, `backdrop-filter: none`, `rgba(255,255,255,0.95)` nav bg, zero remaining `mix-blend` / `animate-pulse` on blur circles, three below-fold sections on page-home resolve to `cv:auto` with stable heights across scroll positions. `npm run build` clean. FEATURE 5 hero canvas block still byte-identical.
 
-- **Status: Done**
+- **Status: Done** (committed + deployed at `2d553ad`)
 
 ---
 

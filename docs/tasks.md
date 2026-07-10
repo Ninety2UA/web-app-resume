@@ -455,7 +455,7 @@ Complete site redesign replacing the React/Next.js component architecture with a
 | H10 | `prefers-reduced-motion` zeroes amp + skips entrance; `aria-hidden="true" role="presentation"` on canvas | **Done** |
 | H11 | Keep FEATURE 5 block byte-identical between `public/site.html` and `docs/index.html` | **Done** |
 
-## Phase 29: Scroll Performance Polish
+## Phase 29: Scroll Performance Polish (committed at `2d553ad`)
 | Task | Description | Status |
 |------|-------------|--------|
 | S01 | Cut `[data-animate]` transition duration 0.6s → 0.35s (and 0.5s scale variant → 0.3s) | **Done** |

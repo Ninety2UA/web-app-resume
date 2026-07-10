@@ -48,9 +48,10 @@
 | `fda3203` Restore V4 PDF + refinements | Restored original V4 PDF after PyMuPDF font mismatch attempts; iterative copy refinements (UA/perf marketing in hero, timeline, experience card, Projects page hero expansion) |
 | `9fdc90e` OG image + README | New OG image screenshot for Projects page + Resume V4, docs synced |
 | `396c47a` Hero canvas rework | All 27 skill words now render (was ~6 of 27). Poisson-disk layout on desktop / 2-col stagger on mobile, per-label Lissajous oscillation, staggered fade-in entrance, cursor proximity highlight + repulsion, always-on ambient constellation lines, periodic pulses, DPR-scaled canvas, IntersectionObserver pause, `prefers-reduced-motion` support, `aria-hidden` on canvas |
-| Phase 29 Scroll perf polish | Entrance transitions 0.6s→0.35s + delay scale 0.1s→0.04s step + easing ease-out-quint→ease-out-quart (max fade 1.2s→0.59s). Removed `mix-blend-multiply` + `animate-pulse` from 4 blur-3xl circles. Replaced `backdrop-blur-md` on nav with `bg-white/95`. Added `content-visibility: auto` on below-fold sections |
+| `93a9c5c` Phase 28 doc sync | Retrospective doc update for `396c47a` — STATUS, tasks, Plan, CLAUDE.md session notes + hero canvas pitfalls |
+| `2d553ad` Phase 29 Scroll perf polish | Entrance transitions 0.6s→0.35s + delay scale 0.1s→0.04s step + easing ease-out-quint→ease-out-quart (max fade 1.2s→0.59s). Removed `mix-blend-multiply` + `animate-pulse` from 4 blur-3xl circles. Replaced `backdrop-blur-md` on nav with `bg-white/95`. Added `content-visibility: auto` on below-fold sections |
 
-**All tasks complete through Phase 29.**
+**All tasks complete through Phase 29. Latest deployed at `2d553ad`.**
 
 ## Current state of the code
 - `npm run build` — passes clean (0 errors, 0 warnings; `/` static, 4 API routes dynamic)
@@ -60,7 +61,7 @@
 - OG image at `public/og-image.png` with meta tags in HTML head
 - No tests (no test framework installed)
 - GitHub: https://github.com/Ninety2UA/web-app-resume
-- All changes committed and deployed at `396c47a`
+- All changes committed and deployed at `2d553ad`
 
 ## Decisions made
 | Area | Decision |
