@@ -53,8 +53,9 @@
 | `43ec3df` Phase 29 doc sync | Retrospective doc update for `2d553ad` — STATUS, tasks, Plan, CLAUDE.md pitfalls + session notes, perf trace screenshots |
 | `25fc0f3` Cycling outreach planning docs | 6 brainstorms + implementation plan for the cycling WorldTour outreach site (built at `~/projects/cycling-application`) |
 | `33e66f9` AGENTS.md + gitignore | AGENTS.md (Codex mirror of CLAUDE.md); gitignore agent scratch dirs (`.agents/`, `.playwright-cli/`, `chatbot/`, `skills-lock.json`). Merged branches `feat/projects-page` + `feat/resume-v4-update` deleted (local + remote) |
+| `a3bb5d2` Langdock prototype depth plan | Plan for the sibling Langdock site: 20 thin prototypes → 21 deep six-stage workspaces, Ninety2 removed, Incident Room + Migration Planner added. No web-app-resume source changes |
 
-**All tasks complete through Phase 29. Site code deployed at `2d553ad`; repo at `33e66f9` (doc-only commits since).**
+**All tasks complete through Phase 29. Site code deployed at `2d553ad`; repo at `a3bb5d2` (doc-only commits since, several of them plans for sibling application sites).**
 
 ## Current state of the code
 - `npm run build` — passes clean (0 errors, 0 warnings; `/` static, 4 API routes dynamic)
@@ -64,7 +65,7 @@
 - OG image at `public/og-image.png` with meta tags in HTML head
 - No tests (no test framework installed)
 - GitHub: https://github.com/Ninety2UA/web-app-resume
-- All changes committed; repo at `33e66f9`, site code live at `2d553ad`; only `main` branch remains
+- All changes committed and pushed; repo at `a3bb5d2`, site code live at `2d553ad`; only `main` branch remains
 
 ## Decisions made
 | Area | Decision |
