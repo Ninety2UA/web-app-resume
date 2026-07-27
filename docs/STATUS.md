@@ -54,6 +54,7 @@
 | `25fc0f3` Cycling outreach planning docs | 6 brainstorms + implementation plan for the cycling WorldTour outreach site (built at `~/projects/cycling-application`) |
 | `33e66f9` AGENTS.md + gitignore | AGENTS.md (Codex mirror of CLAUDE.md); gitignore agent scratch dirs (`.agents/`, `.playwright-cli/`, `chatbot/`, `skills-lock.json`). Merged branches `feat/projects-page` + `feat/resume-v4-update` deleted (local + remote) |
 | `a3bb5d2` Langdock prototype depth plan | Plan for the sibling Langdock site: 20 thin prototypes → 21 deep six-stage workspaces, Ninety2 removed, Incident Room + Migration Planner added. No web-app-resume source changes |
+| `dbce310`…(this sync) Cycling final briefing run | Continuity note for the sibling cycling site's LAST briefing ritual run (2026-07-27): stage 19 graded, stages 20 and 21 backfilled as reconstructed, default bumped to `2026-21`, end-of-Tour copy sweep, archive closed at 21 of 21 (6 live + 15 reconstructed), deployed and live-verified. No web-app-resume source changes |
 | `795a96e`…`5f4e827` Langdock session syncs | CLAUDE.md continuity notes for the sibling Langdock sessions (Safari fix + mobile nav, Creative Health case study, depth-upgrade plan, and the 2026-07-27 depth-upgrade BUILD: 21 six-stage prototypes live at langdock.dbenger.com, 735 tests). No web-app-resume source changes |
 
 **All tasks complete through Phase 29. Site code deployed at `2d553ad`; repo at `5f4e827` (doc-only commits since `2d553ad`, several of them plans/continuity notes for sibling application sites).**
