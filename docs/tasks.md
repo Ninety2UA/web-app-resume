@@ -466,3 +466,19 @@ Complete site redesign replacing the React/Next.js component architecture with a
 | S06 | Replace `bg-white/80 backdrop-blur-md` on fixed nav with `bg-white/95` — drop per-scroll-frame backdrop blur | **Done** |
 | S07 | Add `content-visibility: auto; contain-intrinsic-size: auto 1200px` to `.page-view > section:nth-of-type(n+2)` — defer below-fold rendering | **Done** |
 | S08 | Keep edits mirrored in `public/site.html` + `docs/index.html`; verify FEATURE 5 still byte-identical | **Done** |
+
+## Phase 30: Zauber Application Site Plan (committed at `6070424`, `9f96e92`, `0444d85`)
+Planning-only phase for the SIXTH sibling application site (Zauber, gozauber.com). No web-app-resume source changes.
+| Task | Description | Status |
+|------|-------------|--------|
+| Z01 | Research: full inventory of the `langdock-application` template repo (stack, routes, data layer, gates, six-stage kit, concierge, video contract, fonts) | **Done** |
+| Z02 | Research: Zauber dossier (company facts, metrics, integrations, security posture, funding, two Ashby role posts) + 13-area freight-forwarding domain map + typeface licensing | **Done** |
+| Z03 | Design mockup published as an artifact in Zauber's real visual language (Saans + Louize Display inlined, CDN mark), covering hero, fit tiles, console, workspace anatomy, roster, film, typeface fork | **Done** |
+| Z04 | Approval gate: direction, typefaces (Inter + Baskervville), systems carry-over, and the 21-prototype roster all approved | **Done** |
+| Z05 | Design the 21-prototype freight roster (Deployment 4 / Operations 6 / Margin 5 / Intelligence 4 / Meta 2, five flagships) | **Done** |
+| Z06 | Write the implementation plan: 18 units, 31 R-IDs, 13 KTDs, verification contract, definition of done | **Done** |
+| Z07 | Verification pass against the template repo — 10 real gaps found and folded in (import traps, closed completeness pins, stub pre-wiring, roles gate, vendor fence) | **Done** |
+| Z08 | `ce-doc-review`: 7 local personas + codex cross-model pass (3 judgment lenses + whole-doc sweep); 21 fixes applied, 3 questions deferred | **Done** |
+| Z09 | Amend the hero to embed the film player (Langdock grammar, order-first on mobile); mockup republished to match | **Done** |
+| Z10 | Save the build-session launch prompt as a companion doc beside the plan | **Done** |
+| Z11 | Execute the plan in `~/projects/zauber-application` (new session, `/ce-work` + orchestration) | Not started |

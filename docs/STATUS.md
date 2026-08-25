@@ -57,8 +57,10 @@
 | `54de8dd`, `3e73c2d` Cycling final briefing run | Continuity note for the sibling cycling site's LAST briefing ritual run (2026-07-27): stage 19 graded, stages 20 and 21 backfilled as reconstructed, default bumped to `2026-21`, end-of-Tour copy sweep, archive closed at 21 of 21 (6 live + 15 reconstructed), deployed and live-verified. `3e73c2d` corrects an unverified "no public GPX exists" claim in that note. No web-app-resume source changes |
 | `20ee230` Langdock home copy rework | Continuity note for the sibling Langdock site's home fit-card rework (2026-07-27): the revenue stat split into figure + unit so it stops wrapping ("Multi-billion" / "USD in client advertising revenue covered by that same BI platform"), Claude Code Blueprint added to the model-agnostic card, the practice renamed to "my own operating layer" on home + /about only (`/systems` keeps naming Ninety2), and a mid-sentence capital fixed where a facts chip was interpolated into prose. Langdock repo at `746499d`, deployed and live-verified, 735 tests. No web-app-resume source changes |
 | `795a96e`…`5f4e827` Langdock session syncs | CLAUDE.md continuity notes for the sibling Langdock sessions (Safari fix + mobile nav, Creative Health case study, depth-upgrade plan, and the 2026-07-27 depth-upgrade BUILD: 21 six-stage prototypes live at langdock.dbenger.com, 735 tests). No web-app-resume source changes |
+| `6070424`, `9f96e92` Zauber application site plan | Implementation-ready plan for the SIXTH sibling application site (Zauber, gozauber.com — AI agents for sea & air freight): 18 units, 31 R-IDs, 13 KTDs, 21 six-stage freight prototype workspaces, film placeholder embedded in the home hero. Plus the saved build-session launch prompt beside it. No web-app-resume source changes |
+| `0444d85` Langdock video plan | The 2026-07-30 Langdock application-video plan, previously untracked, committed for the record. No web-app-resume source changes |
 
-**All tasks complete through Phase 29. Site code deployed at `2d553ad`; repo at `20ee230` (doc-only commits since `2d553ad`, most of them plans/continuity notes for sibling application sites).**
+**All tasks complete through Phase 29. Site code deployed at `2d553ad`; repo at `0444d85` (doc-only commits since `2d553ad`, most of them plans/continuity notes for sibling application sites).**
 
 ## Current state of the code
 - `npm run build` — passes clean (0 errors, 0 warnings; `/` static, 4 API routes dynamic)
@@ -68,7 +70,7 @@
 - OG image at `public/og-image.png` with meta tags in HTML head
 - No tests (no test framework installed)
 - GitHub: https://github.com/Ninety2UA/web-app-resume
-- All changes committed and pushed; repo at `3e73c2d`, site code live at `2d553ad`; only `main` branch remains
+- All changes committed and pushed; repo at `0444d85`, site code live at `2d553ad`; only `main` branch remains
 
 ## Decisions made
 | Area | Decision |

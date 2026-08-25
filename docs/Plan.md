@@ -744,3 +744,21 @@ Verified live: `transition-duration: 0.35s`, `backdrop-filter: none`, `rgba(255,
 - Dynamic PDF generation (using static file)
 - Blog/CMS capabilities
 - Google Analytics (using Vercel Analytics instead)
+
+---
+
+## Phase 30: Zauber Application Site Plan (committed at `6070424`, `9f96e92`, `0444d85`)
+
+### Z01 - Plan the sixth sibling application site
+
+Planning-only phase; no changes to this site's source. A full `ce-plan` run produced `docs/plans/2026-08-24-1345-feat-zauber-application-site-plan.md` — an implementation-ready plan for a job-application site addressed to **Zauber** (gozauber.com, AI agents for sea & air freight forwarders), to be built in a new private repo at `~/projects/zauber-application` and deployed noindex at `zauber.dbenger.com`.
+
+**Shape**: mirrors the as-built `langdock-application` architecture (Next 16 / React 19 / Tailwind v4 / Vitest chassis, Cursor-style multi-session console, Kimi K3 concierge, six-stage prototype kit) re-skinned to Zauber's cream-and-ink design system, with an all-new roster of **21 freight-forwarding workspaces** across five families (Deployment 4 / Operations 6 / Margin 5 / Intelligence 4 / Meta 2, five flagships). 18 implementation units, 31 requirements, 13 key technical decisions.
+
+**Approved by Dominik at the mockup gate**: open application addressed to Zauber company-general (role-agnostic, mapping onto the Deployments roles where honest); the full 21-prototype roster as proposed; Inter + Baskervville as open-license stand-ins for Zauber's commercial Saans + Louize Display; both systems deep-dives (Ninety2 + Creative Health) carried over. Amended after review: the film ships as a placeholder **embedded in the home hero** (Langdock's two-column grammar, order-first on mobile), not only on `/watch`.
+
+**Hardening**: a verification agent checked every unit against the real template repo and found 10 gaps (four static-import traps in the copy gates, completeness pins that ship closed and must be re-opened then closed in a post-family step, shared slug-keyed maps needing stub pre-wiring before the parallel families dispatch, a roles gate asserting comp bands Zauber does not publish, a vendor fence too tight for freight prose). Then a full `ce-doc-review` — 7 local personas plus a codex cross-model pass (three judgment lenses and a whole-document sweep, all independence-verified) — yielded 21 applied fixes, headlined by an adversarial freight fact-check gate run by a non-author against primary sources, a multi-agent code-review unit before deploy, an all-21 production deep-link smoke, and a dedicated OpenRouter key with its own credit cap.
+
+The build session launches from `docs/plans/2026-08-24-1345-feat-zauber-application-site-launch-prompt.md` (Fable orchestrating; Grok 4.6 via cursor-agent and GPT-5.6-sol via codex as workers).
+
+- **Status: Planned** (plan committed at `6070424`; nothing built)
