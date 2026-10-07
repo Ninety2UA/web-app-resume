@@ -25,7 +25,7 @@ Dominik's resume site (dbenger.com) showcases experience and collaboration offer
 | # | Project | Primary Link | Type |
 |---|---------|-------------|------|
 | 1 | Agent Triforge | https://ninety2ua.github.io/agent-triforge/ | Claude Code plugin — 3-model orchestration (Claude, Gemini, Codex), 19 subagents, parallel review swarm |
-| 2 | Claude Code Blueprint | https://ninety2ua.github.io/claude-code-blueprint/ | Claude Code plugin — 34 skills, 26 agents, 25 slash commands, quality gates |
+| 2 | Claude Code Blueprint | https://ninety2ua.github.io/agent-blueprint/ | Claude Code plugin — 34 skills, 26 agents, 25 slash commands, quality gates |
 | 3 | Concept Sandbox | https://concept-sandbox.com | SaaS product — AI workbench for solo creators, 2,400+ users, idea-to-prototype pipeline |
 | 4 | Job Application Example | https://github.com/Ninety2UA/job-application-example | Full-stack app — interactive cover letter with 10 MVP prototypes, AI chatbot, built in 3 days |
 | 5 | Knowledge Hub | https://github.com/Ninety2UA/knowledge-hub | Automation pipeline — Slack-to-Notion, AI content processing, 237 tests, deployed on GCP |
