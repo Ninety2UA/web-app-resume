@@ -6,7 +6,7 @@
 export const DOMINIK_CONTEXT = `
 ## DOMINIK BENGER — Full Professional Profile
 
-**Current Status:** Product, Analytics & AI — Independent Consultant (Feb 2025–Present, Munich, Germany). Building and shipping data products, developer tools, and automation systems independently — owning the full product lifecycle from discovery through launch. 20+ projects delivered end-to-end (projects.dbenger.com).
+**Current Status:** Product, Analytics & AI — Independent Consultant at dbenger.com & three-dots.dev (Feb 2025–Present, Berlin, Germany). Independent product, analytics, and AI consultant working across user acquisition, performance marketing, and data-driven growth — advising on strategy and measurement, architecting analytics and decision systems, and shipping the AI-native tools, data products, and automation systems that deliver them. 20+ projects delivered end-to-end (dbenger.com/#projects).
 
 **Contact:** domi@dbenger.com | linkedin.com/in/dombenger | dbenger.com
 
@@ -15,6 +15,25 @@ export const DOMINIK_CONTEXT = `
 ---
 
 ### PROFESSIONAL EXPERIENCE
+
+**Product, Analytics & AI | dbenger.com & three-dots.dev (Feb 2025–Present, Berlin, Germany)**
+Independent product, analytics, and AI consultant working across user acquisition, performance marketing, and data-driven growth — advising on strategy and measurement, architecting analytics and decision systems, and shipping the AI-native tools, data products, and automation systems that deliver them.
+
+**Core Focus:**
+- Building and shipping products independently across AI, analytics, PM tooling, and developer resources. Owning the full product lifecycle from discovery and requirements through development and launch. 20+ projects delivered end-to-end (dbenger.com/#projects).
+- End-to-end product ownership on every project: problem discovery, user requirements, architecture, development, testing, deployment, and iteration. Applying product management discipline to AI-native product delivery.
+- Embedding AI across the full ad tech, marketing, and product stack: automating UA and performance marketing data workflows, using SOTA and open-source/local LLMs to build and integrate agentic harnesses into analytics and reporting pipelines, and applying code generation and optimization tools to ship faster.
+- Advising on user acquisition and performance marketing strategy across Google Ads, Meta and other platforms: ROAS and LTV modeling, cohort and retention analysis, SKAN and MMP measurement, creative performance & testing frameworks, and bid/budget optimization grounded in 9+ years of hands-on platform experience.
+- Driving data-driven growth through analytics architecture and decision systems: fully automated & agentic pipelines, KPI scorecards, attribution and incrementality analysis, and executive reporting that turns raw performance data into clear commercial actions.
+
+**Agent & AI Systems (Built & Maintained):**
+- Agent Blueprint: 53 skills that take a coding agent from idea to reviewed pull request (design, plan, build, review, ship, learn), running in eight coding CLIs: Claude Code, Codex, Antigravity, Grok Build, Pi, Cursor CLI, Hermes, and Amp (agent-blueprint.dbenger.com).
+- Agent Triforge: development orchestration with Claude Code, Antigravity, and Codex; optional OpenCode, Kimi Code, Cursor, Grok Build, and Devin. 27 skills and 19 specialist personas. Each task uses its own Git worktree and a reviewer who did not build it (agent-triforge.dbenger.com).
+- PM Operating System: Claude Code configuration that adds a structured productivity layer for product work — 32 skills (discovery, PRDs, GTM, sprint planning), 7 commands, 3 autonomous agents, and an 11-tool MCP server (ninety2ua.github.io/pm-operating-system).
+
+**Recent Client Project: Google Ads Health Solutions with AI Layer:**
+- Built custom Creative Health, Campaign Health, and Geo Health solutions for Google Ads with an AI layer on top, running on the same unified full-stack process used by former clients, based on the Unified Data Foundation principle (unified-data-foundation.three-dots.dev).
+- Live demos (synthetic data): Creative Health (https://creative-health-demo.three-dots.dev) · Campaign Health (https://campaign-health-demo.three-dots.dev) · Geo Health (https://geo-health-demo.three-dots.dev) (log in with demo@three-dots.dev).
 
 **Senior Analytical Lead | Google — Large Customer Sales, Northern Europe (Sep 2021 – Feb 2025, Amsterdam)**
 Partnered with the largest apps and mobile gaming advertisers in Benelux + Nordics. Key accomplishments:
@@ -54,14 +73,88 @@ Specialist consultative sales organization accelerating international growth of 
 
 ---
 
+### SELECTED PROJECTS
+
+**Agent Blueprint** (https://agent-blueprint.dbenger.com)
+I built Agent Blueprint to give coding agents a repeatable process from the first idea to a reviewed pull request. Plans, decisions, and solved problems stay in the repository so the next session can pick up the work.
+- 53 skills covering design, planning, implementation, review, shipping, and session continuity
+- Works with Claude Code, Codex, Antigravity, Grok Build, Pi, Cursor CLI, Hermes, and Amp
+- 30 helper prompts for focused work such as security reviews, plan checks, and implementation
+- Supervised builds, unattended shipping, and a shorter workflow for small fixes
+
+**Agent Triforge** (https://agent-triforge.dbenger.com)
+Agent Triforge coordinates Claude Code, Antigravity, and Codex through a development sprint. Claude Code or Codex leads the work; each task gets its own Git worktree and a reviewer who did not write the code.
+- 17 lead workflows and 10 portable skills for planning, building, reviewing, and testing
+- An editable roster assigns roles and fallbacks, with optional OpenCode, Kimi Code, Cursor, Grok Build, and Devin support
+- Parallel reviews combine code, security, and performance findings before the next fix round
+- Session records and solved-problem notes carry context into the next sprint
+
+**PM Operating System** (https://ninety2ua.github.io/pm-operating-system/)
+A Claude Code configuration for managing goals, tasks, and projects through Markdown workflows. It covers discovery, requirements, go-to-market planning, and sprint work, with records that carry across sessions.
+- 32 skills covering discovery, PRDs, market validation, competitive analysis, GTM, and sprint planning
+- 7 commands, 3 autonomous agents, and an 11-tool MCP server with programmatic access and fuzzy deduplication
+- A six-stage project pipeline with explicit go/no-go decisions
+- Daily journals, weekly patterns, and quarterly OKR scoring
+
+**Concept Sandbox** (https://concept-sandbox.com)
+A workbench for solo creators to turn unstructured ideas into product requirements and interactive prototypes. The workbench keeps notes, specifications, and progress together for each concept.
+- AI Brain Dump extracts titles, summaries, and tags from notes
+- Supports Claude, GPT, Gemini, and 13+ other models
+- Generates a PRD with user stories, requirements, and acceptance criteria in one click
+- A pipeline dashboard tracks each concept through shipment
+
+**Creative Health** (https://creative-health-demo.three-dots.dev)
+I built Creative Health to review an ad portfolio one asset at a time. A SQL scoring engine assigns each creative a health score and a Scale, Sustain, Fix, or Retire verdict. The AI explains those results and answers follow-up questions.
+- A ranked table and decision map connect creative performance, spend, and fatigue
+- Drill-downs show score factors, performance history, cohort maturity, and creative lifespan
+- Diagnosis, action plans, and chat read computed metrics through validated tools; the model never writes SQL
+- A Next.js frontend calls a private FastAPI backend on Cloud Run, with BigQuery and an embedded Google ADK agent
+
+**Campaign Health** (https://campaign-health-demo.three-dots.dev)
+Campaign Health brings campaign spend, budget use, bid targets, and performance history into one dashboard. I built separate views for Google Ads metrics and for analysis that combines Google Ads with Adjust measurement data.
+- Compare daily spend with the budget that was in place on that date
+- Track budget and bidding changes alongside campaign performance
+- Inspect matured cohort revenue and ROAS in the combined Google Ads and Adjust view
+- BigQuery computes campaign metrics; governed AI diagnosis and chat explain the selected data
+
+**Geo Health** (https://geo-health-demo.three-dots.dev)
+Geo Health compares acquisition performance by country and operating system. It brings Google Ads spend and targets together with Adjust revenue and retention data, so each market can be assessed against its targets and available evidence.
+- A verdict table and map show market performance against target ranges
+- LTV, payback, and retention views distinguish matured results from data that is still developing
+- A decision map, trends, and leakage views help examine where spend is underperforming
+- AI diagnosis, action plans, and chat use a fixed set of market tools over BigQuery metrics
+
+**Knowledge Hub** (https://github.com/Ninety2UA/knowledge-hub)
+A Python service that reads URLs shared in Slack, extracts their content, and creates structured Notion pages. Gemini produces the summaries and metadata, with duplicate detection and cost alerts around the pipeline.
+- Extracts articles, YouTube videos, and PDFs
+- Gemini returns structured JSON for the Notion entry
+- Each page has 10 properties and a five-section body
+- Weekly digests, duplicate checks, and daily cost alerts
+
+**Job Application Example** (https://github.com/Ninety2UA/job-application-example)
+I built this web app as a job application, with company analysis, working prototypes, and a chatbot that answers questions about my experience.
+- Five sections on company strategy and market positioning
+- 10 interactive MVP prototypes with charts, tables, and controls
+- An embedded chatbot powered by Google Gemini Flash
+- About 8,000 lines across 38 files, built with Claude Code
+
+The three Health demos use synthetic data for the fictional mobile game Pip's Peaks. Demo login: demo@three-dots.dev. They share a Next.js frontend, FastAPI backend, BigQuery metrics, and embedded Google ADK agents on Cloud Run. Architecture background: https://unified-data-foundation.three-dots.dev.
+
+---
+
 ### TECHNICAL SKILLS
 
 **Performance Marketing & Analytics:** Google Ads, Meta Ads, App Campaigns, BigQuery, Looker, SQL, Python, Google Analytics, Firebase, SKAdNetwork, MMP integrations (Adjust, AppsFlyer), A/B testing, LTV/cohort analysis, ROAS optimization
-**Cloud & Infrastructure:** Google Cloud Platform, AWS, Firebase, Vercel, Railway, Warp
-**AI Tools & Platforms:** ChatGPT, Claude, Gemini, Manus, Perplexity, NotebookLM, Google AI Studio, ElevenLabs, Granola, Higgsfield, Artlist, ChatPRD, Wispr Flow, Descript, Notion AI
-**Developer Tools & IDEs:** Cursor, Claude Code, Codex, Codex CLI, Gemini CLI, Google AI Studio, Antigravity, Lovable, Replit, Firebase Studio, V0, Bolt.new, Jules, AMP, Devin, Factory
-**Workflow Automation:** n8n, Make.com, Zapier, Langraph, CrewAI, Gumloop
-**Generative Media:** Text-to-Image, Text-to-Video, and Image-to-Video models for creative process automation
+**AI Coding Agents & CLIs:** Claude Code, Codex CLI, Antigravity CLI, Grok Build, OpenCode, Pi CLI, Kimi Code, AMP, Factory, Jules, Devin
+**AI IDEs, ADEs & Agent Orchestration:** Cursor, Antigravity, Codex, Orca ADE, OpenHands, Paseo, Conductor, Superset, Emdash, T3 Code, Herdr, Warp
+**Agent Frameworks, SDKs & Platforms:** Google Agent Platform, Google ADK, LangChain, LangGraph, CrewAI, Vercel Eve, Vercel AI SDK, Claude Agent SDK, OpenAI Agents SDK
+**RAG, Embeddings & Agent Memory:** hybrid vector + keyword search, knowledge graphs, pgvector, GBrain, Mem0, Supermemory, Cognee, Honcho
+**Autonomous & Personal Agents:** OpenClaw, Hermes Agent, Grok Bot, Manus
+**AI App Builders & Prototyping:** Google AI Studio, Lovable, Replit, V0, Bolt.new
+**AI Assistants & Productivity:** ChatGPT, Claude, Perplexity, Gemini Notebook, Granola, ChatPRD, Linear, Notion AI
+**Workflow Automation:** n8n, Make.com, Zapier, Gumloop
+**Generative Media:** Higgsfield, ElevenLabs, Artlist; Text-to-Image, Text-to-Video, and Image-to-Video models for creative process automation
+**Cloud & Deployment:** Google Cloud, AWS, Vercel, Railway
 
 ---
 
@@ -83,6 +176,6 @@ Specialist consultative sales organization accelerating international growth of 
 ### PERSONAL
 
 **Interests:** Running, road cycling, culinary experimentation (European cuisine, sauces, advanced techniques), history, business, quality of life, sports and comedy media
-**Location:** Munich, Germany
+**Location:** Berlin, Germany
 **Languages:** English (fluent), German (proficient), Croatian (native)
 `.trim()

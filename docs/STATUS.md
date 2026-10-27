@@ -1,5 +1,22 @@
 # Project Status
 
+## Resume download update (2026-10-16)
+
+- Replaced `public/resume/Dominik_Benger_Resume.pdf` with the supplied Resume V5_8 PDF, unchanged.
+- Added the `download` attribute to both resume links in the design source and served HTML.
+- Deployed via Vercel CLI (`dpl_yGpoP8s3o6zzW2B4PbAQ3ZSpe3rb`); production build passed. Verified the live PDF matches V5_8 byte for byte and both live buttons request a download.
+- All session changes remain uncommitted.
+
+## Current session: Projects page refresh (2026-10-15)
+
+- The experience-card update was deployed through Vercel CLI and verified against the live HTML (`dpl_71C7SQy3HCFATThfvDgtntPa9g6N`). Those edits remain uncommitted.
+- The Projects update changes `#projects` to nine cards: Agent Blueprint, Agent Triforge, PM Operating System, Concept Sandbox, Creative Health, Campaign Health, Geo Health, Knowledge Hub, and Job Application Example.
+- Agent Blueprint and Agent Triforge use their custom domains and current public-site descriptions. PM Operating System uses the newer Resume V5_5 counts. The three demos have separate descriptions and links, with synthetic-data labels and a shared architecture explanation.
+- Sources: Resume V5_5; the supplied Creative Health executive, prospect, and technical overviews; Campaign Health methodology and Geo Health project docs; the current Agent Blueprint and Agent Triforge websites. Older overview claims about EU-only AI hosting were excluded because the newer technical overview supersedes them.
+- Applied the no-ai-slop and humanizer writing skills across Projects-page prose. Updated the shared AI knowledge base.
+- Production build, copy checks, card order/link checks, HTML synchronization, local-server response comparison, and unchanged hero-canvas comparison pass. Chrome visual verification completed in a fresh tab at desktop, 390px, and 320px widths: project cards have no overflow and there are no console errors. A stale tab initially triggered an extension-interface warning; a fresh tab resolved it without changing browser settings.
+- Projects-page changes were deployed via Vercel CLI on 2026-10-15 (`dpl_eDyBLfRhvPYDCuN1pnQF2uVCT6Xi`). Vercel reported READY and aliased dbenger.com; the live HTML matches `public/site.html` byte for byte. Changes remain uncommitted. Earlier completed-phase and commit summaries below predate this session.
+
 ## What we're building
 - Interactive resume web app for Dominik Benger (dbenger.com) — single-page app with teal brand palette, hero canvas animation, filterable career timeline, 4 AI-powered features, and contact form
 - Static HTML (`public/site.html`) with hash-based SPA routing (#home, #experience, #projects, #collaboration, #contact, #ebook)
